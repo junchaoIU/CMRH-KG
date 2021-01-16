@@ -161,12 +161,6 @@ class charts extends Component {
           fontSize: 14,
           fontFamily: 'Courier New'
         },
-        // lineStyle: {
-        //   normal: {
-        //     width: 2,
-        //     color: '#4b565b',
-        //   }
-        // },
 
         // 联动高亮
         legendHoverLink: true,
