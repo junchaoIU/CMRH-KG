@@ -1,0 +1,74 @@
+@import '~antd/es/style/themes/default.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+.colorWeak {
+  filter: invert(80%);
+}
+.ant-layout {
+  min-height: 100vh;
+  background: white;
+}
+
+.ant-layout-header{
+  box-shadow: 0 2px 8px #f0f1f2;
+}
+.ant-layout-footer{
+  background: #60c3ffa6;
+}
+.ant-pro-menu-item{
+  font-size: 16px !important;
+  font-weight: bold;
+}
+.ant-pro-top-nav-header-logo{
+  img{
+    height: 68px;
+  }
+}
+.ant-pro-page-container-children-content{
+  margin: 0;
+}
+.ant-page-header-ghost {
+  display: none;
+}
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// 兼容IE11
+@media screen and(-ms-high-contrast: active), (-ms-high-contrast: none) {
+  body .ant-design-pro > .ant-layout {
+    min-height: 100vh;
+  }
+}
