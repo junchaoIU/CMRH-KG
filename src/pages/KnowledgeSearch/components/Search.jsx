@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import catalogData from './catalog'
 import Charts from './Charts'
 import Empty from './Empty'
+import Information from './Information'
 @connect(({ knowledge,loading }) => ({
   knowledge,
   submitting: loading.effects['knowledge/knowledge'],
@@ -108,6 +109,7 @@ class search extends PureComponent {
               }
             </Col>
             <Col span={10}>
+              <Information/>
             </Col>
           </Row>
         </div>

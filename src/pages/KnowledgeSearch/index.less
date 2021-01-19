@@ -1,7 +1,7 @@
 @import '~antd/es/style/themes/default.less';
 
 .search {
-  background-image: linear-gradient(to right, white 0%, #2cbafe29 48%, white 100%);
+  background-image: linear-gradient(to right, white 0%, #2cbafe14 48%, white 100%);
   //margin:20px 0;
   text-align: center;
 
@@ -14,10 +14,12 @@
     margin: 15px 0;
     width: 30%;
   }
-  .content{
+
+  .content {
     height: 600px;
-    margin-top:20px;
+    margin-top: 20px;
   }
+
   .empty {
     height: 100%;
     color: #d5e7f4;
@@ -43,8 +45,33 @@
 
     .text {
       font-size: 30px;
-      margin-top: 35%;
+      margin-top: 20%;
       color: #b3bec9
     }
   }
 }
+
+.cardContainer {
+  margin: 0 20px 20px;
+  padding-top: 10px;
+  height:576px;
+  box-shadow: 3px 3px 7px 2px #d9dee38c;
+  .outCard{
+    margin: 5px 10px;
+    .innerCard{
+      margin: 0 8px;
+      .author{
+        font-size: 17px;
+        text-align: center;
+      }
+      .detail{
+        float: left;
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 25px;
+      }
+    }
+  }
+
+}
+
