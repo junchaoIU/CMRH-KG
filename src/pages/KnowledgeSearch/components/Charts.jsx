@@ -75,7 +75,7 @@ class charts extends Component {
   }
 
   handleOptions(myChart){
-    if(this.state.data && this.state.data.nodes && this.state.data.nodes.length > 0) {
+    if(this.state.data && this.state.data.nodes && this.state.data.nodes.length > 0 && this.state.data.links !== null) {
       this.state.data.nodes.forEach(node => {
         node.symbolSize = 50;
         node.draggable = true;
@@ -116,62 +116,62 @@ class charts extends Component {
         link.symbol = ['circle','arrow'];
         link.symbolSize = 10;
       })
-    myChart.setOption({
-      animation: false,
-      // 图的标题
-      title: {
-        text: this.props.propSearch,
-        subtext: '实体知识图谱',
-        top: 'center',
-        right: 'left'
-      },
-      // 工具箱
-      toolbox: {
-        show: true,
-        feature: {
-          saveAsImage: {},
-          mark: { show: true },
-          dataView: { show: true,readOnly: false },
-          restore: { show: true },
-        }
-      },
-      tooltip: {
-        show: false
-      },
-      legend: {
-        show: true,
-        data: ['人物','历史事件','旧址文物','文书条款','时间','地点','事件标识']
-      },
-      series: [{
-        name: '实体',
-        type: 'graph', // 类型:关系图
-        layout: 'force', // 图的布局，类型为力导图
-        force: {
-          // 斥力因子
-          repulsion: 150,
-          // 向中心的引力因子
-          gravity: 0.1,
-          // 边长
-          edgeLength: 150,
-          friction: 0.6
+      myChart.setOption({
+        animation: false,
+        // 图的标题
+        title: {
+          text: this.props.propSearch,
+          subtext: '实体知识图谱',
+          top: 'center',
+          right: 'left'
         },
-        label: {
-          position: 'inside',
-          formatter: '{c}',
-          fontSize: 14,
-          fontFamily: 'Courier New'
+        // 工具箱
+        toolbox: {
+          show: true,
+          feature: {
+            saveAsImage: {},
+            mark: { show: true },
+            dataView: { show: true,readOnly: false },
+            restore: { show: true },
+          }
         },
+        tooltip: {
+          show: false
+        },
+        legend: {
+          show: true,
+          data: ['人物','历史事件','旧址文物','文书条款','时间','地点','事件标识']
+        },
+        series: [{
+          name: '实体',
+          type: 'graph', // 类型:关系图
+          layout: 'force', // 图的布局，类型为力导图
+          force: {
+            // 斥力因子
+            repulsion: 150,
+            // 向中心的引力因子
+            gravity: 0.1,
+            // 边长
+            edgeLength: 150,
+            friction: 0.6
+          },
+          label: {
+            position: 'inside',
+            formatter: '{c}',
+            fontSize: 14,
+            fontFamily: 'Courier New'
+          },
 
-        // 联动高亮
-        legendHoverLink: true,
-        focusNodeAdjacency: true,
-        // 数据
-        data: this.state.data.nodes,
-        edges: this.state.data.links,
-        categories,
-      }]
-    })
-  }
+          // 联动高亮
+          legendHoverLink: true,
+          focusNodeAdjacency: true,
+          // 数据
+          data: this.state.data.nodes,
+          edges: this.state.data.links,
+          categories,
+        }]
+      })
+    }
   }
 
   render(){

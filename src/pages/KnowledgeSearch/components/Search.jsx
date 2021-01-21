@@ -1,5 +1,5 @@
 import React,{ PureComponent } from 'react';
-import { Cascader,Row,Col,Button } from 'antd';
+import { Cascader,Row,Col,Button,message } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
 import catalogData from './catalog'
@@ -17,7 +17,8 @@ class search extends PureComponent {
     searchValue: [],
     chartsData: [],
     val: false,
-    propSearch: []
+    propSearch: [],
+    detailData:[]
   }
 
   onChange = (value) => {
@@ -50,7 +51,6 @@ class search extends PureComponent {
       type: 'knowledge/getKeyword',
       payload: data,
       callback: (response) => {
-        console.log(response)
         if(response !== null) {
           this.setState({
             chartsData: response,
@@ -64,6 +64,14 @@ class search extends PureComponent {
       type: 'knowledge/getAttribute',
       payload: data,
       callback: (response) => {
+        if(response !== null) {
+          this.setState({
+            detailData: response,
+          })
+        }
+        if(response.links===null){
+          message.warning("找不到您检索的知识点！");
+        }
       }
     })
   }
@@ -86,7 +94,6 @@ class search extends PureComponent {
   }
 
   render(){
-    console.log(this.state.chartsData.length)
     return (
       <div>
         <div className={styles.search}>
@@ -102,16 +109,16 @@ class search extends PureComponent {
             value={this.state.searchValue}
           />
           <Button type="primary" size={"large"} onClick={this.search}>检索一下</Button>
+          {(this.state.val && this.state.chartsData.length !== 0&& this.state.detailData.length !== 0) ?
           <Row className={styles.content}>
             <Col span={14}>
-              {(this.state.val && this.state.chartsData.length !== 0) ?
-                <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch} /> :<Empty/>
-              }
+                <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch} />
             </Col>
             <Col span={10}>
-              <Information/>
+              <Information chartsData={this.state.chartsData} propSearch={this.state.propSearch} detailData={this.state.detailData}/>
             </Col>
-          </Row>
+          </Row>:<Empty/>
+          }
         </div>
       </div>
     );
