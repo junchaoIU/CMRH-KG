@@ -1,10 +1,11 @@
-import {knowledgeSearch,attributeSearch} from '../services/knowledgeSearch';
+import {knowledgeSearch,attributeSearch,substanceSearch} from '../services/knowledgeSearch';
 
 export default {
   namespace: 'knowledge',
   state: {
     getKeyword:[],
-    getAttribute:[]
+    getAttribute:[],
+    getSubstance:[]
   },
 
   effects: {
@@ -24,6 +25,14 @@ export default {
       });
       if(callback) callback(response)
     },
+    * getSubstance({payload,callback}, {call, put}) {
+      const response = yield call(substanceSearch,payload);
+      yield put({
+        type: 'setSubstance',
+        payload: response,
+      });
+      if(callback) callback(response)
+    },
   },
 
   reducers: {
@@ -37,6 +46,12 @@ export default {
       return {
         ...state,
         getAttribute: action.payload,
+      };
+    },
+    setSubstance(state, action) {
+      return {
+        ...state,
+        getSubstance: action.payload,
       };
     },
   }

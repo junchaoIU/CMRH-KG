@@ -54,40 +54,53 @@
 .cardContainer {
   margin: 0 20px 20px;
   padding-top: 10px;
-  height:576px;
+  height: 576px;
   box-shadow: 3px 3px 7px 2px #d9dee38c;
-  .outCard{
+
+  .outCard {
     margin: 5px 10px;
-    .innerCard{
+
+    .innerCard {
       margin: 0 8px;
-      .contentDiv{
-        overflow:auto;
-        height:420px;
-        margin-right:5px;
+
+      .contentDiv {
+        overflow: auto;
+        height: 420px;
+        margin-right: 5px;
+
+        .authorImg {
+          background: url(./../../assets/people.svg) no-repeat;
+          background-size: 100% 100%;
+        }
+
+        .author {
+          margin-left: 10px;
+          font-size: 17px;
+        }
       }
-      .author{
-        margin-left: 10px;
-        font-size: 17px;
-      }
-      .briefContent{
-        letter-spacing:0.1em;
+
+      .briefContent {
+        letter-spacing: 0.1em;
         margin-top: 20px;
-        overflow: hidden;
-        text-align:left;
+        overflow: auto;
+        text-align: left;
         float: left;
         text-indent: 2em;
         line-height: 22px;
       }
-      .relevance{
+
+      .relevance {
         float: left;
         margin: 10px;
-        .relevanceImg{
+
+        .relevanceImg {
           margin-bottom: 8px;
-          background:url(https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg) no-repeat;
+          background: url(https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg) no-repeat;
           background-size: 100% 100%;
         }
       }
-      .detail{
+
+      .detail {
         float: left;
         margin-bottom: 10px;
         font-size: 14px;
@@ -95,12 +108,31 @@
         text-align: center;
       }
     }
-    .threeDiv{
+
+    .threeDiv {
       margin-left: 10px;
-      .three{
-        text-align:left;
+
+      .three {
+        text-align: left;
         font-size: 18px;
       }
+    }
+
+    .substanceDiv {
+      overflow: auto;
+      height: 500px;
+
+      :global(.ant-card-bordered) {
+        border: 1px solid #b3ceee;
+        margin: 15px;
+        background: none;
+        border-radius: 10px;
+      }
+
+      .bookImage {
+        float: left;
+      }
+
     }
   }
 

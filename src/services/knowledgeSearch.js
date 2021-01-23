@@ -22,3 +22,15 @@ export async function attributeSearch(payload) {
 
   }
 }
+
+export async function substanceSearch(payload) {
+  let url= '/api/lucene/getkeyword';
+  const data = {
+    body: payload,
+    method: "POST"
+  };
+  if(payload != null) {
+    url += `?keyword=${payload}`;
+    return request(url,data);
+  }
+}

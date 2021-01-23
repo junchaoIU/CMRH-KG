@@ -1,7 +1,26 @@
-import { ForkOutlined,DeploymentUnitOutlined,ShareAltOutlined } from '@ant-design/icons';
 import styles from "@/pages/KnowledgeSearch/index.less";
-import React,{ PureComponent,useState } from "react";
-import { Row,Tabs,Avatar,Image,Checkbox,Divider,Tag,Card,Col } from 'antd';
+import React,{ PureComponent } from "react";
+import { connect } from 'dva';
+import { Row,Tabs,Avatar,Image,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
+import { FileSearchOutlined } from '@ant-design/icons';
+const Emptying =
+  <Empty
+    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+    imageStyle={{
+      height: 60,
+    }}
+    description={
+      <span>
+        暂无数据
+      </span>
+    }
+  >
+  </Empty>
+
+@connect(({ knowledge,loading }) => ({
+  knowledge,
+  submitting: loading.effects['knowledge/knowledge'],
+}))
 
 class information extends PureComponent {
   state = {
@@ -9,38 +28,78 @@ class information extends PureComponent {
     indeterminate: true,
     checkAll: false,
     visible: false,
+    substance:[],
+    loading: true,
   };
   onClick = (index) => {
     if(index === '2') {
-      console.log(index)
+      const backWord = this.props.propSearch[0]
+      const { dispatch } = this.props
+      dispatch({
+        type: 'knowledge/getSubstance',
+        payload: backWord,
+        callback: (response) => {
+          if(response !== null) {
+            this.setState({
+              substance: response,
+              loading:false
+            })
+          }
+        }
+      })
     }
+  }
+  onDrawer=(fileName,content)=>{
+    return(
+      <Drawer
+        width={640}
+        maskStyle={{opacity:'0.1',animation:'1s infinite',boxShadow:'none'}}
+        title={fileName}
+        placement="left"
+        closable={false}
+        onClose={this.onClose}
+        visible={this.state.visible}
+      >
+        <p style={{letterSpacing:'1px'}} dangerouslySetInnerHTML={{ __html: content}}/>
+      </Drawer>
+    )
+  }
+  showDrawer=()=>{
+    this.setState({
+      visible:true
+    })
+  }
+  onClose=()=>{
+    this.setState({
+      visible:false
+    })
   }
   // 实体信息
   onInformation = () => {
     const { propSearch,detailData,chartsData } = this.props
     // 详细信息
-    let detail=[]
+    let detail = []
     // 相关事件
-    let relevance=[]
+    let relevance = []
     // 相关人物
-    let people=[]
-    const categorys=['相关遗存','事件地点','地理位置','出生地点','签订地点','开始时间','结束时间','出生日期','逝世日期','签订时间']
-    chartsData.links!==null?chartsData.links.forEach(item => {
+    let people = []
+    const categorys = ['相关遗存','事件地点','地理位置','出生地点','签订地点','开始时间','结束时间','出生日期','逝世日期','签订时间']
+    chartsData.links !== null ? chartsData.links.forEach(item => {
       if(item.category === '相关事件') {
         relevance.push({
-          name:item.target,
-          url:`http://39.101.193.14:2222/${item.target}.jpg`
+          name: item.target,
+          url: `http://39.101.193.14:2222/${item.target}.jpg`
         })
-      }else if(categorys.includes(item.category)){
+      } else if(categorys.includes(item.category)) {
         if(item.target.substring(0,1) === "y") {
           detail.push(`${item.category} ${item.target.substr(1)}`)
         } else {
           detail.push(`${item.category} ${item.target}`)
         }
-      }else {
+      } else {
         people.push({
-          name:item.target,
-          url:`http://39.101.193.14:2222/${item.target}.jpg`
+          name: item.target,
+          url: `http://39.101.193.14:2222/${item.target}.jpg`
         })
       }
     }) : ''
@@ -51,7 +110,7 @@ class information extends PureComponent {
     detailData.links !== null ? detailData.links.forEach(item => {
       if(item.category === 'comment') {
         brief = item.target
-      }else{
+      } else {
         detail.push(`${item.label} ${item.target}`)
       }
     }) : ''
@@ -62,6 +121,7 @@ class information extends PureComponent {
           <div className={styles.contentDiv}>
             <div>
               <Avatar
+                className={styles.authorImg}
                 size={64}
                 src={briefUrl}
               />
@@ -75,18 +135,18 @@ class information extends PureComponent {
         <Tabs.TabPane tab="详细信息" key="2">
           <div className={styles.contentDiv}>
             {
-              detail.map(function(item,index){
+              detail.length > 0 ? detail.map(function(item,index){
                 return (
                   <Tag className={styles.detail} color="geekblue" key={index}>{item}</Tag>
                 )
-              })
+              }) : Emptying
             }
           </div>
         </Tabs.TabPane>
         <Tabs.TabPane tab="相关事件" key="3">
           <div className={styles.contentDiv}>
             {
-              relevance.map(function(item,index){
+              relevance.length > 0 ? relevance.map(function(item,index){
                 return (
                   <div className={styles.relevance} key={index}>
                     <Avatar
@@ -97,14 +157,14 @@ class information extends PureComponent {
                     <p><Tag className={styles.detail} color="gold">{item.name}</Tag></p>
                   </div>
                 )
-              })
+              }) : Emptying
             }
           </div>
         </Tabs.TabPane>
         <Tabs.TabPane tab="相关人物" key="4">
           <div className={styles.contentDiv}>
             {
-              people.map(function(item,index){
+              people.length > 0 ? people.map(function(item,index){
                 return (
                   <div className={styles.relevance} key={index}>
                     <Avatar
@@ -115,7 +175,7 @@ class information extends PureComponent {
                     <p><Tag className={styles.detail} color="green">{item.name}</Tag></p>
                   </div>
                 )
-              })
+              }) : Emptying
             }
           </div>
         </Tabs.TabPane>
@@ -123,6 +183,38 @@ class information extends PureComponent {
     )
   }
 
+  // 实体语料回溯
+  onSubstance = () => {
+    const tip=this.state.substance.length>0?this.state.substance[0].num:''
+    return (
+        <div className={styles.substanceDiv}>
+          <Card size="small" title={tip}>
+            {
+              this.state.substance.map((item,index) => {
+                return(
+                  <Card hoverable >
+                    <div className={styles.bookImage} key={index}>
+                      <img
+                        style={{height:'100px'}}
+                        src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
+                      />
+                    </div>
+                    <p>{item.fileName}</p>
+                    <p>简介</p>
+                    <Button type={"primary"} onClick={this.showDrawer}>查看详情</Button>
+                    {this.onDrawer(item.fileName,item.content)}
+                  </Card>
+                )
+              })
+            }
+          </Card>
+        </div>
+    )
+  }
+
+  onThreeSearch=()=>{
+
+  }
   // 三元组语料回溯
   onThree = () => {
     const { chartsData } = this.props
@@ -153,6 +245,7 @@ class information extends PureComponent {
         <Checkbox indeterminate={this.state.indeterminate} onChange={onCheckAllChange} checked={this.state.checkAll}>
           全选
         </Checkbox>
+        <Button style={{float:'right'}} onClick={this.onThreeSearch()}><FileSearchOutlined />三元组语料回溯</Button>
         <Divider />
         <Checkbox.Group options={three} className={styles.three} value={this.state.checkedList} onChange={onChange} />
       </div>
@@ -167,6 +260,11 @@ class information extends PureComponent {
             {this.onInformation()}
           </Tabs.TabPane>
           <Tabs.TabPane tab="实体语料回溯" key="2">
+            <Spin spinning={this.state.loading}>
+              {
+                this.state.substance.length>0?this.onSubstance():''
+              }
+            </Spin>
           </Tabs.TabPane>
           <Tabs.TabPane tab="三元组语料回溯" key="3">
             {this.onThree()}
