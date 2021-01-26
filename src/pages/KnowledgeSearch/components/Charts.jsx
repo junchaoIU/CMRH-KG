@@ -67,17 +67,21 @@ class charts extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.chartsData !== this.props.chartsData) {
-      this.setState({
-        data: nextProps.chartsData
-      })
-    }
+    setTimeout(()=>{
+        if(nextProps.chartsData !== this.props.chartsData) {
+          this.setState({
+            data: nextProps.chartsData
+          })
+        }
+    },200)
+
   }
 
   handleOptions(myChart){
+    console.log(this.props)
     if(this.state.data && this.state.data.nodes && this.state.data.nodes.length > 0 && this.state.data.links !== null) {
       this.state.data.nodes.forEach(node => {
-        node.symbolSize = 50;
+        node.symbolSize = 45;
         node.draggable = true;
         node.label = {
           show: true,
@@ -85,8 +89,6 @@ class charts extends Component {
         node.name = node.id;
         node.value = node.id;
         node.itemStyle = {
-          borderWidth: 1,
-          borderColor: '#333',
           opacity: 0.8
         }
         if(node.category === '时间') {
@@ -105,12 +107,9 @@ class charts extends Component {
           }
         }
         link.lineStyle = {
-          color: '#333',
+          color: '#2f4554',
           normal: {
-            opacity: 0.9,
-            width: 1,
-            //曲度
-            curveness: 0
+            opacity: 0.8,
           }
         }
         link.symbol = ['circle','arrow'];
@@ -158,10 +157,9 @@ class charts extends Component {
           label: {
             position: 'inside',
             formatter: '{c}',
-            fontSize: 14,
+            fontSize: 13,
             fontFamily: 'Courier New'
           },
-
           // 联动高亮
           legendHoverLink: true,
           focusNodeAdjacency: true,
@@ -170,6 +168,11 @@ class charts extends Component {
           edges: this.state.data.links,
           categories,
         }]
+      })
+      myChart.on('click', (params)=> {
+        const word=[]
+        word.push(params.name)
+        this.props.clickWord(word)
       })
     }
   }

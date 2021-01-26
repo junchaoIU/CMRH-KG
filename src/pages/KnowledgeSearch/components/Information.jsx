@@ -1,7 +1,7 @@
 import styles from "@/pages/KnowledgeSearch/index.less";
 import React,{ PureComponent } from "react";
 import { connect } from 'dva';
-import { Row,Tabs,Avatar,Image,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
+import { Row,Tabs,Avatar,message,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
 const Emptying =
   <Empty
@@ -28,42 +28,36 @@ class information extends PureComponent {
     indeterminate: true,
     checkAll: false,
     visible: false,
+    cardVisible: false,
     substance:[],
     loading: true,
   };
   onClick = (index) => {
+    this.setState({
+      substance:[],
+      loading:true
+    })
     if(index === '2') {
       const backWord = this.props.propSearch[0]
-      const { dispatch } = this.props
-      dispatch({
-        type: 'knowledge/getSubstance',
-        payload: backWord,
-        callback: (response) => {
-          if(response !== null) {
-            this.setState({
-              substance: response,
-              loading:false
-            })
-          }
-        }
-      })
+     this.onDispatch(backWord)
     }
   }
-  onDrawer=(fileName,content)=>{
-    return(
-      <Drawer
-        width={640}
-        maskStyle={{opacity:'0.1',animation:'1s infinite',boxShadow:'none'}}
-        title={fileName}
-        placement="left"
-        closable={false}
-        onClose={this.onClose}
-        visible={this.state.visible}
-      >
-        <p style={{letterSpacing:'1px'}} dangerouslySetInnerHTML={{ __html: content}}/>
-      </Drawer>
-    )
+  onDispatch=(backWord)=>{
+    const { dispatch } = this.props
+    dispatch({
+      type: 'knowledge/getSubstance',
+      payload: backWord,
+      callback: (response) => {
+        if(response !== null) {
+          this.setState({
+            substance: response,
+            loading:false
+          })
+        }
+      }
+    })
   }
+
   showDrawer=()=>{
     this.setState({
       visible:true
@@ -187,34 +181,47 @@ class information extends PureComponent {
   onSubstance = () => {
     const tip=this.state.substance.length>0?this.state.substance[0].num:''
     return (
-        <div className={styles.substanceDiv}>
-          <Card size="small" title={tip}>
-            {
-              this.state.substance.map((item,index) => {
-                return(
-                  <Card hoverable >
-                    <div className={styles.bookImage} key={index}>
-                      <img
-                        style={{height:'100px'}}
-                        src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
-                      />
-                    </div>
-                    <p>{item.fileName}</p>
-                    <p>简介</p>
-                    <Button type={"primary"} onClick={this.showDrawer}>查看详情</Button>
-                    {this.onDrawer(item.fileName,item.content)}
-                  </Card>
-                )
-              })
-            }
-          </Card>
-        </div>
+      <Spin spinning={this.state.loading}>
+              {
+                this.state.substance.length>0?
+                  <div className={styles.substanceDiv}>
+                    <Card size="small" title={tip}>
+                      {
+                        this.state.substance.map((item,index) => {
+                          return(
+                            <Card hoverable >
+                              <div className={styles.bookImage} key={index}>
+                                <img
+                                  style={{height:'100px'}}
+                                  src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
+                                />
+                              </div>
+                              <p>{item.fileName}</p>
+                              <p>简介</p>
+                              <Button type={"primary"} onClick={this.showDrawer}>查看详情</Button>
+                              <Drawer
+                                title={item.fileName}
+                                placement="left"
+                                closable={false}
+                                width={'50%'}
+                                onClose={this.onClose}
+                                visible={this.state.visible}
+                                style={{animationTimingFunction:'ease-out'}}
+                                maskStyle={{opacity:'0.1',animation:'1s infinite',boxShadow:'none' }}
+                              >
+                                <p style={{letterSpacing:'1px'}} dangerouslySetInnerHTML={{ __html: item.content}}/>
+                              </Drawer>
+                            </Card>
+                          )
+                        })
+                      }
+                    </Card>
+                  </div>:Emptying
+              }
+            </Spin>
     )
   }
 
-  onThreeSearch=()=>{
-
-  }
   // 三元组语料回溯
   onThree = () => {
     const { chartsData } = this.props
@@ -240,14 +247,46 @@ class information extends PureComponent {
         checkAll: checkedList.length === three.length,
       });
     };
+    const onClose=()=>{
+      this.setState({
+        cardVisible:false
+      })
+    }
+    const onThreeSearch=()=>{
+      this.setState({
+        substance:[],
+        loading:true
+      })
+      if(this.state.checkedList.length>0){
+        const threeWord=`${this.props.propSearch[0]}${this.state.checkedList.join("").replace(/\（.*?\）/g,'')}`
+        this.onDispatch(threeWord)
+        this.setState({
+          cardVisible:true
+        })
+      }else {
+        message.warning("请选择三元组！");
+      }
+    }
     return (
       <div className={styles.threeDiv}>
         <Checkbox indeterminate={this.state.indeterminate} onChange={onCheckAllChange} checked={this.state.checkAll}>
           全选
         </Checkbox>
-        <Button style={{float:'right'}} onClick={this.onThreeSearch()}><FileSearchOutlined />三元组语料回溯</Button>
+        <Button style={{float:'right'}} onClick={onThreeSearch}><FileSearchOutlined />三元组语料回溯</Button>
         <Divider />
         <Checkbox.Group options={three} className={styles.three} value={this.state.checkedList} onChange={onChange} />
+        <Drawer
+          title="三元组语料回溯"
+          placement="right"
+          closable={false}
+          width={'70%'}
+          onClose={onClose}
+          visible={this.state.cardVisible}
+          getContainer={false}
+          style={{ position: 'absolute',transform:'none' }}
+        >
+          {this.onSubstance()}
+        </Drawer>
       </div>
     )
   }
@@ -260,11 +299,7 @@ class information extends PureComponent {
             {this.onInformation()}
           </Tabs.TabPane>
           <Tabs.TabPane tab="实体语料回溯" key="2">
-            <Spin spinning={this.state.loading}>
-              {
-                this.state.substance.length>0?this.onSubstance():''
-              }
-            </Spin>
+            {this.onSubstance()}
           </Tabs.TabPane>
           <Tabs.TabPane tab="三元组语料回溯" key="3">
             {this.onThree()}

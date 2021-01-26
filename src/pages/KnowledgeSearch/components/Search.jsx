@@ -31,9 +31,13 @@ class search extends PureComponent {
     })
     this.handleSearch(value)
   };
-  search = () => {
-    const arr = []
-    arr[0] = this.state.inpValue
+  search = (val) => {
+    let arr = []
+    if(val.length!==undefined){
+      arr=val
+    }else {
+      arr[0] = this.state.inpValue
+    }
     this.setState({
       searchValue: arr
     })
@@ -112,7 +116,9 @@ class search extends PureComponent {
           {(this.state.val && this.state.chartsData.length !== 0&& this.state.detailData.length !== 0) ?
           <Row className={styles.content}>
             <Col span={14}>
-                <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch} />
+                <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch}
+                        clickWord={this.search}
+                />
             </Col>
             <Col span={10}>
               <Information chartsData={this.state.chartsData} propSearch={this.state.propSearch} detailData={this.state.detailData}/>
