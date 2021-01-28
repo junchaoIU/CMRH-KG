@@ -78,7 +78,6 @@ class charts extends Component {
   }
 
   handleOptions(myChart){
-    console.log(this.props)
     if(this.state.data && this.state.data.nodes && this.state.data.nodes.length > 0 && this.state.data.links !== null) {
       this.state.data.nodes.forEach(node => {
         node.symbolSize = 45;

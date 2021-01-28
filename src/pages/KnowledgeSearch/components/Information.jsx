@@ -3,6 +3,7 @@ import React,{ PureComponent } from "react";
 import { connect } from 'dva';
 import { Row,Tabs,Avatar,message,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
+
 const Emptying =
   <Empty
     image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
@@ -29,20 +30,21 @@ class information extends PureComponent {
     checkAll: false,
     visible: false,
     cardVisible: false,
-    substance:[],
+    substance: [],
     loading: true,
+    drawer: []
   };
   onClick = (index) => {
     this.setState({
-      substance:[],
-      loading:true
+      substance: [],
+      loading: true
     })
     if(index === '2') {
       const backWord = this.props.propSearch[0]
-     this.onDispatch(backWord)
+      this.onDispatch(backWord)
     }
   }
-  onDispatch=(backWord)=>{
+  onDispatch = (backWord) => {
     const { dispatch } = this.props
     dispatch({
       type: 'knowledge/getSubstance',
@@ -51,21 +53,25 @@ class information extends PureComponent {
         if(response !== null) {
           this.setState({
             substance: response,
-            loading:false
+            loading: false
           })
         }
       }
     })
   }
 
-  showDrawer=()=>{
+  showDrawer = (e) => {
+    const drawerData = this.state.substance[e.currentTarget.value]
     this.setState({
-      visible:true
+      drawer: drawerData,
+      visible: true
     })
   }
-  onClose=()=>{
+
+
+  onClose = () => {
     this.setState({
-      visible:false
+      visible: false
     })
   }
   // 实体信息
@@ -179,46 +185,47 @@ class information extends PureComponent {
 
   // 实体语料回溯
   onSubstance = () => {
-    const tip=this.state.substance.length>0?this.state.substance[0].num:''
+    const tip = this.state.substance.length > 0 ? this.state.substance[0].num : ''
     return (
       <Spin spinning={this.state.loading}>
-              {
-                this.state.substance.length>0?
-                  <div className={styles.substanceDiv}>
-                    <Card size="small" title={tip}>
-                      {
-                        this.state.substance.map((item,index) => {
-                          return(
-                            <Card hoverable >
-                              <div className={styles.bookImage} key={index}>
-                                <img
-                                  style={{height:'100px'}}
-                                  src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
-                                />
-                              </div>
-                              <p>{item.fileName}</p>
-                              <p>简介</p>
-                              <Button type={"primary"} onClick={this.showDrawer}>查看详情</Button>
-                              <Drawer
-                                title={item.fileName}
-                                placement="left"
-                                closable={false}
-                                width={'50%'}
-                                onClose={this.onClose}
-                                visible={this.state.visible}
-                                style={{animationTimingFunction:'ease-out'}}
-                                maskStyle={{opacity:'0.1',animation:'1s infinite',boxShadow:'none' }}
-                              >
-                                <p style={{letterSpacing:'1px'}} dangerouslySetInnerHTML={{ __html: item.content}}/>
-                              </Drawer>
-                            </Card>
-                          )
-                        })
-                      }
-                    </Card>
-                  </div>:Emptying
-              }
-            </Spin>
+        {
+          this.state.substance.length > 0 ?
+            <div className={styles.substanceDiv}>
+              <Card size="small" title={tip}>
+                {
+                  this.state.substance.map((item,index) => {
+                    return (
+                      <Card hoverable key={index}>
+                        <div className={styles.bookImage}>
+                          <img
+                            style={{ height: '100px' }}
+                            src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
+                          />
+                        </div>
+                        <p>{item.fileName}</p>
+                        <p>简介</p>
+                        <Button type={"primary"} value={index} onClick={this.showDrawer}>查看详情</Button>
+                        <Drawer
+                          title={this.state.drawer.fileName}
+                          placement="left"
+                          closable={false}
+                          width={'50%'}
+                          onClose={this.onClose}
+                          visible={this.state.visible}
+                          style={{ animationTimingFunction: 'ease-out' }}
+                          maskStyle={{ opacity: '0.1',animation: '1s infinite',boxShadow: 'none' }}
+                        >
+                          <p style={{ letterSpacing: '1px' }}
+                             dangerouslySetInnerHTML={{ __html: this.state.drawer.content }} />
+                        </Drawer>
+                      </Card>
+                    )
+                  })
+                }
+              </Card>
+            </div> : Emptying
+        }
+      </Spin>
     )
   }
 
@@ -247,23 +254,23 @@ class information extends PureComponent {
         checkAll: checkedList.length === three.length,
       });
     };
-    const onClose=()=>{
+    const onClose = () => {
       this.setState({
-        cardVisible:false
+        cardVisible: false
       })
     }
-    const onThreeSearch=()=>{
+    const onThreeSearch = () => {
       this.setState({
-        substance:[],
-        loading:true
+        substance: [],
+        loading: true
       })
-      if(this.state.checkedList.length>0){
-        const threeWord=`${this.props.propSearch[0]}${this.state.checkedList.join("").replace(/\（.*?\）/g,'')}`
+      if(this.state.checkedList.length > 0) {
+        const threeWord = `${this.props.propSearch[0]}${this.state.checkedList.join("").replace(/\（.*?\）/g,'')}`
         this.onDispatch(threeWord)
         this.setState({
-          cardVisible:true
+          cardVisible: true
         })
-      }else {
+      } else {
         message.warning("请选择三元组！");
       }
     }
@@ -272,7 +279,7 @@ class information extends PureComponent {
         <Checkbox indeterminate={this.state.indeterminate} onChange={onCheckAllChange} checked={this.state.checkAll}>
           全选
         </Checkbox>
-        <Button style={{float:'right'}} onClick={onThreeSearch}><FileSearchOutlined />三元组语料回溯</Button>
+        <Button style={{ float: 'right' }} onClick={onThreeSearch}><FileSearchOutlined />三元组语料回溯</Button>
         <Divider />
         <Checkbox.Group options={three} className={styles.three} value={this.state.checkedList} onChange={onChange} />
         <Drawer
@@ -283,7 +290,7 @@ class information extends PureComponent {
           onClose={onClose}
           visible={this.state.cardVisible}
           getContainer={false}
-          style={{ position: 'absolute',transform:'none' }}
+          style={{ position: 'absolute',transform: 'none' }}
         >
           {this.onSubstance()}
         </Drawer>
