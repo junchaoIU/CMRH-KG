@@ -52,7 +52,6 @@ class search extends PureComponent {
   }
   render(){
     return (
-      <div>
         <div className={styles.search}>
           <Input.Group compact >
             <Input className={styles.input} size={"large"}  placeholder="知识点一：" allowClear onChange={this.onChange} />
@@ -61,7 +60,6 @@ class search extends PureComponent {
             <Button type="primary" className={styles.button}  size={"large"} onClick={this.search}>检索一下</Button>
           </Input.Group>
         </div>
-      </div>
     );
   }
 }
