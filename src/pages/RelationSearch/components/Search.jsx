@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import Empty from '../../../components/Empty/index'
 import Charts from "./Charts";
+import Information from './Information'
 
 @connect(({ relation,loading }) => ({
   relation,
@@ -22,7 +23,8 @@ class search extends PureComponent {
     object: '',
     subject: '',
     objectLinks: [],
-    subjectLinks: []
+    subjectLinks: [],
+    substance:[]
   }
   onChange = (e) => {
     this.setState({
@@ -40,7 +42,8 @@ class search extends PureComponent {
     this.setState({
       objectLinks:[],
       subjectLinks:[],
-      val:false
+      val:false,
+      substance:[]
     })
     const data = {
       object: this.state.object,
@@ -79,6 +82,17 @@ class search extends PureComponent {
         })
       }
     })
+    dispatch({
+      type: 'knowledge/getSubstance',
+      payload: `${this.state.object}${this.state.subject}`,
+      callback: (response) => {
+        if(response !== null) {
+          this.setState({
+            substance: response
+          })
+        }
+      }
+    })
   }
   render(){
     const {objectLinks,subjectLinks,val,object,subject}=this.state
@@ -95,6 +109,9 @@ class search extends PureComponent {
             <Col span={14}>
               <Charts objectLinks={objectLinks} subjectLinks={subjectLinks}
                       propSearch={`${object}和${subject}`}/>
+            </Col>
+            <Col span={10}>
+              <Information propSearch={`${object}${subject}`} substance={this.state.substance}/>
             </Col>
           </Row>: <Empty />
         }

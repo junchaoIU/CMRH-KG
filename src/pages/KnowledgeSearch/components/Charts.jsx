@@ -129,7 +129,7 @@ class charts extends Component {
           feature: {
             saveAsImage: {},
             mark: { show: true },
-            dataView: { show: true,readOnly: false },
+            dataView: { show: false,readOnly: false },
             restore: { show: true },
           }
         },
