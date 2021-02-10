@@ -11,6 +11,6 @@ const proSettings = {
   pwa: false,
   iconfontUrl: '',
   headerHeight:68,
-  httpUrl:'http://39.101.193.14:2222'
+  httpUrl:'http://gzknowledge.cn:2222'
 };
 export default proSettings;

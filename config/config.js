@@ -37,7 +37,7 @@ export default defineConfig({
   ignoreMomentLocale: true,
   proxy: {
     '/api/': {
-      target: 'http://39.101.193.14:2222/',
+      target: 'http://gzknowledge.cn:2222/',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

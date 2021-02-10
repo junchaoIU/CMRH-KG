@@ -4,7 +4,7 @@ import styles from '../index.less';
 import { connect } from 'dva';
 import catalogData from './catalog'
 import Charts from './Charts'
-import Empty from '../../../components/Empty'
+import Empty from '../../../components/Empty/index'
 import Information from './Information'
 @connect(({ knowledge,loading }) => ({
   knowledge,
