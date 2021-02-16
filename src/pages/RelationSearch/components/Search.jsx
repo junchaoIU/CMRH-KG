@@ -54,7 +54,7 @@ class search extends PureComponent {
       type: 'relation/getPeople',
       payload: data,
       callback: (response) => {
-        if(response[0].object === null) {
+        if(response.length !== 2) {
           message.warning("未找到两者之间的关系！");
         }
         if(response.length === 2) {

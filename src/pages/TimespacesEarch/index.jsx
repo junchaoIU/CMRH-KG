@@ -3,12 +3,13 @@ import { Card,Typography,Row,Col, Divider } from 'antd';
 import styles from './index.less';
 import { connect } from 'dva';
 import { PageContainer } from '@ant-design/pro-layout';
+import Search from "./components/Search";
 
 class timespacesEarch extends Component {
   render(){
     return (
       <PageContainer>
-        11111
+        <Search />
       </PageContainer>
     );
   }
