@@ -13,13 +13,17 @@ class search extends PureComponent {
   state = {
     val: false,
     value1: '',
+    value2: '',
     mode: 'time',
-    information: []
+    information: [],
+    relation: []
   }
   handleModeChange = (value) => {
-    this.setState({ mode: value });
+    this.setState({
+      mode: value,
+    });
   }
-  handleChange1 = e => {
+  valueChange1 = e => {
     this.setState({
       value1: e.target.value
     })
@@ -33,7 +37,123 @@ class search extends PureComponent {
       callback: (response) => {
         if(response !== null)
           this.setState({
-            information:response
+            information: response
+          })
+      }
+    })
+    dispatch({
+      type: 'timeSpaces/getTimeDetail',
+      payload: this.state.value1,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            relation: response
+          })
+      }
+    })
+  }
+
+  valueChange2 = e => {
+    this.setState({
+      value1: e.target.value
+    })
+  }
+  valueChange3 = e => {
+    this.setState({
+      value2: e.target.value
+    })
+  }
+
+  fetchData2 = () => {
+    const { dispatch } = this.props
+    const data = {
+      time1: parseInt(this.state.value1.replace(/年/,'0000')),
+      time2: parseInt(this.state.value2.replace(/年/,'0000'))
+    }
+    dispatch({
+      type: 'timeSpaces/getPeriodTimeRecallDetail',
+      payload: data,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            information: response
+          })
+      }
+    })
+    dispatch({
+      type: 'timeSpaces/getPeriodTime',
+      payload: data,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            relation: response
+          })
+      }
+    })
+  }
+
+  valueChange4 = e => {
+    this.setState({
+      value1: e.target.value
+    })
+  }
+
+  fetchData4 = () => {
+    const { dispatch } = this.props
+    dispatch({
+      type: 'timeSpaces/getSpaceRecallDetail',
+      payload: this.state.value1,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            information: response
+          })
+      }
+    })
+    dispatch({
+      type: 'timeSpaces/getSpace',
+      payload: this.state.value1,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            relation: response
+          })
+      }
+    })
+  }
+  valueChange5 = e => {
+    this.setState({
+      value1: e.target.value
+    })
+  }
+  valueChange6 = e => {
+    this.setState({
+      value2: e.target.value
+    })
+  }
+  fetchData5 = () => {
+    const { dispatch } = this.props
+    const data = {
+      time: this.state.value1,
+      space: this.state.value2
+    }
+    dispatch({
+      type: 'timeSpaces/getTimeSpaceRecallDetail',
+      payload: data,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            information: response
+          })
+      }
+    })
+    dispatch({
+      type: 'timeSpaces/getTimeSpace',
+      payload: data,
+      callback: (response) => {
+        if(response !== null)
+          this.setState({
+            relation: response
           })
       }
     })
@@ -53,7 +173,7 @@ class search extends PureComponent {
             </Select>
             {mode === "time" ?
               <div>
-                <Input onChange={this.handleChange1}
+                <Input onChange={this.valueChange1}
                        size={"large"}
                        style={{ width: 400 }}
                        placeholder="请检索需要查询的时空实体,例如：1911年4月" />
@@ -64,43 +184,43 @@ class search extends PureComponent {
                   时空检索
                 </Button>
               </div> : mode === "times" ? <div>
-                <Input onChange={this.valueChange3} size={"large"} style={{ width: 150 }} placeholder="例如：1940年" />
+                <Input onChange={this.valueChange2} size={"large"} style={{ width: 150 }} placeholder="例如：1940年" />
                 &nbsp;&nbsp;~&nbsp;&nbsp;
-                <Input onChange={this.valueChange4} size={"large"} style={{ width: 150 }} placeholder="例如：1941年" />
+                <Input onChange={this.valueChange3} size={"large"} style={{ width: 150 }} placeholder="例如：1941年" />
                 <Button type="primary"
                         icon={<SearchOutlined />}
                         size={"large"}
-                        onClick={() => this.fetchData4(this.state.value1,this.state.value2)}>
+                        onClick={this.fetchData2}>
                   时空检索
                 </Button>
               </div> : mode === "space" ?
                 <div>
-                  <Input onChange={this.valueChange2}
+                  <Input onChange={this.valueChange4}
                          size={"large"}
                          style={{ width: 400 }}
                          placeholder="请检索需要查询的时空实体,例如：广州" />
                   <Button type="primary"
                           icon={<SearchOutlined />}
                           size={"large"}
-                          onClick={() => this.fetchData2(this.state.value2)}>
+                          onClick={this.fetchData4}>
                     时空检索
                   </Button>
                 </div> : <div>
-                  <Input onChange={this.valueChange1}
+                  <Input onChange={this.valueChange5}
                          size={"large"}
                          style={{ width: 220,marginRight: '5px' }}
                          placeholder="时间点：(例如：1911年4月)" />
-                  <Input onChange={this.valueChange2} size={"large"} style={{ width: 220 }} placeholder="地点：(例如：广州)" />
+                  <Input onChange={this.valueChange6} size={"large"} style={{ width: 220 }} placeholder="地点：(例如：广州)" />
                   <Button type="primary"
                           size={"large"}
                           icon={<SearchOutlined />}
-                          onClick={() => this.fetchData3(this.state.value1,this.state.value2)}>
+                          onClick={this.fetchData5}>
                     时空检索
                   </Button>
                 </div>}
           </div>
         </div>
-        <Information detail={this.state.information} />
+        <Information detail={this.state.information} relation={this.state.relation} mode={this.state.mode} />
       </div>
     );
   }
