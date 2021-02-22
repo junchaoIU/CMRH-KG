@@ -1,7 +1,7 @@
 import styles from "../index.less";
 import React,{ PureComponent } from "react";
 import { connect } from 'dva';
-import { Timeline,Tabs,Avatar,message,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
+import { Timeline,Tabs,Modal,message,Checkbox,Divider,Tag,Empty,Card,Button,Spin,Drawer } from 'antd';
 import { ClockCircleTwoTone,FileSearchOutlined,PushpinTwoTone,TagsOutlined,EnvironmentTwoTone,CloudTwoTone  } from '@ant-design/icons';
 
 const Emptying =
@@ -65,11 +65,7 @@ class information extends PureComponent {
   // 实体信息
   onInformation = () => {
     const { detail } = this.props
-    const onClose = () => {
-      this.setState({
-        cardVisible: false
-      })
-    }
+
     return (
       <div>
         {detail.length>0?<Timeline className={styles.time} mode={"left"}>
@@ -79,22 +75,10 @@ class information extends PureComponent {
                 <div>
                 <Timeline.Item key={index} dot={<TagsOutlined style={{fontSize:'20px'}}/>}>
                   <p><PushpinTwoTone twoToneColor="#eb2f96" className={styles.icon}/>{item[0]}</p>
-                  <p><ClockCircleTwoTone  twoToneColor="#52c41a" className={styles.icon}/>{item[1]}</p>
+                  <p><ClockCircleTwoTone  twoToneColor="#52c41a" className={styles.icon}/>{item[1].substr(1)}</p>
                   <p><EnvironmentTwoTone  twoToneColor="#adc6ff" className={styles.icon}/>{item[2]}</p>
                   <p className={styles.detail} onClick={()=>this.onBack(item[3])}><CloudTwoTone twoToneColor="#87e8de" className={styles.icon}/>{item[3]}</p>
                 </Timeline.Item>
-                  <Drawer
-                    title="事件语料回溯"
-                    placement="right"
-                    closable={false}
-                    width={'35%'}
-                    onClose={onClose}
-                    visible={this.state.cardVisible}
-                    style={{ position: 'absolute',transform: 'none'}}
-                    maskStyle={{ opacity: '0.1',animation: '1s infinite',boxShadow: 'none' }}
-                  >
-                    {this.onSubstance()}
-                  </Drawer>
                 </div>
               )
             })
@@ -137,19 +121,7 @@ class information extends PureComponent {
                         <p>{item.fileName}</p>
                         <p>简介</p>
                         <Button type={"primary"} value={index} onClick={this.showDrawer}>查看详情</Button>
-                        <Drawer
-                          title={this.state.drawer.fileName}
-                          placement="left"
-                          closable={false}
-                          width={'50%'}
-                          onClose={this.onClose}
-                          visible={this.state.visible}
-                          style={{ transform: 'none' }}
-                          maskStyle={{ opacity: '0.9',animation: '1s infinite',boxShadow: 'none',height: 0,zIndex:'999' }}
-                        >
-                          <p style={{ letterSpacing: '1px' }}
-                             dangerouslySetInnerHTML={{ __html: this.state.drawer.content }} />
-                        </Drawer>
+
                       </Card>
                     )
                   })
@@ -160,13 +132,38 @@ class information extends PureComponent {
       </Spin>
     )
   }
-
+  onCloseBack = () => {
+    this.setState({
+      cardVisible: false
+    })
+  }
   render(){
     return (
       <div className={styles.cardContainer}>
         <Tabs type="card" className={styles.outCard}>
           <Tabs.TabPane tab="回溯时空信息" key="1" className={styles.innerCard}>
             {this.onInformation()}
+            <Drawer
+              title="事件语料回溯"
+              placement="right"
+              closable={false}
+              width={'35%'}
+              onClose={this.onCloseBack}
+              visible={this.state.cardVisible}
+            >
+              {this.onSubstance()}
+            </Drawer>
+            <Drawer
+              title={this.state.drawer.fileName}
+              placement="left"
+              closable={false}
+              width={'50%'}
+              onClose={this.onClose}
+              visible={this.state.visible}
+            >
+              <p style={{ letterSpacing: '1px' }}
+                 dangerouslySetInnerHTML={{ __html: this.state.drawer.content }} />
+            </Drawer>
           </Tabs.TabPane>
         </Tabs>
       </div>

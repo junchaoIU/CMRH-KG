@@ -205,19 +205,6 @@ class information extends PureComponent {
                         <p>{item.fileName}</p>
                         <p>简介</p>
                         <Button type={"primary"} value={index} onClick={this.showDrawer}>查看详情</Button>
-                        <Drawer
-                          title={this.state.drawer.fileName}
-                          placement="left"
-                          closable={false}
-                          width={'50%'}
-                          onClose={this.onClose}
-                          visible={this.state.visible}
-                          style={{ animationTimingFunction: 'ease-out' }}
-                          maskStyle={{ opacity: '0.1',animation: '1s infinite',boxShadow: 'none' }}
-                        >
-                          <p style={{ letterSpacing: '1px' }}
-                             dangerouslySetInnerHTML={{ __html: this.state.drawer.content }} />
-                        </Drawer>
                       </Card>
                     )
                   })
@@ -312,6 +299,17 @@ class information extends PureComponent {
             {this.onThree()}
           </Tabs.TabPane>
         </Tabs>
+        <Drawer
+          title={this.state.drawer.fileName}
+          placement="left"
+          closable={false}
+          width={'50%'}
+          onClose={this.onClose}
+          visible={this.state.visible}
+        >
+          <p style={{ letterSpacing: '1px' }}
+             dangerouslySetInnerHTML={{ __html: this.state.drawer.content }} />
+        </Drawer>
       </div>
     )
   }
