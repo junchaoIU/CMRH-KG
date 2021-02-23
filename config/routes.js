@@ -10,7 +10,7 @@ export default [
           {
             path: '/',
             component: '../layouts/BasicLayout',
-            authority: ['admin', 'user'],
+            authority: ['admin','user'],
             routes: [
               {
                 path: '/',
@@ -45,7 +45,17 @@ export default [
                 path: '/back',
                 name: 'back',
                 icon: 'interaction',
-                component: './Back',
+                routes: [{
+                  path: '/back/eventBack',
+                  name: 'eventBack',
+                  icon: 'interaction',
+                  component: './Back/eventBack'
+                },{
+                  path: '/back/peopleBack',
+                  name: 'peopleBack',
+                  icon: 'peopleBack',
+                  component: './Back/peopleBack'
+                }]
               },
               {
                 path: '/textBack',

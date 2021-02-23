@@ -4,6 +4,8 @@ export default {
   'menu.relationSearch': '关系检索',
   'menu.timespacesEarch': '时空检索',
   'menu.back': '实体回溯检索',
+  'menu.back.eventBack': '事件回溯',
+  'menu.back.peopleBack': '人物回溯',
   'menu.textBack': '语料回溯检索',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',

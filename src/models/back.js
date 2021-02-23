@@ -1,27 +1,27 @@
-import {eventCharts} from '../services/back';
+import {getAllEvent} from '../services/back';
 
 export default {
   namespace: 'back',
   state: {
-    getCharts:[],
+    allEvent:[],
   },
 
   effects: {
-    * getCharts({payload,callback}, {call, put}) {
-      const response = yield call(eventCharts,payload);
+    * getAllEvent({payload}, {call, put}) {
+      const response = yield call(getAllEvent);
       yield put({
-        type: 'setCharts',
+        type: 'setAllEvent',
         payload: response,
       });
-      if(callback) callback(response)
     },
   },
 
+
   reducers: {
-    setCharts(state, action) {
+    setAllEvent(state, action) {
       return {
         ...state,
-        getCharts: action.payload,
+        allEvent: action.payload,
       };
     }
   }
