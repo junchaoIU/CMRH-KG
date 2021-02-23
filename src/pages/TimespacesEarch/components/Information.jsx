@@ -76,7 +76,7 @@ class information extends PureComponent {
   onInformation = () => {
     const { detail,page,handleChangePage } = this.props
     return (
-      <Timeline className={styles.time} mode={"left"} id="leftHeight">
+      <Timeline className={styles.time} mode={"left"}>
         {
           detail.slice(page.minValue, page.maxValue).map((item,index) => {
             return (

@@ -1,8 +1,10 @@
 import React,{ PureComponent } from 'react';
-import { Input,Card,Spin,Empty,Button,message,Select,Col,Row } from 'antd';
+import { Input,Tooltip,Spin,Empty,Button,message,Timeline,Col,Row } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
-
+import {
+  SearchOutlined,
+} from '@ant-design/icons';
 const Emptying =
   <Empty
     style={{ height: '500px' }}
@@ -24,6 +26,10 @@ const Emptying =
   submitting: loading.effects['knowledge/knowledge'],
 }))
 
+@connect(({ back,loading }) => ({
+  back,
+  submitting: loading.effects['back/back'],
+}))
 class search extends PureComponent {
   state = {
     val: false,
@@ -39,81 +45,82 @@ class search extends PureComponent {
     })
   }
 
-  search = () => {
-    this.setState({
-      loading: true
-    })
-
-    const { dispatch } = this.props
-    dispatch({
-      type: 'knowledge/getSubstance',
-      payload: this.state.searchValue,
-      callback: (response) => {
-        if(response.length === 0) {
-          this.setState({
-            loading: false
-          })
-          message.warning("未检索到其语料回溯！");
-        }
-        if(response !== null) {
-          this.setState({
-            substance: response,
-            loading: false
-          })
-        }
-      }
-    })
+  search = (value) => {
+    // this.setState({
+    //   loading: true
+    // })
+    const { dispatch,state } = this.props
+    // state==="event"?dispatch({
+    //     type: 'back/getChildEvent',
+    //     payload:value,
+    //     callback: (response) => {
+    //     console.log(response)
+    //     }
+    //   }):dispatch({
+    //   type: 'back/getPeople',
+    //   payload:value,
+    //   callback: (response) => {
+    //     console.log(response)
+    //   }
+    // })
+    // dispatch({
+    //   type: 'knowledge/getKeyword',
+    //   payload:value,
+    //   callback: (response) => {
+    //    // console.log(response)
+    //   }
+    // })
+    // dispatch({
+    //   type: 'knowledge/getAttribute',
+    //   payload:value,
+    //   callback: (response) => {
+    //     console.log(response)
+    //   }
+    // })
+    // this.setState({
+    //   loading:false,
+    //   searchValue:''
+    // })
   }
-   onChange(value) {
-    console.log(`selected ${value}`);
-  }
-
-   onBlur() {
-    console.log('blur');
-  }
-
-   onFocus() {
-    console.log('focus');
-  }
-
-   onSearch(val) {
-    console.log('search:', val);
-  }
-
   render(){
     const { state,allEvent } = this.props
-    console.log(allEvent)
     return (
       <div className={styles.search}>
+       <Input size={"large"}
+           className={styles.input}
+           placeholder= {state==='event'?"请输入事件实体：":"请输入人物实体："}
+           allowClear
+           onChange={this.onChange} />
+        <Button type="primary" className={styles.button} size={"large"} onClick={this.search(this.state.searchValue)}>开始检索</Button>
         {
-          state === "event" ? <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select a person"
-            optionFilterProp="children"
-            onChange={this.onChange}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onSearch={this.onSearch}
-            filterOption={(input,option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          state==="event"?<Row>
+            <Col span={4} className={styles.timeLine}>
+              <Timeline className={styles.time} mode={"left"}>
+                {
+                  allEvent.map((item,index) => {
+                    return (
+                      <Timeline.Item key={index} dot={<SearchOutlined style={{ fontSize: '20px' }} />}>
+                        <p className={styles.detail}  onClick={() =>this.search(item.title)}>
+                          {item.title}<br/>{item.time.substr(1)}</p>
+                      </Timeline.Item>
+                    )
+                  })
+                }
+              </Timeline>
+            </Col>
+            <Col span={20}>
+              <Spin spinning={this.state.loading}>
+                {
+                  this.state.substance.length > 0 ? this.onSubstance() : Emptying
+                }
+              </Spin>
+            </Col>
+          </Row>:<Spin spinning={this.state.loading}>
+            {
+              this.state.substance.length > 0 ? this.onSubstance() : Emptying
             }
-          >
-            <Select.Option value="jack">Jack</Select.Option>
-            <Select.Option value="lucy">Lucy</Select.Option>
-            <Select.Option value="tom">Tom</Select.Option>
-          </Select> : <Input size={"large"}
-                             className={styles.input}
-                             placeholder={state === "event" ? "请输入事件实体：" : "请输入人物实体："}
-                             allowClear
-                             onChange={this.onChange} />
+          </Spin>
         }
-        <Button type="primary" className={styles.button} size={"large"} onClick={this.search}>开始检索</Button>
-        <Spin spinning={this.state.loading}>
-          {
-            this.state.substance.length > 0 ? this.onSubstance() : Emptying
-          }
-        </Spin>
       </div>
     );
   }
