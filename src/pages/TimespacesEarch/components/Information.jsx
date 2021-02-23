@@ -1,7 +1,7 @@
 import styles from "../index.less";
 import React,{ PureComponent } from "react";
 import { connect } from 'dva';
-import { Timeline,Tabs,Tooltip,message,Col,Divider,Row,Empty,Card,Button,Spin,Drawer } from 'antd';
+import { Timeline,Tabs,Tooltip,BackTop,Col,Pagination,Row,Empty,Card,Button,Spin,Drawer } from 'antd';
 import {
   ClockCircleTwoTone,
   CrownOutlined,
@@ -13,9 +13,11 @@ import {
 
 const Emptying =
   <Empty
+    style={{ height: '500px' }}
     image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
     imageStyle={{
-      height: 60,
+      height: 100,
+      margin: '15% 0 0'
     }}
     description={
       <span>
@@ -37,7 +39,8 @@ class information extends PureComponent {
     cardVisible: false,
     substance: [],
     loading: true,
-    drawer: []
+    drawer: [],
+    rightHeight:''
   };
   onDispatch = (backWord) => {
     const { dispatch } = this.props
@@ -71,18 +74,18 @@ class information extends PureComponent {
   }
   // 实体信息
   onInformation = () => {
-    const { detail } = this.props
+    const { detail,page,handleChangePage } = this.props
     return (
-      <Timeline className={styles.time} mode={"left"}>
+      <Timeline className={styles.time} mode={"left"} id="leftHeight">
         {
-          detail.map((item,index) => {
+          detail.slice(page.minValue, page.maxValue).map((item,index) => {
             return (
               <Timeline.Item key={index} dot={<TagsOutlined style={{ fontSize: '20px' }} />}>
                 <p><PushpinTwoTone twoToneColor="#eb2f96" className={styles.icon} />{item[0]}</p>
                 <p><ClockCircleTwoTone twoToneColor="#52c41a" className={styles.icon} />
                   {item[1] === '未知' ? item[1] : item[1].substr(1)}</p>
                 <p><EnvironmentTwoTone twoToneColor="#adc6ff" className={styles.icon} />{item[2]}</p>
-                <Tooltip color={"#2db7f5"} placement="topLeft" title="事件语料回溯" arrowPointAtCenter>
+                <Tooltip color={"#2db7f5"} placement="topLeft" title="点击事件语料回溯" arrowPointAtCenter>
                   <p className={styles.detail} onClick={() => this.onBack(item[3])}>
                     <CloudTwoTone twoToneColor="#87e8de" className={styles.icon} />{item[3]}</p>
                 </Tooltip>
@@ -90,6 +93,9 @@ class information extends PureComponent {
             )
           })
         }
+        <Pagination
+          style={{float:'right',marginBottom:'10px'}}
+          defaultPageSize={8} showSizeChanger={false} current={page.current} onChange={handleChangePage} total={detail.length} />
       </Timeline>
     )
   }
@@ -126,7 +132,6 @@ class information extends PureComponent {
                         <p>{item.fileName}</p>
                         <p>简介</p>
                         <Button type={"primary"} value={index} onClick={this.showDrawer}>查看详情</Button>
-
                       </Card>
                     )
                   })

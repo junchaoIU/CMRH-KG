@@ -16,11 +16,18 @@ class search extends PureComponent {
     value2: '',
     mode: 'time',
     information: [],
-    relation: []
+    relation: [],
+    page:{
+      minValue: 0,
+      maxValue: 8,
+      current:1
+    }
   }
   handleModeChange = (value) => {
     this.setState({
       mode: value,
+      value1:'',
+      value2:''
     });
   }
   valueChange1 = e => {
@@ -31,6 +38,13 @@ class search extends PureComponent {
 
   fetchData1 = () => {
     const { dispatch } = this.props
+    this.setState({
+      page:{
+        minValue:0,
+        maxValue:8,
+        current: 1
+      }
+    })
     dispatch({
       type: 'timeSpaces/getTimeRecallDetail',
       payload: this.state.value1,
@@ -66,6 +80,13 @@ class search extends PureComponent {
 
   fetchData2 = () => {
     const { dispatch } = this.props
+    this.setState({
+      page:{
+        minValue:0,
+        maxValue:8,
+        current: 1
+      }
+    })
     const data = {
       time1: parseInt(this.state.value1.replace(/年/,'0000')),
       time2: parseInt(this.state.value2.replace(/年/,'0000'))
@@ -100,6 +121,13 @@ class search extends PureComponent {
 
   fetchData4 = () => {
     const { dispatch } = this.props
+    this.setState({
+      page:{
+        minValue:0,
+        maxValue:8,
+        current: 1
+      }
+    })
     dispatch({
       type: 'timeSpaces/getSpaceRecallDetail',
       payload: this.state.value1,
@@ -133,6 +161,13 @@ class search extends PureComponent {
   }
   fetchData5 = () => {
     const { dispatch } = this.props
+    this.setState({
+      page:{
+        minValue:0,
+        maxValue:8,
+        current: 1
+      }
+    })
     const data = {
       time: this.state.value1,
       space: this.state.value2
@@ -158,9 +193,24 @@ class search extends PureComponent {
       }
     })
   }
-
+   handleChangePage = value => {
+    if (value <= 1) {
+      this.setState({
+        page:{minValue: 0,
+        maxValue: 8,current:1}
+      });
+    } else {
+      this.setState({
+        page:{minValue: (value-1) * 8,
+        maxValue: (value-1) * 8+ 8,
+        current:value
+        },
+      });
+    }
+     document.body.scrollTop = document.documentElement.scrollTop = 0;
+  };
   render(){
-    const { mode } = this.state
+    const { mode,information,relation,page } = this.state
     return (
       <div className={styles.outside}>
         <div className={styles.search}>
@@ -176,6 +226,7 @@ class search extends PureComponent {
                 <Input onChange={this.valueChange1}
                        size={"large"}
                        style={{ width: 400 }}
+                       value={this.state.value1}
                        placeholder="请检索需要查询的时空实体,例如：1911年4月" />
                 <Button type="primary"
                         icon={<SearchOutlined />}
@@ -184,9 +235,9 @@ class search extends PureComponent {
                   时空检索
                 </Button>
               </div> : mode === "times" ? <div>
-                <Input onChange={this.valueChange2} size={"large"} style={{ width: 150 }} placeholder="例如：1940年" />
+                <Input onChange={this.valueChange2} value={this.state.value1} size={"large"} style={{ width: 150 }} placeholder="例如：1940年" />
                 &nbsp;&nbsp;~&nbsp;&nbsp;
-                <Input onChange={this.valueChange3} size={"large"} style={{ width: 150 }} placeholder="例如：1941年" />
+                <Input onChange={this.valueChange3} value={this.state.value2} size={"large"} style={{ width: 150 }} placeholder="例如：1941年" />
                 <Button type="primary"
                         icon={<SearchOutlined />}
                         size={"large"}
@@ -197,6 +248,7 @@ class search extends PureComponent {
                 <div>
                   <Input onChange={this.valueChange4}
                          size={"large"}
+                         value={this.state.value1}
                          style={{ width: 400 }}
                          placeholder="请检索需要查询的时空实体,例如：广州" />
                   <Button type="primary"
@@ -208,9 +260,10 @@ class search extends PureComponent {
                 </div> : <div>
                   <Input onChange={this.valueChange5}
                          size={"large"}
+                         value={this.state.value1}
                          style={{ width: 220,marginRight: '5px' }}
                          placeholder="时间点：(例如：1911年4月)" />
-                  <Input onChange={this.valueChange6} size={"large"} style={{ width: 220 }} placeholder="地点：(例如：广州)" />
+                  <Input onChange={this.valueChange6} value={this.state.value2} size={"large"} style={{ width: 220 }} placeholder="地点：(例如：广州)" />
                   <Button type="primary"
                           size={"large"}
                           icon={<SearchOutlined />}
@@ -220,7 +273,10 @@ class search extends PureComponent {
                 </div>}
           </div>
         </div>
-        <Information detail={this.state.information} relation={this.state.relation} mode={this.state.mode} />
+        <Information detail={information} relation={relation} mode={mode}
+                     handleChangePage={this.handleChangePage}
+                     page={page}
+                    />
       </div>
     );
   }
