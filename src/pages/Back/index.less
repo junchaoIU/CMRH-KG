@@ -1,24 +1,31 @@
 @import '~antd/es/style/themes/default.less';
+
 .search {
   background-image: linear-gradient(to right, white 0%, #2cbafe14 48%, white 100%);
   text-align: center;
+
   .input {
     text-align: left;
     margin: 15px 0;
     width: 30%;
   }
-  .button{
+
+  .button {
     margin: 15px 0;
   }
 }
-.timeLine{
-  padding:10px;
+
+.timeLine {
+  padding: 10px;
   height: 600px;
   overflow: auto;
+
   .time {
     font-size: 20px;
+
     p {
       margin-bottom: 3px;
+
       .icon {
         margin: 0 4px;
         font-size: 16px;
@@ -31,6 +38,7 @@
       border-radius: 4px;
       padding: 2px;
     }
+
     .detail:hover {
       background: #9cd5f8;
     }
@@ -38,17 +46,73 @@
 
 }
 
-.timeLine::-webkit-scrollbar {/*滚动条整体样式*/
+.timeLine::-webkit-scrollbar { /*滚动条整体样式*/
   width: 4px;
   height: 4px;
 }
-.timeLine::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+
+.timeLine::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
   border-radius: 5px;
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  background: rgba(0,0,0,0.2);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
-.timeLine::-webkit-scrollbar-track {/*滚动条里面轨道*/
-  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+
+.timeLine::-webkit-scrollbar-track { /*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 0;
   background: rgba(215, 215, 215, 0.25);
+}
+
+.cardContainer {
+  margin: 0 20px 20px;
+  padding-top: 10px;
+  height: 576px;
+  box-shadow: 3px 3px 7px 2px #d9dee38c;
+
+  .outCard {
+    margin: 5px 10px;
+
+    .time {
+      overflow: auto;
+      padding: 5px;
+      height: 500px;
+      font-size: 18px;
+
+      .text {
+        margin-bottom: 3px;
+        text-align: left;
+
+        .icon {
+          margin: 0 4px;
+          font-size: 16px;
+        }
+      }
+
+      .detail {
+        text-align: left;
+        border: 1px #91d5ff solid;
+        background: #e6f7ff;
+        border-radius: 4px;
+        padding: 2px;
+      }
+    }
+  }
+}
+
+.substanceDiv {
+  overflow: auto;
+  :global(.ant-card-bordered) {
+    border: 1px solid #b3ceee;
+    margin: 10px 0;
+    background: none;
+    border-radius: 5px;
+  }
+
+  .card {
+    text-align: center;
+
+    .bookImage {
+      float: left;
+    }
+  }
 }
