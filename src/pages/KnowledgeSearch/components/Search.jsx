@@ -1,14 +1,15 @@
 import React,{ PureComponent } from 'react';
-import { Cascader,Row,Col,Button,message } from 'antd';
+import { Cascader,Row,Col,Button,message,Spin } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
 import catalogData from './catalog'
 import Charts from './Charts'
 import Empty from '../../../components/Empty/index'
 import Information from './Information'
+
 @connect(({ knowledge,loading }) => ({
   knowledge,
-  submitting: loading.effects['knowledge/knowledge'],
+  loading: loading.effects['knowledge/getKeyword'],
 }))
 
 class search extends PureComponent {
@@ -18,7 +19,7 @@ class search extends PureComponent {
     chartsData: [],
     val: false,
     propSearch: [],
-    detailData:[]
+    detailData: []
   }
 
   onChange = (value) => {
@@ -33,9 +34,9 @@ class search extends PureComponent {
   };
   search = (val) => {
     let arr = []
-    if(val.length!==undefined){
-      arr=val
-    }else {
+    if(val.length !== undefined) {
+      arr = val
+    } else {
       arr[0] = this.state.inpValue
     }
     this.setState({
@@ -73,7 +74,7 @@ class search extends PureComponent {
             detailData: response,
           })
         }
-        if(response.links===null){
+        if(response.links === null) {
           message.warning("找不到您检索的知识点！");
         }
       }
@@ -98,7 +99,9 @@ class search extends PureComponent {
   }
 
   render(){
-    return (
+    const { loading,parentSearch } = this.props
+    const loadings=loading===undefined?false:loading
+      return(
       <div>
         <div className={styles.search}>
           <Cascader
@@ -113,18 +116,22 @@ class search extends PureComponent {
             value={this.state.searchValue}
           />
           <Button type="primary" size={"large"} onClick={this.search}>检索一下</Button>
-          {(this.state.val && this.state.chartsData.length !== 0&& this.state.detailData.length !== 0) ?
-          <Row className={styles.content}>
-            <Col span={14}>
-                <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch}
-                        clickWord={this.search}
-                />
-            </Col>
-            <Col span={10}>
-              <Information chartsData={this.state.chartsData} propSearch={this.state.propSearch} detailData={this.state.detailData}/>
-            </Col>
-          </Row>:<Empty/>
-          }
+          <Spin spinning={loadings}>
+            {(this.state.val && this.state.chartsData.length !== 0 && this.state.detailData.length !== 0) ?
+              <Row className={styles.content}>
+                <Col span={14}>
+                  <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch}
+                          clickWord={this.search}
+                  />
+                </Col>
+                <Col span={10}>
+                  <Information chartsData={this.state.chartsData}
+                               propSearch={this.state.propSearch}
+                               detailData={this.state.detailData} />
+                </Col>
+              </Row> : <Empty />
+            }
+          </Spin>
         </div>
       </div>
     );
