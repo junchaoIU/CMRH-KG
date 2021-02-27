@@ -95,7 +95,7 @@ class search extends PureComponent {
         <Button type="primary"
                 className={styles.button}
                 size={"large"}
-                onClick={() => this.handleSearch(this.state.searchValue)}>开始检索</Button>
+                onClick={() => this.handleSearch(this.state.searchValue)}>开始检索呀</Button>
         {
           state === "event" ? <Row>
             <Col span={4} className={styles.timeLine}>
