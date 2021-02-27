@@ -1,17 +1,16 @@
-import React,{ PureComponent } from 'react';
-import { Cascader,Row,Col,Button,message,Spin } from 'antd';
+import React, { PureComponent } from 'react';
+import { Cascader, Row, Col, Button, message, Spin } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
-import catalogData from './catalog'
-import Charts from './Charts'
-import Empty from '../../../components/Empty/index'
-import Information from './Information'
+import catalogData from './catalog';
+import Charts from './Charts';
+import Empty from '../../../components/Empty/index';
+import Information from './Information';
 
-@connect(({ knowledge,loading }) => ({
+@connect(({ knowledge, loading }) => ({
   knowledge,
   loading: loading.effects['knowledge/getKeyword'],
 }))
-
 class search extends PureComponent {
   state = {
     inpValue: [],
@@ -19,89 +18,106 @@ class search extends PureComponent {
     chartsData: [],
     val: false,
     propSearch: [],
-    detailData: []
+    detailData: [],
+  };
+
+  componentDidMount() {
+    const { parentSearch } = this.props;
+    if (typeof parentSearch === 'string') {
+      const arr = [];
+      arr[0] = parentSearch;
+      this.setState({
+        searchValue: arr,
+      });
+      this.handleSearch(arr);
+    } else {
+      this.setState({
+        searchValue: parentSearch,
+      });
+      this.handleSearch(parentSearch);
+    }
   }
 
   onChange = (value) => {
     this.setState({
-      searchValue: value
-    })
+      searchValue: value,
+    });
     this.setState({
       chartsData: [],
-      val: false
-    })
-    this.handleSearch(value)
+      val: false,
+    });
+    this.handleSearch(value);
   };
   search = (val) => {
-    let arr = []
-    if(val.length !== undefined) {
-      arr = val
+    let arr = [];
+    if (val.length !== undefined) {
+      arr = val;
     } else {
-      arr[0] = this.state.inpValue
+      arr[0] = this.state.inpValue;
     }
     this.setState({
-      searchValue: arr
-    })
+      searchValue: arr,
+    });
     this.setState({
       chartsData: [],
-      val: false
-    })
-    this.handleSearch(arr)
-  }
+      val: false,
+    });
+    this.handleSearch(arr);
+  };
 
   handleSearch = (value) => {
-    const data = value.slice(-1)
-    const { dispatch } = this.props
+    const data = value.slice(-1);
+    const { dispatch } = this.props;
     dispatch({
       type: 'knowledge/getKeyword',
       payload: data,
       callback: (response) => {
-        if(response !== null) {
+        if (response !== null) {
           this.setState({
             chartsData: response,
             propSearch: data,
-            val: true
-          })
+            val: true,
+          });
         }
-      }
-    })
+      },
+    });
     dispatch({
       type: 'knowledge/getAttribute',
       payload: data,
       callback: (response) => {
-        if(response !== null) {
+        if (response !== null) {
           this.setState({
             detailData: response,
-          })
+          });
         }
-        if(response.links === null) {
-          message.warning("找不到您检索的知识点！");
+        if (response.links === null) {
+          message.warning('找不到您检索的知识点！');
         }
-      }
-    })
-  }
-  filter = (inputValue,path) => {
-    this.setState({
-      inpValue: inputValue
-    })
-    return path.some(option => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-  }
-
-  displayRender(label){
-    return label[label.length - 1];
+      },
+    });
   };
+  filter = (inputValue, path) => {
+    this.setState({
+      inpValue: inputValue,
+    });
+    return path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+  };
+
+  displayRender(label) {
+    return label[label.length - 1];
+  }
 
   clear = () => {
     this.setState({
-      searchValue: []
-    })
+      searchValue: [],
+    });
     return true;
-  }
+  };
 
-  render(){
-    const { loading,parentSearch } = this.props
-    const loadings=loading===undefined?false:loading
-      return(
+  render() {
+    const { loading } = this.props;
+    const loadings = loading === undefined ? false : loading;
+    return (
       <div>
         <div className={styles.search}>
           <Cascader
@@ -112,25 +128,35 @@ class search extends PureComponent {
             placeholder="请选择或输入检索的知识点"
             displayRender={this.displayRender}
             size="large"
-            showSearch={{ filter: this.filter,matchInputWidth: false }}
+            showSearch={{ filter: this.filter, matchInputWidth: false }}
             value={this.state.searchValue}
           />
-          <Button type="primary" size={"large"} onClick={this.search}>检索一下</Button>
+          <Button type="primary" size={'large'} onClick={this.search}>
+            检索一下
+          </Button>
           <Spin spinning={loadings}>
-            {(this.state.val && this.state.chartsData.length !== 0 && this.state.detailData.length !== 0) ?
+            {this.state.val &&
+            this.state.chartsData.length !== 0 &&
+            this.state.detailData.length !== 0 ? (
               <Row className={styles.content}>
                 <Col span={14}>
-                  <Charts chartsData={this.state.chartsData} propSearch={this.state.propSearch}
-                          clickWord={this.search}
+                  <Charts
+                    chartsData={this.state.chartsData}
+                    propSearch={this.state.propSearch}
+                    clickWord={this.search}
                   />
                 </Col>
                 <Col span={10}>
-                  <Information chartsData={this.state.chartsData}
-                               propSearch={this.state.propSearch}
-                               detailData={this.state.detailData} />
+                  <Information
+                    chartsData={this.state.chartsData}
+                    propSearch={this.state.propSearch}
+                    detailData={this.state.detailData}
+                  />
                 </Col>
-              </Row> : <Empty />
-            }
+              </Row>
+            ) : (
+              <Empty />
+            )}
           </Spin>
         </div>
       </div>
