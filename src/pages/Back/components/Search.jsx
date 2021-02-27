@@ -1,27 +1,34 @@
-import React, { PureComponent } from 'react';
-import { Input, Tooltip, Spin, Empty, Button, message, Timeline, Col, Row } from 'antd';
+import React, {PureComponent} from 'react';
+import {Input, Spin, Empty, Button, Timeline, Col, Row} from 'antd';
 import styles from '../index.less';
-import Information from '../components/Information';
-import { connect } from 'dva';
-import { SearchOutlined } from '@ant-design/icons';
+import Information from '../components/Information'
+import {connect} from 'dva';
+import {
+  SearchOutlined,
+} from '@ant-design/icons';
 
-const Emptying = (
+const Emptying =
   <Empty
-    style={{ height: '500px' }}
+    style={{height: '500px'}}
     image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
     imageStyle={{
       height: 100,
-      margin: '15% 0 0',
+      margin: '15% 0 0'
     }}
-    description={<span>暂无数据</span>}
-  ></Empty>
-);
+    description={
+      <span>
+        暂无数据
+      </span>
+    }
+  >
+  </Empty>
 
-@connect(({ knowledge, loading }) => ({
+@connect(({knowledge, loading}) => ({
   knowledge,
   submitting: loading.effects['knowledge/knowledge'],
 }))
-@connect(({ back, loading }) => ({
+
+@connect(({back, loading}) => ({
   back,
   submitting: loading.effects['back/back'],
 }))
@@ -29,99 +36,108 @@ class search extends PureComponent {
   state = {
     searchValue: '',
     loading: false,
-  };
+    detailData: [],
+    chartsData: [],
+    propSearch: [],
+  }
+
   onChange = (e) => {
     this.setState({
-      searchValue: e.target.value,
-    });
-  };
+      searchValue: e.target.value
+    })
+  }
+
   handleSearch = (value) => {
-    const { dispatch, state } = this.props;
-    state === 'event'
-      ? dispatch({
-          type: 'back/getChildEvent',
-          payload: value,
-        })
-      : dispatch({
-          type: 'back/getPeople',
-          payload: value,
-          callback: (response) => {},
-        });
+    const {dispatch, state} = this.props
+    // eslint-disable-next-line no-unused-expressions
+    state === "event" ? dispatch({
+      type: 'back/getChildEvent',
+      payload: value
+    }) : dispatch({
+      type: 'back/getPeople',
+      payload: value
+    })
     dispatch({
       type: 'knowledge/getKeyword',
       payload: value,
-    });
+      callback: (response) => {
+        if (response !== null) {
+          this.setState({
+            chartsData: response,
+            propSearch: value,
+          })
+        }
+      }
+    })
     dispatch({
       type: 'knowledge/getAttribute',
       payload: value,
-      callback: (response) => {},
-    });
-  };
+      callback: (response) => {
+        if (response !== null) {
+          this.setState({
+            detailData: response,
+          })
+        }
+      }
+    })
+  }
+
   onInformation = (childEvent) => {
     return (
       <Spin spinning={this.state.loading}>
-        {Object.keys(childEvent).length !== 0 ? (
-          <Row>
-            <Col span={15}>在开发</Col>
-            <Col span={9}>
-              <Information childEvent={childEvent} />
-            </Col>
-          </Row>
-        ) : (
-          Emptying
-        )}
+        {
+          Object.keys(childEvent).length !== 0 && this.state.chartsData.length !== 0 && this.state.detailData.length !== 0 ?
+            <Row>
+              <Col span={15}>
+                待开发
+              </Col>
+              <Col span={9}>
+                <Information childEvent={childEvent}
+                             chartsData={this.state.chartsData}
+                             detailData={this.state.detailData}
+                             propSearch={this.state.propSearch}/>
+              </Col>
+            </Row>
+            : Emptying
+        }
       </Spin>
-    );
-  };
+    )
+  }
 
   render() {
-    const {
-      state,
-      allEvent,
-      back: { childEvent, people },
-    } = this.props;
+    const {state, allEvent, back: {childEvent, people}} = this.props
     return (
       <div className={styles.search}>
-        <Input
-          size={'large'}
-          className={styles.input}
-          placeholder={state === 'event' ? '请输入事件实体：' : '请输入人物实体：'}
-          allowClear
-          onChange={this.onChange}
-        />
-        <Button
-          type="primary"
-          className={styles.button}
-          size={'large'}
-          onClick={() => this.handleSearch(this.state.searchValue)}
-        >
-          开始检索呀
-        </Button>
-        {state === 'event' ? (
-          <Row>
+        <Input size={"large"}
+               className={styles.input}
+               placeholder={state === 'event' ? "请输入事件实体：" : "请输入人物实体："}
+               allowClear
+               onChange={this.onChange}/>
+        <Button type="primary"
+                className={styles.button}
+                size={"large"}
+                onClick={() => this.handleSearch(this.state.searchValue)}>开始检索</Button>
+        {
+          state === "event" ? <Row>
             <Col span={4} className={styles.timeLine}>
-              <Timeline className={styles.time} mode={'left'}>
-                {allEvent.map((item, index) => {
-                  return (
-                    <Timeline.Item
-                      key={index}
-                      dot={<SearchOutlined style={{ fontSize: '20px' }} />}
-                    >
-                      <p className={styles.detail} onClick={() => this.handleSearch(item.title)}>
-                        {item.title}
-                        <br />
-                        {item.time.substr(1)}
-                      </p>
-                    </Timeline.Item>
-                  );
-                })}
+              <Timeline className={styles.time} mode={"left"}>
+                {
+                  allEvent.map((item, index) => {
+                    return (
+                      <Timeline.Item key={index} dot={<SearchOutlined style={{fontSize: '20px'}}/>}>
+                        <p className={styles.detail} onClick={() => this.handleSearch(item.title)}>
+                          {item.title}<br/>{item.time.substr(1)}</p>
+                      </Timeline.Item>
+                    )
+                  })
+                }
               </Timeline>
             </Col>
-            <Col span={20}>{this.onInformation(childEvent)}</Col>
-          </Row>
-        ) : (
-          this.onInformation(people)
-        )}
+            <Col span={20}>
+              {this.onInformation(childEvent)}
+            </Col>
+          </Row> : this.onInformation(people)
+        }
       </div>
     );
   }
