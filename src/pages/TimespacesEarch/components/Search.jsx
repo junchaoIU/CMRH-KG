@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
-import { Select, Input, Col, Row, Button } from 'antd';
+import React,{ PureComponent } from 'react';
+import { Select,Input,Col,Spin,Button } from 'antd';
 import styles from '../index.less';
 import { SearchOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
 import Information from './Information';
 
-@connect(({ timeSpaces, loading }) => ({
+@connect(({ timeSpaces,loading }) => ({
   timeSpaces,
-  submitting: loading.effects['timeSpaces/timespaces'],
+  submitting: loading.effects['timeSpaces/timeSpaces'],
 }))
 class search extends PureComponent {
   state = {
@@ -23,26 +23,28 @@ class search extends PureComponent {
       current: 1,
     },
   };
-  componentDidMount() {
-    const { parentValue1, parentValue2, mode } = this.props;
-    this.setState({
-      value1: parentValue1,
-      value2: parentValue2,
-      mode: mode,
-    });
-    console.log(mode);
-    switch (mode) {
-      case time:
-        this.fetchData1;
-        break;
-      case times:
-        this.fetchData2;
-        break;
-      case space:
-        this.fetchData4;
-        break;
-      default:
-        this.fetchData5;
+
+  componentDidMount(){
+    const { parentValue1,parentValue2,mode } = this.props;
+    if(parentValue1!==""||parentValue2!==""){
+      this.setState({
+        value1: parentValue1,
+        value2: parentValue2,
+        mode: mode,
+      });
+      switch (mode) {
+        case "time":
+          this.fetchData1(parentValue1);
+          break;
+        case "times":
+          this.fetchData2(parentValue1,parentValue2);
+          break;
+        case "space":
+          this.fetchData4(parentValue1);
+          break;
+        default:
+          this.fetchData5(parentValue1,parentValue2);
+      }
     }
   }
 
@@ -59,9 +61,9 @@ class search extends PureComponent {
     });
   };
 
-  fetchData1 = () => {
+  fetchData1 = (value) => {
     const { dispatch } = this.props;
-    this.setState({
+     this.setState({
       page: {
         minValue: 0,
         maxValue: 8,
@@ -70,9 +72,9 @@ class search extends PureComponent {
     });
     dispatch({
       type: 'timeSpaces/getTimeRecallDetail',
-      payload: this.state.value1,
+      payload: value !== null ? value : this.state.value1,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             information: response,
           });
@@ -80,14 +82,17 @@ class search extends PureComponent {
     });
     dispatch({
       type: 'timeSpaces/getTimeDetail',
-      payload: this.state.value1,
+      payload: value !== null ? value : this.state.value1,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             relation: response,
           });
       },
     });
+    this.setState({
+      loading:false
+    })
   };
 
   valueChange2 = (e) => {
@@ -101,7 +106,7 @@ class search extends PureComponent {
     });
   };
 
-  fetchData2 = () => {
+  fetchData2 = (value1,value2) => {
     const { dispatch } = this.props;
     this.setState({
       page: {
@@ -111,14 +116,14 @@ class search extends PureComponent {
       },
     });
     const data = {
-      time1: parseInt(this.state.value1.replace(/年/, '0000')),
-      time2: parseInt(this.state.value2.replace(/年/, '0000')),
+      time1: value1 !== null ? parseInt(value1.replace(/年/,'0000')) : parseInt(this.state.value1.replace(/年/,'0000')),
+      time2: value2 !== null ? parseInt(value2.replace(/年/,'0000')) : parseInt(this.state.value2.replace(/年/,'0000'))
     };
     dispatch({
       type: 'timeSpaces/getPeriodTimeRecallDetail',
       payload: data,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             information: response,
           });
@@ -128,7 +133,7 @@ class search extends PureComponent {
       type: 'timeSpaces/getPeriodTime',
       payload: data,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             relation: response,
           });
@@ -142,7 +147,7 @@ class search extends PureComponent {
     });
   };
 
-  fetchData4 = () => {
+  fetchData4 = (value) => {
     const { dispatch } = this.props;
     this.setState({
       page: {
@@ -153,9 +158,9 @@ class search extends PureComponent {
     });
     dispatch({
       type: 'timeSpaces/getSpaceRecallDetail',
-      payload: this.state.value1,
+      payload: value !== null ? value : this.state.value1,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             information: response,
           });
@@ -163,9 +168,9 @@ class search extends PureComponent {
     });
     dispatch({
       type: 'timeSpaces/getSpace',
-      payload: this.state.value1,
+      payload: value !== null ? value : this.state.value1,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             relation: response,
           });
@@ -182,7 +187,7 @@ class search extends PureComponent {
       value2: e.target.value,
     });
   };
-  fetchData5 = () => {
+  fetchData5 = (value1,value2) => {
     const { dispatch } = this.props;
     this.setState({
       page: {
@@ -192,14 +197,14 @@ class search extends PureComponent {
       },
     });
     const data = {
-      time: this.state.value1,
-      space: this.state.value2,
+      time: value1 !== null ? value1 : this.state.value1,
+      space: value2 !== null ? value2 : this.state.value2,
     };
     dispatch({
       type: 'timeSpaces/getTimeSpaceRecallDetail',
       payload: data,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             information: response,
           });
@@ -209,7 +214,7 @@ class search extends PureComponent {
       type: 'timeSpaces/getTimeSpace',
       payload: data,
       callback: (response) => {
-        if (response !== null)
+        if(response !== null)
           this.setState({
             relation: response,
           });
@@ -217,19 +222,20 @@ class search extends PureComponent {
     });
   };
   handleChangePage = (value) => {
-    if (value <= 1) {
+    if(value <= 1) {
       this.setState({
-        page: { minValue: 0, maxValue: 8, current: 1 },
+        page: { minValue: 0,maxValue: 8,current: 1 },
       });
     } else {
       this.setState({
-        page: { minValue: (value - 1) * 8, maxValue: (value - 1) * 8 + 8, current: value },
+        page: { minValue: (value - 1) * 8,maxValue: (value - 1) * 8 + 8,current: value },
       });
     }
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   };
-  render() {
-    const { mode, information, relation, page } = this.state;
+
+  render(){
+    const { mode,information,relation,page } = this.state;
     return (
       <div className={styles.outside}>
         <div className={styles.search}>
@@ -253,7 +259,7 @@ class search extends PureComponent {
                   type="primary"
                   icon={<SearchOutlined />}
                   size={'large'}
-                  onClick={this.fetchData1}
+                  onClick={() => this.fetchData1(null)}
                 >
                   时空检索
                 </Button>
@@ -279,7 +285,7 @@ class search extends PureComponent {
                   type="primary"
                   icon={<SearchOutlined />}
                   size={'large'}
-                  onClick={this.fetchData2}
+                  onClick={() => this.fetchData2(null,null)}
                 >
                   时空检索
                 </Button>
@@ -297,7 +303,7 @@ class search extends PureComponent {
                   type="primary"
                   icon={<SearchOutlined />}
                   size={'large'}
-                  onClick={this.fetchData4}
+                  onClick={() => this.fetchData4(null)}
                 >
                   时空检索
                 </Button>
@@ -308,7 +314,7 @@ class search extends PureComponent {
                   onChange={this.valueChange5}
                   size={'large'}
                   value={this.state.value1}
-                  style={{ width: 220, marginRight: '5px' }}
+                  style={{ width: 220,marginRight: '5px' }}
                   placeholder="时间点：(例如：1911年4月)"
                 />
                 <Input
@@ -322,7 +328,7 @@ class search extends PureComponent {
                   type="primary"
                   size={'large'}
                   icon={<SearchOutlined />}
-                  onClick={this.fetchData5}
+                  onClick={() => this.fetchData5(null,null)}
                 >
                   时空检索
                 </Button>
@@ -330,13 +336,13 @@ class search extends PureComponent {
             )}
           </div>
         </div>
-        <Information
-          detail={information}
-          relation={relation}
-          mode={mode}
-          handleChangePage={this.handleChangePage}
-          page={page}
-        />
+          <Information
+            detail={information}
+            relation={relation}
+            mode={mode}
+            handleChangePage={this.handleChangePage}
+            page={page}
+          />
       </div>
     );
   }

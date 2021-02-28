@@ -10,7 +10,7 @@ import {
   EnvironmentTwoTone,
   CloudTwoTone
 } from '@ant-design/icons';
-
+import Emptys from '../../../components/Empty/index';
 const Emptying =
   <Empty
     style={{ height: '500px' }}
@@ -228,7 +228,7 @@ class information extends PureComponent {
                   </Tabs.TabPane>
                 </Tabs>
               </Col>
-            </Row> : Emptying
+            </Row> : (<Emptys/>)
         }
       </div>
     )
