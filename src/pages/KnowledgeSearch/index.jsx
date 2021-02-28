@@ -38,11 +38,11 @@ class knowledgeSearch extends PureComponent {
   };
 
   render(){
-    const {searchValue}=this.state
+    const {searchValue,val}=this.state
     return (
       <PageContainer>
         {
-          this.state.val === true ? <div className={styles.indexSearch}>
+         val === true ? <div className={styles.indexSearch}>
             <Row className={styles.top}>
               <Col span={10} className={styles.icon}>
                 <FileSearchOutlined  />

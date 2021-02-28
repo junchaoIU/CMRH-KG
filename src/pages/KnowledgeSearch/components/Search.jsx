@@ -23,18 +23,20 @@ class search extends PureComponent {
 
   componentDidMount() {
     const { parentSearch } = this.props;
-    if (typeof parentSearch === 'string') {
-      const arr = [];
-      arr[0] = parentSearch;
-      this.setState({
-        searchValue: arr,
-      });
-      this.handleSearch(arr);
-    } else {
-      this.setState({
-        searchValue: parentSearch,
-      });
-      this.handleSearch(parentSearch);
+    if(parentSearch.length!==0){
+      if (typeof parentSearch === 'string') {
+        const arr = [];
+        arr[0] = parentSearch;
+        this.setState({
+          searchValue: arr,
+        });
+        this.handleSearch(arr);
+      } else {
+        this.setState({
+          searchValue: parentSearch,
+        });
+        this.handleSearch(parentSearch);
+      }
     }
   }
 

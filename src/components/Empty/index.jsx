@@ -11,7 +11,7 @@ const Empty = () => {
       </Col>
       <Col span={8}>
         <DeploymentUnitOutlined className={styles.icon2} />
-        <p className={styles.text}>构建知识图谱</p>
+        <p className={styles.text}>暂无数据</p>
       </Col>
       <Col span={8}>
         <ShareAltOutlined className={styles.icon3} />
