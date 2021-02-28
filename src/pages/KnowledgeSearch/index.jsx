@@ -57,7 +57,7 @@ class knowledgeSearch extends PureComponent {
               className={styles.cascader}
               options={catalogData}
               onChange={this.onChange}
-              placeholder="请选择或输入检索的知识点"
+              placeholder="请选择或输入检索的知识点吧"
               displayRender={this.displayRender}
               size="large"
               showSearch={{ filter: this.filter,matchInputWidth: false }}
