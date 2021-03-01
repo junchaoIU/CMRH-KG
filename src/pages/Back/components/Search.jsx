@@ -17,7 +17,6 @@ import { SearchOutlined } from '@ant-design/icons';
 class search extends PureComponent {
   state = {
     searchValue: '',
-    loading: false,
     detailData: [],
     chartsData: [],
     propSearch: [],
@@ -78,8 +77,9 @@ class search extends PureComponent {
 
   onInformation = (childEvent) => {
     const { loading } = this.props;
+    const loadings = loading === undefined ? false : loading;
     return (
-      <Spin spinning={loading}>
+      <Spin spinning={loadings}>
         {Object.keys(childEvent).length !== 0 &&
         this.state.chartsData.length !== 0 &&
         this.state.detailData.length !== 0 ? (
