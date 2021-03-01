@@ -25,10 +25,10 @@ const GlobalHeaderRight = (props) => {
         <a
           style={{
             color: 'inherit',
-            fontSize:'22px'
+            fontSize: '22px',
           }}
-          target="_blank"
-          href="https://pro.ant.design/docs/getting-started"
+          // target="_blank"
+          // href="https://pro.ant.design/docs/getting-started"
           rel="noopener noreferrer"
           className={styles.action}
         >
