@@ -9,7 +9,7 @@
     "deploy": "npm run site && npm run gh-pages",
     "dev": "npm run start:dev",
     "fetch:blocks": "pro fetch-blocks && npm run prettier",
-    "gh-pages": "gh-pages -d dist",
+    "gh-pages": "gh-pagr'res -d dist",
     "i18n-remove": "pro i18n-remove --locale=zh-CN --write",
     "postinstall": "umi g tmp",
     "lint": "umi g tmp && npm run lint:js && npm run lint:style && npm run lint:prettier",

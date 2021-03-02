@@ -6,7 +6,7 @@
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { Link, useIntl, connect, history } from 'umi';
-import { Result, Button,Layout  } from 'antd';
+import { Result, Button, Layout } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getMatchMenu } from '@umijs/route-utils';
@@ -38,6 +38,7 @@ const menuDataRender = (menuList) =>
   });
 const defaultFooterDom = (
   <DefaultFooter
+    style={{ background: '#60c3ffa6' }}
     copyright={`${new Date().getFullYear()} 北京师范大学珠海分校管理学院`}
     links={[]}
   />
@@ -126,7 +127,7 @@ const BasicLayout = (props) => {
       }}
     >
       {/*<Authorized authority={authorized.authority} noMatch={noMatch}>*/}
-        {children}
+      {children}
       {/*</Authorized>*/}
     </ProLayout>
   );
