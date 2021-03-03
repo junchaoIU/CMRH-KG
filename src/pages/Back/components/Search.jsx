@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Input, Spin, Button, Timeline, Col, Row } from 'antd';
+import { Input, Spin, Button, Timeline, Col, Row, message } from 'antd';
 import styles from '../index.less';
 import Information from '../components/Information';
 import { connect } from 'dva';
@@ -55,10 +55,14 @@ class search extends PureComponent {
       payload: value,
       callback: (response) => {
         if (response !== null) {
+          console.log(response.length);
           this.setState({
             chartsData: response,
             propSearch: value,
           });
+        }
+        if (response.length === 0) {
+          message.warning('找不到您检索的实体！');
         }
       },
     });

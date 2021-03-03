@@ -1,7 +1,8 @@
 @import '../../../node_modules/antd/lib/style/themes/default.less';
-.header{
-  letter-spacing:2px;
+
+.header {
   width: 100%;
+  letter-spacing: 2px;
   text-align: center;
   background-image: linear-gradient(to top, #2cbafe 0%, white 100%);
   border-radius: 0 0 15% 15%;
@@ -12,68 +13,67 @@
     font-size: 60px;
     line-height: 1.23;
   }
-  .text{
+  .text {
     margin: 1em;
+    color: #6b7073;
     font-size: 20px;
-    color:#6b7073;
   }
 }
 .knowledge {
-  letter-spacing:2px;
-  height: 58px;
-  width: 100%;
   display: inline-block;
-  color: #141a27;
+  width: 100%;
+  height: 58px;
+  margin: 20px 0;
   padding: 0;
-  text-align: center;
+  overflow: hidden;
+  color: #141a27;
   font-size: 26px;
   line-height: 58px;
-  overflow: hidden;
+  letter-spacing: 2px;
   white-space: nowrap;
+  text-align: center;
   text-overflow: ellipsis;
-  margin: 20px 0;
 }
-.minCard{
-  letter-spacing:2px;
+.minCard {
+  letter-spacing: 2px;
   box-shadow: 3px 10px 10px #d6e7f6;
-  .cardTitle{
-    text-align: center;
+  .cardTitle {
+    font-weight: 500;
     font-size: 20px;
-    font-weight: 500
+    text-align: center;
   }
-  .cardNum{
-    text-align:center;
-    font-size: 25px;
-    margin-bottom:0;
+  .cardNum {
+    margin-bottom: 0;
     color: #00a2d7;
-    font-weight: 700
+    font-weight: 700;
+    font-size: 25px;
+    text-align: center;
   }
 }
-.service{
-  background-image: linear-gradient(to right, white 0%,#2cbafe29 48%, white 100%);
-  letter-spacing:2px;
-  margin: 20px 9%;
+.service {
   display: block;
-  .iconDiv{
-    float:left;
-    width:20%;
-    .icon{
+  margin: 20px 9%;
+  letter-spacing: 2px;
+  background-image: linear-gradient(to right, white 0%, #2cbafe29 48%, white 100%);
+  .iconDiv {
+    float: left;
+    width: 20%;
+    .icon {
+      float: right;
       margin: 5% 10% 0 0;
-      float:right;
+      color: #00a2d7;
       font-size: 80px;
-      color:#00a2d7;
     }
   }
-  .contentDiv{
-    float:left;
-    width:70%;
-    .title{
+  .contentDiv {
+    float: left;
+    width: 70%;
+    .title {
       font-size: 20px;
     }
-    .content{
-      line-height: 22px;
+    .content {
       color: #2b6c81;
+      line-height: 22px;
     }
   }
-
 }

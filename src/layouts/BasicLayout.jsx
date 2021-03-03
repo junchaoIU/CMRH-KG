@@ -86,9 +86,10 @@ const BasicLayout = (props) => {
     <ProLayout
       logo={<img style={{ height: '68px' }} src={logo} />}
       formatMessage={formatMessage}
-      contentStyle={{ margin: 0, background: 'white' }}
+      contentStyle={{ background: 'white', margin: '0' }}
       {...props}
       {...settings}
+      disableContentMargin={true}
       onCollapse={handleMenuCollapse}
       onMenuHeaderClick={() => history.push('/')}
       menuItemRender={(menuItemProps, defaultDom) => {

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Select, Input, Col, Spin, Button } from 'antd';
+import { Select, Input, message, Spin, Button } from 'antd';
 import styles from '../index.less';
 import { SearchOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
@@ -97,6 +97,9 @@ class search extends PureComponent {
               this.setState({
                 information: response,
               });
+            if (response.length === 0) {
+              message.warning('找不到您检索的时间点！');
+            }
           },
         });
         dispatch({
@@ -129,6 +132,9 @@ class search extends PureComponent {
               this.setState({
                 information: response,
               });
+            if (response.length === 0) {
+              message.warning('找不到您检索的时间段！');
+            }
           },
         });
         dispatch({
@@ -151,6 +157,9 @@ class search extends PureComponent {
               this.setState({
                 information: response,
               });
+            if (response.length === 0) {
+              message.warning('找不到您检索的地点！');
+            }
           },
         });
         dispatch({
@@ -177,6 +186,9 @@ class search extends PureComponent {
               this.setState({
                 information: response,
               });
+            if (response.length === 0) {
+              message.warning('找不到您检索的时空！');
+            }
           },
         });
         dispatch({
