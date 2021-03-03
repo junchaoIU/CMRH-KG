@@ -84,8 +84,9 @@ const BasicLayout = (props) => {
   const { formatMessage } = useIntl();
   return (
     <ProLayout
-      logo={logo}
+      logo={<img style={{ height: '68px' }} src={logo} />}
       formatMessage={formatMessage}
+      contentStyle={{ margin: 0, background: 'white' }}
       {...props}
       {...settings}
       onCollapse={handleMenuCollapse}
