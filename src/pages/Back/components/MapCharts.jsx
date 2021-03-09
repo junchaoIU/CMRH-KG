@@ -28,8 +28,9 @@ class mapCharts extends PureComponent {
         map: 'haha',
         show: true,
         aspectScale: 0.75, //长宽比
-        zoom: 1,
-        roam: 'scale',
+        center: [123.85247350046755, 43.913703494916476], //当前视角的中心点
+        zoom: 10,
+        roam: true,
         label: {
           normal: {
             show: true,
@@ -178,7 +179,7 @@ class mapCharts extends PureComponent {
   };
 
   render() {
-    return <div id="main" style={{ width: '100%', height: '600px' }}></div>;
+    return <div id="main" style={{ width: '100%', height: '598px' }}></div>;
   }
 }
 

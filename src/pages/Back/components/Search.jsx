@@ -88,7 +88,9 @@ class search extends PureComponent {
         this.state.chartsData.length !== 0 &&
         this.state.detailData.length !== 0 ? (
           <Row>
-            <Col span={15}></Col>
+            <Col span={15}>
+              <MapCharts />
+            </Col>
             <Col span={9}>
               <Information
                 childEvent={childEvent}
@@ -149,10 +151,7 @@ class search extends PureComponent {
                 })}
               </Timeline>
             </Col>
-            <Col span={14}>
-              <MapCharts />
-            </Col>
-            <Col span={6}>{this.onInformation(childEvent)}</Col>
+            <Col span={20}>{this.onInformation(childEvent)}</Col>
           </Row>
         ) : (
           this.onInformation(people)

@@ -41,7 +41,7 @@ class eventBack extends PureComponent {
     } = this.props;
     const { val, searchValue } = this.state;
     return (
-      <PageContainer>
+      <div style={{ margin: '24px 2px 0' }}>
         {val === true ? (
           <div className={styles.indexSearch}>
             <Row className={styles.top}>
@@ -67,7 +67,7 @@ class eventBack extends PureComponent {
         ) : (
           <Search state={'event'} allEvent={allEvent} parentSearch={searchValue} />
         )}
-      </PageContainer>
+      </div>
     );
   }
 }
