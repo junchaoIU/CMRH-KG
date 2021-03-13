@@ -3,19 +3,47 @@ import * as echarts from 'echarts';
 import geoJson from '../map.json';
 
 class mapCharts extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: props.childEvents,
+    };
+  }
+
   componentDidMount() {
     const myChart = echarts.init(document.getElementById('main'));
     this.handleOptions(myChart);
   }
-
+  componentWillReceiveProps(nextProps) {
+    setTimeout(() => {
+      if (nextProps.childEvents !== this.props.childEvents) {
+        this.setState({
+          data: nextProps.childEvents,
+        });
+      }
+    }, 200);
+  }
   handleOptions = (myChart) => {
-    echarts.registerMap('haha', geoJson);
-    const positionData = [
-      [127.2808389302688, 42.30988722890512, '吉林省白山市抚松县'],
-      [125.94983637920117, 42.890404601870685, '西兴隆互通S至一座营互通门架'],
-      [125.913469599092, 41.43548701609915, '清河互通至五女峰互通门架'],
-      [123.85247350046755, 43.913703494916476, '兴隆互通至新安互通门架'],
-    ];
+    const {
+      data: { series },
+    } = this.state;
+    const positionData = [];
+    const maxL = [];
+    series.map((item) => {
+      const longitude = item[0][2].split(',');
+      longitude.push(`${item[0][1]}`);
+      maxL.push(longitude[0]);
+      positionData.push(longitude);
+    });
+    console.log(maxL);
+    const center = positionData[0].slice(0, -1);
+    echarts.registerMap('route', geoJson);
+    // const positionData = [
+    //   [127.2808389302688, 42.30988722890512, '吉林省白山市抚松县'],
+    //   [125.94983637920117, 42.890404601870685, '西兴隆互通S至一座营互通门架'],
+    //   [125.913469599092, 41.43548701609915, '清河互通至五女峰互通门架'],
+    //   [123.85247350046755, 43.913703494916476, '兴隆互通至新安互通门架'],
+    // ];
     const len = positionData.length - 1;
     const coorData = [];
     positionData.forEach((item) => {
@@ -25,11 +53,11 @@ class mapCharts extends PureComponent {
     myChart.setOption({
       backgroundColor: '#013954', // #013954,
       geo: {
-        map: 'haha',
+        map: 'route',
         show: true,
         aspectScale: 0.75, //长宽比
-        center: [123.85247350046755, 43.913703494916476], //当前视角的中心点
-        zoom: 10,
+        center: center, //当前视角的中心点
+        zoom: 3,
         roam: true,
         label: {
           normal: {

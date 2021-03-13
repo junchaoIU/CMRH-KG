@@ -89,7 +89,7 @@ class search extends PureComponent {
         this.state.detailData.length !== 0 ? (
           <Row>
             <Col span={15}>
-              <MapCharts />
+              <MapCharts childEvents={childEvent} />
             </Col>
             <Col span={9}>
               <Information
