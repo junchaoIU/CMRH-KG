@@ -149,10 +149,10 @@ class information extends PureComponent {
                     <div className={styles.bookImage}>
                       <img
                         style={{ height: '100px' }}
-                        src={`http://39.101.193.14:2222//book/${item.fileName}.png`}
+                        src={`http://gzknowledge.cn:2222/book/${item.bookName}${item.bookAuthor}.png`}
                       />
                     </div>
-                    <p>{item.fileName}</p>
+                    <p>{item.bookName}</p>
                     <p>简介</p>
                     <Button type={'primary'} value={index} onClick={this.showDrawer}>
                       查看详情
@@ -255,7 +255,7 @@ class information extends PureComponent {
                     {this.onSubstance()}
                   </Drawer>
                   <Drawer
-                    title={this.state.drawer.fileName}
+                    title={this.state.drawer.bookName}
                     placement="left"
                     closable={false}
                     width={'50%'}
@@ -264,7 +264,7 @@ class information extends PureComponent {
                   >
                     <p
                       style={{ letterSpacing: '1px' }}
-                      dangerouslySetInnerHTML={{ __html: this.state.drawer.content }}
+                      dangerouslySetInnerHTML={{ __html: this.state.drawer.bookContent }}
                     />
                   </Drawer>
                 </Tabs.TabPane>

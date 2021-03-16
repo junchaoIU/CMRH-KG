@@ -14,7 +14,6 @@ class mapCharts extends PureComponent {
     const myChart = echarts.init(document.getElementById('main'));
     this.handleOptions(myChart);
   }
-
   componentWillReceiveProps(nextProps) {
     setTimeout(() => {
       if (nextProps.childEvents !== this.props.childEvents) {
@@ -24,50 +23,10 @@ class mapCharts extends PureComponent {
       }
     }, 200);
   }
-
   handleOptions = (myChart) => {
     const {
       data: { series },
     } = this.state;
-    const geodata = [];
-    const copy = (obj) => {
-      const newobj = obj.constructor === Array ? [] : {};
-      if (typeof obj !== 'object') {
-        return;
-      }
-      for (const i in obj) {
-        newobj[i] = typeof obj[i] === 'object' ? copy(obj[i]) : obj[i];
-      }
-      return newobj;
-    };
-    const first = copy(series);
-    const end = copy(series);
-    first.pop();
-    end.shift();
-    for (let i = 0; i < first.length; i++) {
-      if (i === 0) {
-        geodata.push({
-          date: series[i][0][0],
-          geo: [{ name: series[i][0][1], value: series[i][0][2].split(',', 2) }],
-          moveline: [],
-        });
-      }
-      geodata.push({
-        date: first[i][0][0],
-        geo: [
-          { name: first[i][0][1], value: first[i][0][2].split(',', 2) },
-          { name: end[i][0][1], value: end[i][0][2].split(',', 2) },
-        ],
-        moveline: [
-          {
-            coords: [first[i][0][2].split(',', 2), end[i][0][2].split(',', 2)],
-            fromName: first[i][0][1],
-            toName: end[i][0][1],
-          },
-        ],
-      });
-    }
-    console.log(geodata);
     const positionData = [];
     const maxL = [];
     series.map((item) => {
