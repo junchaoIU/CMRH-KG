@@ -55,7 +55,6 @@ class search extends PureComponent {
       payload: value,
       callback: (response) => {
         if (response !== null) {
-          console.log(response.length);
           this.setState({
             chartsData: response,
             propSearch: value,
