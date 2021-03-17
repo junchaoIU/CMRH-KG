@@ -1,39 +1,42 @@
-import React, { PureComponent } from 'react';
+import React,{ Component } from 'react';
 import * as echarts from 'echarts';
 import geoJson from '../map.json';
 
-class mapCharts extends PureComponent {
-  constructor(props) {
+class mapCharts extends Component {
+  constructor(props){
     super(props);
     this.state = {
       data: props.childEvents,
     };
   }
 
-  componentDidMount() {
-    const myChart = echarts.init(document.getElementById('main'));
-    this.handleOptions(myChart);
+  componentDidMount(){
+    this.handleOptions();
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //     if (nextProps.childEvents !== this.props.childEvents) {
-  //       this.setState({
-  //         data: nextProps.childEvents
-  //       });
-  //     }
-  // }
+  componentDidUpdate(){
+    this.handleOptions();
+  }
 
-  handleOptions = (myChart) => {
+  componentWillReceiveProps(nextProps){
+    if(nextProps.childEvents !== this.props.childEvents) {
+      this.setState({
+        data: nextProps.childEvents
+      });
+    }
+  }
+
+  handleOptions = () => {
+    const myChart = echarts.init(document.getElementById('main'));
     const {
       data: { series },
     } = this.state;
-    console.log(series);
-    echarts.registerMap('route', geoJson);
+    echarts.registerMap('route',geoJson);
     const geodata = [];
     // 数组对象浅拷贝
     const copy = (obj) => {
       const newobj = obj.constructor === Array ? [] : {};
-      if (typeof obj !== 'object') {
+      if(typeof obj !== 'object') {
         return;
       }
       for (const i in obj) {
@@ -45,32 +48,31 @@ class mapCharts extends PureComponent {
     const end = copy(series);
     first.pop();
     end.shift();
-    // console.log(first)
-
     // 地图数据结构
     for (let i = 0; i < first.length; i++) {
-      if (i === 0) {
+      if(i === 0) {
         geodata.push({
           date: series[i][0][0],
-          geo: [{ name: series[i][0][1], value: series[i][0][2].split(',', 2) }],
+          geo: [{ name: series[i][0][1],value: series[i][0][2].split(',',2),event: series[i][0][4] }],
           moveline: [],
         });
       }
       geodata.push({
         date: end[i][0][0],
         geo: [
-          { name: first[i][0][1], value: first[i][0][2].split(',', 2) },
-          { name: end[i][0][1], value: end[i][0][2].split(',', 2) },
+          { name: first[i][0][1],value: first[i][0][2].split(',',2),event: first[i][0][4] },
+          { name: end[i][0][1],value: end[i][0][2].split(',',2),event: end[i][0][4] },
         ],
         moveline: [
           {
-            coords: [first[i][0][2].split(',', 2), end[i][0][2].split(',', 2)],
+            coords: [first[i][0][2].split(',',2),end[i][0][2].split(',',2)],
             fromName: first[i][0][1],
             toName: end[i][0][1],
           },
         ],
       });
     }
+    console.log(geodata)
     const option = {
       baseOption: {
         timeline: {
@@ -94,16 +96,6 @@ class mapCharts extends PureComponent {
           },
         ],
         backgroundColor: '#013954',
-        // title: [{
-        //   text: geodata[0].date,
-        //   textAlign: 'center',
-        //   left: '50%',
-        //   top: '90%',
-        //   textStyle: {
-        //     fontSize: 20,
-        //     color: 'rgba(255, 255, 255, 0.7)'
-        //   }
-        // }],
         geo: {
           map: 'route',
           show: true,
@@ -165,15 +157,18 @@ class mapCharts extends PureComponent {
               brushType: 'fill',
             },
             hoverAnimation: true,
-            label: {
-              normal: {
-                formatter: '{b}',
-                position: 'right',
-                offset: [15, 0],
-                color: '#4ab2e5',
-                show: true,
-              },
-            },
+            // label: {
+            //   normal: {
+            //     formatter: function(params){
+            //       console.log(params)
+            //       return params.name+':'+params.data.event
+            //     },
+            //     position: 'right',
+            //     offset: [15,0],
+            //     color: '#4ab2e5',
+            //     show: true,
+            //   },
+            // },
             itemStyle: {
               normal: {
                 color: '#4ab2e5',
@@ -209,7 +204,6 @@ class mapCharts extends PureComponent {
               },
             },
             polyline: true,
-            label: {},
             data: geodata[0].moveline,
           },
         ],
@@ -238,13 +232,21 @@ class mapCharts extends PureComponent {
               scale: 4,
               brushType: 'fill',
             },
+            avoidLabelOverlap: true, // 解决标签重叠
             hoverAnimation: true,
             label: {
               normal: {
-                formatter: '{b}',
+                formatter: function(params){
+                  console.log(params)
+                  return `${params.name}\n${params.data.event}`
+                },
+                lineHeight: 20,
+                backgroundColor:'rgba(255,245,250,0.9)',
+                borderColor:'#bafdad',
+                borderWidth:'1',
                 position: 'right',
-                offset: [15, 0],
-                color: '#4ab2e5',
+                offset: [15,0],
+                color: '#613bff',
                 show: true,
               },
             },
@@ -265,16 +267,6 @@ class mapCharts extends PureComponent {
             coordinateSystem: 'geo',
             data: geodata[n].geo,
             symbolSize: 16,
-            label: {
-              normal: {
-                formatter: '{b}',
-                position: 'right',
-                show: true,
-              },
-              emphasis: {
-                show: true,
-              },
-            },
             itemStyle: {
               normal: {
                 color: '#F4E925',
@@ -312,8 +304,8 @@ class mapCharts extends PureComponent {
     myChart.setOption(option);
   };
 
-  render() {
-    return <div id="main" style={{ width: '100%', height: '598px' }}></div>;
+  render(){
+    return <div id="main" style={{ width: '100%',height: '598px' }}></div>;
   }
 }
 
