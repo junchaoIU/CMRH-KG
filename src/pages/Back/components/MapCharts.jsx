@@ -1,27 +1,27 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import * as echarts from 'echarts';
 import geoJson from '../map.json';
 
 class mapCharts extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       data: props.childEvents,
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.handleOptions();
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     this.handleOptions();
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.childEvents !== this.props.childEvents) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.childEvents !== this.props.childEvents) {
       this.setState({
-        data: nextProps.childEvents
+        data: nextProps.childEvents,
       });
     }
   }
@@ -31,12 +31,12 @@ class mapCharts extends Component {
     const {
       data: { series },
     } = this.state;
-    echarts.registerMap('route',geoJson);
+    echarts.registerMap('route', geoJson);
     const geodata = [];
     // 数组对象浅拷贝
     const copy = (obj) => {
       const newobj = obj.constructor === Array ? [] : {};
-      if(typeof obj !== 'object') {
+      if (typeof obj !== 'object') {
         return;
       }
       for (const i in obj) {
@@ -50,29 +50,31 @@ class mapCharts extends Component {
     end.shift();
     // 地图数据结构
     for (let i = 0; i < first.length; i++) {
-      if(i === 0) {
+      if (i === 0) {
         geodata.push({
           date: series[i][0][0],
-          geo: [{ name: series[i][0][1],value: series[i][0][2].split(',',2),event: series[i][0][4] }],
+          geo: [
+            { name: series[i][0][1], value: series[i][0][2].split(',', 2), event: series[i][0][4] },
+          ],
           moveline: [],
         });
       }
       geodata.push({
         date: end[i][0][0],
         geo: [
-          { name: first[i][0][1],value: first[i][0][2].split(',',2),event: first[i][0][4] },
-          { name: end[i][0][1],value: end[i][0][2].split(',',2),event: end[i][0][4] },
+          { name: first[i][0][1], value: first[i][0][2].split(',', 2), event: first[i][0][4] },
+          { name: end[i][0][1], value: end[i][0][2].split(',', 2), event: end[i][0][4] },
         ],
         moveline: [
           {
-            coords: [first[i][0][2].split(',',2),end[i][0][2].split(',',2)],
+            coords: [first[i][0][2].split(',', 2), end[i][0][2].split(',', 2)],
             fromName: first[i][0][1],
             toName: end[i][0][1],
           },
         ],
       });
     }
-    console.log(geodata)
+    console.log(geodata);
     const option = {
       baseOption: {
         timeline: {
@@ -157,18 +159,6 @@ class mapCharts extends Component {
               brushType: 'fill',
             },
             hoverAnimation: true,
-            // label: {
-            //   normal: {
-            //     formatter: function(params){
-            //       console.log(params)
-            //       return params.name+':'+params.data.event
-            //     },
-            //     position: 'right',
-            //     offset: [15,0],
-            //     color: '#4ab2e5',
-            //     show: true,
-            //   },
-            // },
             itemStyle: {
               normal: {
                 color: '#4ab2e5',
@@ -236,18 +226,33 @@ class mapCharts extends Component {
             hoverAnimation: true,
             label: {
               normal: {
-                formatter: function(params){
-                  console.log(params)
-                  return `${params.name}\n${params.data.event}`
+                formatter: function (params) {
+                  return `${params.name}\n${params.data.event}`;
                 },
                 lineHeight: 20,
-                backgroundColor:'rgba(255,245,250,0.9)',
-                borderColor:'#bafdad',
-                borderWidth:'1',
+                backgroundColor: '#003F5E',
+                borderRadius: 5,
+                borderColor: '#67F0EF',
+                borderWidth: 1,
+                color: '#67F0EF',
                 position: 'right',
-                offset: [15,0],
-                color: '#613bff',
+                offset: [15, 0],
+                padding: [4, 8],
                 show: true,
+                width: 150,
+                overflow: 'break',
+              },
+            },
+            labelLayout: function () {
+              return {
+                x: '30%',
+                moveOverlap: 'shiftY',
+              };
+            },
+            labelLine: {
+              show: true,
+              lineStyle: {
+                color: '#bbb',
               },
             },
             itemStyle: {
@@ -304,8 +309,8 @@ class mapCharts extends Component {
     myChart.setOption(option);
   };
 
-  render(){
-    return <div id="main" style={{ width: '100%',height: '598px' }}></div>;
+  render() {
+    return <div id="main" style={{ width: '100%', height: '598px' }}></div>;
   }
 }
 
