@@ -1,6 +1,7 @@
 import { Tooltip, Tag } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect, SelectLang } from 'umi';
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
@@ -22,20 +23,21 @@ const GlobalHeaderRight = (props) => {
   return (
     <div className={className}>
       <Tooltip title="使用文档">
-        <a
+        <Link
           style={{
             color: 'inherit',
             fontSize: '22px',
           }}
+          to="/use"
           // target="_blank"
           // href="https://pro.ant.design/docs/getting-started"
           rel="noopener noreferrer"
           className={styles.action}
         >
           <QuestionCircleOutlined />
-        </a>
+        </Link>
       </Tooltip>
-      <Avatar />
+      {/*<Avatar />*/}
       {/*{REACT_APP_ENV && (*/}
       {/*  <span>*/}
       {/*    <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>*/}

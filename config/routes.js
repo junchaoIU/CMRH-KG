@@ -10,7 +10,7 @@ export default [
           {
             path: '/',
             component: '../layouts/BasicLayout',
-            authority: ['admin','user'],
+            authority: ['admin', 'user'],
             routes: [
               {
                 path: '/',
@@ -21,6 +21,12 @@ export default [
                 name: 'welcome',
                 icon: 'smile',
                 component: './Welcome',
+              },
+              {
+                path: '/use',
+                name: 'use',
+                component: './Welcome/use.jsx',
+                hideInMenu: true,
               },
               {
                 path: '/knowledgeSearch',
@@ -45,17 +51,20 @@ export default [
                 path: '/back',
                 name: 'back',
                 icon: 'interaction',
-                routes: [{
-                  path: '/back/eventBack',
-                  name: 'eventBack',
-                  icon: 'interaction',
-                  component: './Back/eventBack'
-                },{
-                  path: '/back/peopleBack',
-                  name: 'peopleBack',
-                  icon: 'peopleBack',
-                  component: './Back/peopleBack'
-                }]
+                routes: [
+                  {
+                    path: '/back/eventBack',
+                    name: 'eventBack',
+                    icon: 'interaction',
+                    component: './Back/eventBack',
+                  },
+                  {
+                    path: '/back/peopleBack',
+                    name: 'peopleBack',
+                    icon: 'peopleBack',
+                    component: './Back/peopleBack',
+                  },
+                ],
               },
               {
                 path: '/textBack',
