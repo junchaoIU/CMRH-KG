@@ -28,7 +28,7 @@ const GlobalHeaderRight = (props) => {
             color: 'inherit',
             fontSize: '22px',
           }}
-          to="/use"
+          // to="/use"
           // target="_blank"
           // href="https://pro.ant.design/docs/getting-started"
           rel="noopener noreferrer"

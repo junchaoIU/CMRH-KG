@@ -39,7 +39,7 @@ const menuDataRender = (menuList) =>
 const defaultFooterDom = (
   <DefaultFooter
     style={{ background: '#60c3ffa6' }}
-    copyright={`${new Date().getFullYear()} 北京师范大学珠海分校管理学院`}
+    copyright={`${new Date().getFullYear()} 广州革命历史数字图书馆`}
     links={[]}
   />
 );
