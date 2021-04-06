@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import styles from './index.less';
 import { Input, Button, Row, Col } from 'antd';
 import { InteractionOutlined } from '@ant-design/icons';
+import MainSearch from '@/components/MainSearch';
 
 @connect(({ back, loading }) => ({
   back,
@@ -44,15 +45,11 @@ class eventBack extends PureComponent {
       <div style={{ margin: '24px 2px 0' }}>
         {val === true ? (
           <div className={styles.indexSearch}>
-            <Row className={styles.top}>
-              <Col span={10} className={styles.icon}>
-                <InteractionOutlined />
-              </Col>
-              <Col span={14} className={styles.right}>
-                <p>事件回溯·检索</p>
-                <p className={styles.engText}>Event Back Retrieval</p>
-              </Col>
-            </Row>
+            <MainSearch
+              logo={<InteractionOutlined />}
+              text={'事件回溯·检索'}
+              engText={'Event Back Retrieval'}
+            />
             <Input
               size={'large'}
               className={styles.input}

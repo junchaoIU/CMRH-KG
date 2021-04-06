@@ -4,6 +4,7 @@ import Search from './components/Search';
 import styles from '@/pages/Back/index.less';
 import { Input, Button, Row, Col } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import MainSearch from '@/components/MainSearch';
 
 class peopleBack extends Component {
   state = {
@@ -29,15 +30,11 @@ class peopleBack extends Component {
       <PageContainer>
         {val === true ? (
           <div className={styles.indexSearch}>
-            <Row className={styles.top}>
-              <Col span={10} className={styles.icon}>
-                <UserOutlined />
-              </Col>
-              <Col span={14} className={styles.right}>
-                <p>人物回溯·检索</p>
-                <p className={styles.engText}>People Back Retrieval</p>
-              </Col>
-            </Row>
+            <MainSearch
+              logo={<UserOutlined />}
+              text={'人物回溯·检索'}
+              engText={'People Back Retrieval'}
+            />
             <Input
               size={'large'}
               className={styles.input}
@@ -56,4 +53,5 @@ class peopleBack extends Component {
     );
   }
 }
+
 export default peopleBack;

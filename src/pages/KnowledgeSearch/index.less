@@ -1,40 +1,11 @@
 @import '~antd/es/style/themes/default.less';
-.indexSearch{
-  text-align: center;
+.indexSearch {
   margin: 5% 0 0 0;
-  .top{
-    margin:0;
-    .icon{
-      text-align: right;
-      font-size: 100px;
-      color: #1890ff;
-      padding-right:15px ;
-    }
-    .right{
-      text-align: left;
-      padding: 3% 0 0 0;
-      p{
-        font-family: -webkit-pictograph;
-        letter-spacing: 3px;
-        font-size: 30px;
-        margin: 0;
-        color: #678ab7;
-        font-weight: bold;
-      }
-      .engText{
-        font-size: 26px;
-        letter-spacing: 0;
-        color: #7c97b9bf;
-        font-style: italic;
-      }
-  }
-
-  }
-  .cascader{
-    margin: 15px 0;
+  text-align: center;
+  .cascader {
     width: 40%;
+    margin: 15px 0;
   }
-
 }
 .search {
   //background-image: linear-gradient(to right, white 0%, #2cbafe14 48%, white 100%);
@@ -47,8 +18,8 @@
   }
 
   .cascader {
-    margin: 15px 0;
     width: 30%;
+    margin: 15px 0;
   }
 
   .content {
@@ -58,9 +29,9 @@
 }
 
 .cardContainer {
+  height: 576px;
   margin: 0 20px 20px;
   padding-top: 10px;
-  height: 576px;
   box-shadow: 3px 3px 7px 2px #d9dee38c;
 
   .outCard {
@@ -70,9 +41,9 @@
       margin: 0 8px;
 
       .contentDiv {
-        overflow: auto;
         height: 420px;
         margin-right: 5px;
+        overflow: auto;
 
         .authorImg {
           background: url(./../../assets/people.svg) no-repeat;
@@ -86,13 +57,13 @@
       }
 
       .briefContent {
-        letter-spacing: 0.1em;
+        float: left;
         margin-top: 20px;
         overflow: auto;
-        text-align: left;
-        float: left;
-        text-indent: 2em;
         line-height: 22px;
+        letter-spacing: 0.1em;
+        text-align: left;
+        text-indent: 2em;
       }
 
       .relevance {
@@ -119,28 +90,25 @@
       margin-left: 10px;
 
       .three {
-        text-align: left;
         font-size: 18px;
+        text-align: left;
       }
     }
 
     .substanceDiv {
-      overflow: auto;
       height: 500px;
+      overflow: auto;
 
       :global(.ant-card-bordered) {
-        border: 1px solid #b3ceee;
         margin: 15px;
         background: none;
+        border: 1px solid #b3ceee;
         border-radius: 10px;
       }
 
       .bookImage {
         float: left;
       }
-
     }
   }
-
 }
-

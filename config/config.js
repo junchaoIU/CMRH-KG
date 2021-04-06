@@ -35,13 +35,13 @@ export default defineConfig({
   title: false,
   ignoreMomentLocale: true,
 
-  // proxy: {
-  //   '/api/': {
-  //     target: 'http://gzknowledge.cn:2222/',
-  //     changeOrigin: false,
-  //     pathRewrite: { '^/api': '' },
-  //   },
-  // },
+  proxy: {
+    '/api/': {
+      target: 'http://gzknowledge.cn:2222/',
+      changeOrigin: false,
+      pathRewrite: { '^/api': '' },
+    },
+  },
 
   manifest: {
     basePath: '/',

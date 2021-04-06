@@ -1,16 +1,13 @@
-import React,{ Component } from 'react';
-import { Card,Typography,Row,Col, Divider } from 'antd';
-import styles from './index.less';
-import { connect } from 'dva';
+import React, { Component } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import MapCharts from './components/MapCharts'
+import MapCharts from './components/MapCharts';
 class back extends Component {
-  render(){
+  render() {
     return (
       <PageContainer>
-        <MapCharts/>
+        <MapCharts />
       </PageContainer>
     );
   }
-};
+}
 export default back;

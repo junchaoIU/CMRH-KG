@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Typography, Row, Col, Divider, Select, Input, Button } from 'antd';
+import { Select, Input, Button } from 'antd';
 import styles from './index.less';
-import { connect } from 'dva';
 import { PageContainer } from '@ant-design/pro-layout';
 import Search from './components/Search';
-import catalogData from '@/pages/KnowledgeSearch/components/catalog';
 import { SearchOutlined, HourglassOutlined } from '@ant-design/icons';
+import MainSearch from '@/components/MainSearch';
 
 class timespacesEarch extends Component {
   state = {
@@ -45,15 +44,11 @@ class timespacesEarch extends Component {
       <PageContainer>
         {val === true ? (
           <div className={styles.indexSearch}>
-            <Row className={styles.top}>
-              <Col span={10} className={styles.icon}>
-                <HourglassOutlined />
-              </Col>
-              <Col span={14} className={styles.right}>
-                <p>时空·检索</p>
-                <p className={styles.engText}>TimeSpaces Retrieval</p>
-              </Col>
-            </Row>
+            <MainSearch
+              logo={<HourglassOutlined />}
+              text={'时空·检索'}
+              engText={'TimeSpaces Retrieval'}
+            />
             <div className={styles.search}>
               <div className={styles.content}>
                 <Select size={'large'} value={mode} onChange={this.handleModeChange}>

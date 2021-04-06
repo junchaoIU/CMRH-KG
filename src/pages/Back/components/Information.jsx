@@ -17,8 +17,6 @@ import {
 } from 'antd';
 import {
   ClockCircleTwoTone,
-  CrownOutlined,
-  PushpinTwoTone,
   TagsOutlined,
   EnvironmentTwoTone,
   CloudTwoTone,
