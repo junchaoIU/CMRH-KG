@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react';
-import { Cascader, Row, Col, Button, message, Spin } from 'antd';
+import { Row, Col, message, Spin } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
-import catalogData from './catalog';
 import Charts from './Charts';
 import Empty from '../../../components/Empty/index';
 import Information from './Information';
+import SearchInput from '@/pages/KnowledgeSearch/components/SearchInput';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
   loading: loading.effects['knowledge/getKeyword'],
 }))
-class search extends PureComponent {
+class SearchResult extends PureComponent {
   state = {
-    inpValue: [],
     searchValue: [],
     chartsData: [],
     val: false,
@@ -23,20 +22,8 @@ class search extends PureComponent {
 
   componentDidMount() {
     const { parentSearch } = this.props;
-    if(parentSearch.length!==0){
-      if (typeof parentSearch === 'string') {
-        const arr = [];
-        arr[0] = parentSearch;
-        this.setState({
-          searchValue: arr,
-        });
-        this.handleSearch(arr);
-      } else {
-        this.setState({
-          searchValue: parentSearch,
-        });
-        this.handleSearch(parentSearch);
-      }
+    if (parentSearch.length !== 0) {
+      this.computedSearchValue(parentSearch);
     }
   }
 
@@ -44,27 +31,28 @@ class search extends PureComponent {
     this.setState({
       searchValue: value,
     });
-    this.setState({
-      chartsData: [],
-      val: false,
-    });
-    this.handleSearch(value);
   };
-  search = (val) => {
+
+  computedSearchValue = (value) => {
     let arr = [];
-    if (val.length !== undefined) {
-      arr = val;
+    if (typeof value === 'string') {
+      arr[0] = value;
     } else {
-      arr[0] = this.state.inpValue;
+      arr = value;
     }
     this.setState({
       searchValue: arr,
     });
+    this.handleSearch(arr);
+  };
+
+  search = () => {
+    const { searchValue } = this.state;
+    this.computedSearchValue(searchValue);
     this.setState({
       chartsData: [],
       val: false,
     });
-    this.handleSearch(arr);
   };
 
   handleSearch = (value) => {
@@ -98,61 +86,31 @@ class search extends PureComponent {
       },
     });
   };
-  filter = (inputValue, path) => {
-    this.setState({
-      inpValue: inputValue,
-    });
-    return path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
-  };
-
-  displayRender(label) {
-    return label[label.length - 1];
-  }
-
-  clear = () => {
-    this.setState({
-      searchValue: [],
-    });
-    return true;
-  };
 
   render() {
     const { loading } = this.props;
+    const { chartsData, val, searchValue, propSearch, detailData } = this.state;
     const loadings = loading === undefined ? false : loading;
     return (
       <div>
         <div className={styles.search}>
-          <Cascader
-            allowClear={this.clear}
+          <SearchInput
             className={styles.cascader}
-            options={catalogData}
             onChange={this.onChange}
-            placeholder="请选择或输入检索的知识点"
-            displayRender={this.displayRender}
-            size="large"
-            showSearch={{ filter: this.filter, matchInputWidth: false }}
-            value={this.state.searchValue}
+            search={this.search}
+            searchValue={searchValue}
           />
-          <Button type="primary" size={'large'} onClick={this.search}>
-            检索一下
-          </Button>
           <Spin spinning={loadings}>
-            {this.state.val &&
-            this.state.chartsData.length !== 0 &&
-            this.state.detailData.length !== 0 ? (
+            {val && chartsData.length !== 0 && detailData.length !== 0 ? (
               <Row className={styles.content}>
                 <Col span={14}>
-                  <Charts
-                    chartsData={this.state.chartsData}
-                    propSearch={this.state.propSearch}
-                    clickWord={this.search}
-                  />
+                  <Charts chartsData={chartsData} propSearch={propSearch} clickWord={this.search} />
                 </Col>
                 <Col span={10}>
                   <Information
-                    chartsData={this.state.chartsData}
-                    propSearch={this.state.propSearch}
-                    detailData={this.state.detailData}
+                    chartsData={chartsData}
+                    propSearch={propSearch}
+                    detailData={detailData}
                   />
                 </Col>
               </Row>
@@ -166,4 +124,4 @@ class search extends PureComponent {
   }
 }
 
-export default search;
+export default SearchResult;
