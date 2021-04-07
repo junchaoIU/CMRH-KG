@@ -74,7 +74,6 @@ class mapCharts extends Component {
         ],
       });
     }
-    console.log(geodata);
     const option = {
       baseOption: {
         timeline: {

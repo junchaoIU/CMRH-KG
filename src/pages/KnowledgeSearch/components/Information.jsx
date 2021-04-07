@@ -1,31 +1,10 @@
 import styles from '@/pages/KnowledgeSearch/index.less';
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Row,
-  Tabs,
-  Avatar,
-  message,
-  Checkbox,
-  Divider,
-  Tag,
-  Empty,
-  Card,
-  Button,
-  Spin,
-  Drawer,
-} from 'antd';
+import { Tabs, Avatar, message, Checkbox, Divider, Tag, Card, Button, Spin, Drawer } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
-
-const Emptying = (
-  <Empty
-    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-    imageStyle={{
-      height: 60,
-    }}
-    description={<span>暂无数据</span>}
-  ></Empty>
-);
+import minEmpty from '../../../components/Empty/minEmpty';
+import Information from '@/pages/Common/Information';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
@@ -42,6 +21,7 @@ class information extends PureComponent {
     loading: true,
     drawer: [],
   };
+
   onClick = (index) => {
     this.setState({
       substance: [],
@@ -52,6 +32,7 @@ class information extends PureComponent {
       this.onDispatch(backWord);
     }
   };
+
   onDispatch = (backWord) => {
     const { dispatch } = this.props;
     dispatch({
@@ -80,125 +61,6 @@ class information extends PureComponent {
     this.setState({
       visible: false,
     });
-  };
-  // 实体信息
-  onInformation = () => {
-    const { propSearch, detailData, chartsData } = this.props;
-    // 详细信息
-    let detail = [];
-    // 相关事件
-    let relevance = [];
-    // 相关人物
-    let people = [];
-    const categorys = [
-      '相关遗存',
-      '事件地点',
-      '地理位置',
-      '出生地点',
-      '签订地点',
-      '开始时间',
-      '结束时间',
-      '出生日期',
-      '逝世日期',
-      '签订时间',
-    ];
-    chartsData.links !== null
-      ? chartsData.links.map((item) => {
-          if (item.category === '相关事件') {
-            relevance.push({
-              name: item.target,
-              url: `http://gzknowledge.cn:2222/${item.target}.jpg`,
-            });
-          } else if (categorys.includes(item.category)) {
-            if (item.target.substring(0, 1) === 'y') {
-              detail.push(`${item.category} ${item.target.substr(1)}`);
-            } else {
-              detail.push(`${item.category} ${item.target}`);
-            }
-          } else {
-            people.push({
-              name: item.target,
-              url: `http://gzknowledge.cn:2222/${item.target}.jpg`,
-            });
-          }
-        })
-      : '';
-
-    // 知识简介
-    let brief = '';
-    const briefUrl = `http://gzknowledge.cn:2222/${propSearch}.jpg`;
-    detailData.links !== null
-      ? detailData.links.map((item) => {
-          if (item.category === 'comment') {
-            brief = item.target;
-          } else {
-            detail.push(`${item.label} ${item.target}`);
-          }
-        })
-      : '';
-
-    return (
-      <Tabs defaultActiveKey="1">
-        <Tabs.TabPane tab="知识简介" key="1">
-          <div className={styles.contentDiv}>
-            <div>
-              <Avatar className={styles.authorImg} size={64} src={briefUrl} />
-              <span className={styles.author}>{propSearch[0]}</span>
-            </div>
-            <p className={styles.briefContent}>{brief}</p>
-          </div>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="详细信息" key="2">
-          <div className={styles.contentDiv}>
-            {detail.length > 0
-              ? detail.map(function (item, index) {
-                  return (
-                    <Tag className={styles.detail} color="geekblue" key={index}>
-                      {item}
-                    </Tag>
-                  );
-                })
-              : Emptying}
-          </div>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="相关事件" key="3">
-          <div className={styles.contentDiv}>
-            {relevance.length > 0
-              ? relevance.map(function (item, index) {
-                  return (
-                    <div className={styles.relevance} key={index}>
-                      <Avatar className={styles.relevanceImg} size={64} src={item.url} />
-                      <p>
-                        <Tag className={styles.detail} color="gold">
-                          {item.name}
-                        </Tag>
-                      </p>
-                    </div>
-                  );
-                })
-              : Emptying}
-          </div>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="相关人物" key="4">
-          <div className={styles.contentDiv}>
-            {people.length > 0
-              ? people.map(function (item, index) {
-                  return (
-                    <div className={styles.relevance} key={index}>
-                      <Avatar className={styles.relevanceImg} size={64} src={item.url} />
-                      <p>
-                        <Tag className={styles.detail} color="green">
-                          {item.name}
-                        </Tag>
-                      </p>
-                    </div>
-                  );
-                })
-              : Emptying}
-          </div>
-        </Tabs.TabPane>
-      </Tabs>
-    );
   };
 
   // 实体语料回溯
@@ -229,7 +91,7 @@ class information extends PureComponent {
             </Card>
           </div>
         ) : (
-          Emptying
+          minEmpty
         )}
       </Spin>
     );
@@ -238,7 +100,7 @@ class information extends PureComponent {
   // 三元组语料回溯
   onThree = () => {
     const { chartsData } = this.props;
-    let three = [];
+    const three = [];
     chartsData.links !== null
       ? chartsData.links.map((item) => {
           if (item.target.substring(0, 1) === 'y') {
@@ -321,11 +183,12 @@ class information extends PureComponent {
   };
 
   render() {
+    const { propSearch, detailData, chartsData } = this.props;
     return (
       <div className={styles.cardContainer}>
         <Tabs type="card" className={styles.outCard} onChange={this.onClick}>
           <Tabs.TabPane tab="实体信息" key="1" className={styles.innerCard}>
-            {this.onInformation()}
+            <Information propSearch={propSearch} detailData={detailData} chartsData={chartsData} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="实体语料回溯" key="2">
             {this.onSubstance()}
