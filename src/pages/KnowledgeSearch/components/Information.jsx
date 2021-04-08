@@ -1,10 +1,10 @@
 import styles from '@/pages/KnowledgeSearch/index.less';
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Tabs, Avatar, message, Checkbox, Divider, Tag, Card, Button, Spin, Drawer } from 'antd';
+import { Tabs, message, Checkbox, Divider, Button, Drawer } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
-import minEmpty from '../../../components/Empty/minEmpty';
 import Information from '@/pages/Common/Information';
+import BookCard from '@/components/BookCard';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
@@ -15,11 +15,9 @@ class information extends PureComponent {
     checkedList: [],
     indeterminate: true,
     checkAll: false,
-    visible: false,
     cardVisible: false,
     substance: [],
     loading: true,
-    drawer: [],
   };
 
   onClick = (index) => {
@@ -49,57 +47,10 @@ class information extends PureComponent {
     });
   };
 
-  showDrawer = (e) => {
-    const drawerData = this.state.substance[e.currentTarget.value];
-    this.setState({
-      drawer: drawerData,
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  // 实体语料回溯
-  onSubstance = () => {
-    const tip = this.state.substance.length > 0 ? this.state.substance[0].num : '';
-    return (
-      <Spin spinning={this.state.loading}>
-        {this.state.substance.length > 0 ? (
-          <div className={styles.substanceDiv}>
-            <Card size="small" title={tip}>
-              {this.state.substance.map((item, index) => {
-                return (
-                  <Card hoverable key={index}>
-                    <div className={styles.bookImage}>
-                      <img
-                        style={{ height: '100px' }}
-                        src={`http://gzknowledge.cn:2222/book/${item.bookName}${item.bookAuthor}.png`}
-                      />
-                    </div>
-                    <p>{item.bookName}</p>
-                    <p>简介</p>
-                    <Button type={'primary'} value={index} onClick={this.showDrawer}>
-                      查看详情
-                    </Button>
-                  </Card>
-                );
-              })}
-            </Card>
-          </div>
-        ) : (
-          minEmpty
-        )}
-      </Spin>
-    );
-  };
-
   // 三元组语料回溯
   onThree = () => {
     const { chartsData } = this.props;
+    const { loading, substance } = this.state;
     const three = [];
     chartsData.links !== null
       ? chartsData.links.map((item) => {
@@ -176,7 +127,7 @@ class information extends PureComponent {
           getContainer={false}
           style={{ position: 'absolute', transform: 'none' }}
         >
-          {this.onSubstance()}
+          <BookCard loading={loading} substance={substance} />
         </Drawer>
       </div>
     );
@@ -184,6 +135,7 @@ class information extends PureComponent {
 
   render() {
     const { propSearch, detailData, chartsData } = this.props;
+    const { loading, substance } = this.state;
     return (
       <div className={styles.cardContainer}>
         <Tabs type="card" className={styles.outCard} onChange={this.onClick}>
@@ -191,25 +143,12 @@ class information extends PureComponent {
             <Information propSearch={propSearch} detailData={detailData} chartsData={chartsData} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="实体语料回溯" key="2">
-            {this.onSubstance()}
+            <BookCard loading={loading} substance={substance} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="三元组语料回溯" key="3">
             {this.onThree()}
           </Tabs.TabPane>
         </Tabs>
-        <Drawer
-          title={this.state.drawer.bookName}
-          placement="left"
-          closable={false}
-          width={'50%'}
-          onClose={this.onClose}
-          visible={this.state.visible}
-        >
-          <p
-            style={{ letterSpacing: '1px' }}
-            dangerouslySetInnerHTML={{ __html: this.state.drawer.bookContent }}
-          />
-        </Drawer>
       </div>
     );
   }
