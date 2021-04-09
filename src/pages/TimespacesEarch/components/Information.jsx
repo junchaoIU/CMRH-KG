@@ -1,20 +1,7 @@
 import styles from '../index.less';
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Timeline,
-  Tabs,
-  Tooltip,
-  BackTop,
-  Col,
-  Pagination,
-  Row,
-  Empty,
-  Card,
-  Button,
-  Spin,
-  Drawer,
-} from 'antd';
+import { Timeline, Tabs, Tooltip, Col, Pagination, Row } from 'antd';
 import {
   ClockCircleTwoTone,
   CrownOutlined,
@@ -24,17 +11,7 @@ import {
   CloudTwoTone,
 } from '@ant-design/icons';
 import Emptys from '../../../components/Empty/index';
-const Emptying = (
-  <Empty
-    style={{ height: '500px' }}
-    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-    imageStyle={{
-      height: 100,
-      margin: '15% 0 0',
-    }}
-    description={<span>暂无数据</span>}
-  ></Empty>
-);
+import LineDrawer from '@/pages/Common/LineDrawer';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
@@ -42,14 +19,11 @@ const Emptying = (
 }))
 class information extends PureComponent {
   state = {
-    indeterminate: true,
-    visible: false,
     cardVisible: false,
     substance: [],
     loading: true,
-    drawer: [],
-    rightHeight: '',
   };
+
   onDispatch = (backWord) => {
     const { dispatch } = this.props;
     dispatch({
@@ -66,19 +40,6 @@ class information extends PureComponent {
     });
   };
 
-  showDrawer = (e) => {
-    const drawerData = this.state.substance[e.currentTarget.value];
-    this.setState({
-      drawer: drawerData,
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
   // 实体信息
   onInformation = () => {
     const { detail, page, handleChangePage } = this.props;
@@ -135,39 +96,6 @@ class information extends PureComponent {
     });
   };
 
-  // 实体语料回溯
-  onSubstance = () => {
-    const tip = this.state.substance.length > 0 ? this.state.substance[0].num : '';
-    return (
-      <Spin spinning={this.state.loading}>
-        {this.state.substance.length > 0 ? (
-          <div className={styles.substanceDiv}>
-            <Card size="small" title={tip}>
-              {this.state.substance.map((item, index) => {
-                return (
-                  <Card hoverable key={index} className={styles.card}>
-                    <div className={styles.bookImage}>
-                      <img
-                        style={{ height: '100px' }}
-                        src={`http://gzknowledge.cn:2222/book/${item.bookName}${item.bookAuthor}.png`}
-                      />
-                    </div>
-                    <p>{item.bookName}</p>
-                    <p>简介</p>
-                    <Button type={'primary'} value={index} onClick={this.showDrawer}>
-                      查看详情
-                    </Button>
-                  </Card>
-                );
-              })}
-            </Card>
-          </div>
-        ) : (
-          Emptying
-        )}
-      </Spin>
-    );
-  };
   onCloseBack = () => {
     this.setState({
       cardVisible: false,
@@ -236,6 +164,7 @@ class information extends PureComponent {
 
   render() {
     const { detail, relation } = this.props;
+    const { loading, substance, cardVisible } = this.state;
     return (
       <div className={styles.cardContainer}>
         {detail.length > 0 && relation.length !== 0 ? (
@@ -244,29 +173,13 @@ class information extends PureComponent {
               <Tabs type="card" className={styles.outCard} centered>
                 <Tabs.TabPane tab="回溯时空信息" key="1" className={styles.innerCard}>
                   {this.onInformation()}
-                  <Drawer
-                    title="事件语料回溯"
-                    placement="right"
-                    closable={false}
+                  <LineDrawer
+                    onCloseBack={this.onCloseBack}
+                    cardVisible={cardVisible}
+                    loading={loading}
+                    substance={substance}
                     width={'35%'}
-                    onClose={this.onCloseBack}
-                    visible={this.state.cardVisible}
-                  >
-                    {this.onSubstance()}
-                  </Drawer>
-                  <Drawer
-                    title={this.state.drawer.bookName}
-                    placement="left"
-                    closable={false}
-                    width={'50%'}
-                    onClose={this.onClose}
-                    visible={this.state.visible}
-                  >
-                    <p
-                      style={{ letterSpacing: '1px' }}
-                      dangerouslySetInnerHTML={{ __html: this.state.drawer.bookContent }}
-                    />
-                  </Drawer>
+                  />
                 </Tabs.TabPane>
               </Tabs>
             </Col>

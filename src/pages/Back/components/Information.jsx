@@ -1,7 +1,7 @@
 import styles from '../index.less';
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Timeline, Tabs, Tooltip, Avatar, Tag, Empty, Card, Button, Spin, Drawer } from 'antd';
+import { Timeline, Tabs, Tooltip } from 'antd';
 import {
   ClockCircleTwoTone,
   TagsOutlined,
@@ -9,18 +9,7 @@ import {
   CloudTwoTone,
 } from '@ant-design/icons';
 import Information from '@/pages/Common/Information';
-
-const Emptying = (
-  <Empty
-    style={{ height: '500px' }}
-    image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-    imageStyle={{
-      height: 100,
-      margin: '15% 0 0',
-    }}
-    description={<span>暂无数据</span>}
-  ></Empty>
-);
+import LineDrawer from '@/pages/Common/LineDrawer';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
@@ -28,12 +17,11 @@ const Emptying = (
 }))
 class information extends PureComponent {
   state = {
-    visible: false,
     cardVisible: false,
     substance: [],
     loading: true,
-    drawer: [],
   };
+
   onDispatch = (backWord) => {
     const { dispatch } = this.props;
     dispatch({
@@ -49,6 +37,7 @@ class information extends PureComponent {
       },
     });
   };
+
   onBack = (search) => {
     this.setState({
       substance: [],
@@ -59,60 +48,19 @@ class information extends PureComponent {
       cardVisible: true,
     });
   };
-  showDrawer = (e) => {
-    const drawerData = this.state.substance[e.currentTarget.value];
+
+  onCloseBack = () => {
     this.setState({
-      drawer: drawerData,
-      visible: true,
+      cardVisible: false,
     });
-  };
-  onSubstance = () => {
-    const tip = this.state.substance.length > 0 ? this.state.substance[0].num : '';
-    return (
-      <Spin spinning={this.state.loading}>
-        {this.state.substance.length > 0 ? (
-          <div className={styles.substanceDiv}>
-            <Card size="small" title={tip}>
-              {this.state.substance.map((item, index) => {
-                return (
-                  <Card hoverable key={index} className={styles.card}>
-                    <div className={styles.bookImage}>
-                      <img
-                        style={{ height: '100px' }}
-                        src={`http://gzknowledge.cn:2222/book/${item.bookName}${item.bookAuthor}.png`}
-                      />
-                    </div>
-                    <p>{item.bookName}</p>
-                    <p>简介</p>
-                    <Button type={'primary'} value={index} onClick={this.showDrawer}>
-                      查看详情
-                    </Button>
-                  </Card>
-                );
-              })}
-            </Card>
-          </div>
-        ) : (
-          Emptying
-        )}
-      </Spin>
-    );
   };
 
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
   timeLine = () => {
+    const { cardVisible, loading, substance } = this.state;
     const {
       childEvent: { series },
     } = this.props;
-    const onClose = () => {
-      this.setState({
-        cardVisible: false,
-      });
-    };
+
     return (
       <Timeline className={styles.time} mode={'left'}>
         {series.map((item, index) => {
@@ -143,43 +91,24 @@ class information extends PureComponent {
             </Timeline.Item>
           );
         })}
-        <Drawer
-          title="事件语料回溯"
-          placement="right"
-          closable={false}
-          width={'70%'}
-          onClose={onClose}
-          visible={this.state.cardVisible}
-          getContainer={false}
+        <LineDrawer
+          onCloseBack={this.onCloseBack}
+          cardVisible={cardVisible}
+          loading={loading}
+          substance={substance}
           style={{ position: 'absolute', transform: 'none' }}
-        >
-          {this.onSubstance()}
-        </Drawer>
+        />
       </Timeline>
     );
   };
 
   render() {
     const { propSearch, detailData, chartsData } = this.props;
-
     return (
       <div className={styles.cardContainer}>
         <Tabs type="card" className={styles.outCard}>
           <Tabs.TabPane tab="事件时间线" key="1">
             {this.timeLine()}
-            <Drawer
-              title={this.state.drawer.bookName}
-              placement="left"
-              closable={false}
-              width={'50%'}
-              onClose={this.onClose}
-              visible={this.state.visible}
-            >
-              <p
-                style={{ letterSpacing: '1px' }}
-                dangerouslySetInnerHTML={{ __html: this.state.drawer.bookContent }}
-              />
-            </Drawer>
           </Tabs.TabPane>
           <Tabs.TabPane tab="事件信息" key="2">
             <Information propSearch={propSearch} detailData={detailData} chartsData={chartsData} />

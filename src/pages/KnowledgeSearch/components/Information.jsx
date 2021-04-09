@@ -5,6 +5,7 @@ import { Tabs, message, Checkbox, Divider, Button, Drawer } from 'antd';
 import { FileSearchOutlined } from '@ant-design/icons';
 import Information from '@/pages/Common/Information';
 import BookCard from '@/components/BookCard';
+import LineDrawer from '@/pages/Common/LineDrawer';
 
 @connect(({ knowledge, loading }) => ({
   knowledge,
@@ -47,10 +48,15 @@ class information extends PureComponent {
     });
   };
 
+  onCloseBack = () => {
+    this.setState({
+      cardVisible: false,
+    });
+  };
   // 三元组语料回溯
   onThree = () => {
     const { chartsData } = this.props;
-    const { loading, substance } = this.state;
+    const { loading, substance, cardVisible } = this.state;
     const three = [];
     chartsData.links !== null
       ? chartsData.links.map((item) => {
@@ -73,11 +79,6 @@ class information extends PureComponent {
         checkedList,
         indeterminate: !!checkedList.length && checkedList.length < three.length,
         checkAll: checkedList.length === three.length,
-      });
-    };
-    const onClose = () => {
-      this.setState({
-        cardVisible: false,
       });
     };
     const onThreeSearch = () => {
@@ -117,18 +118,13 @@ class information extends PureComponent {
           value={this.state.checkedList}
           onChange={onChange}
         />
-        <Drawer
-          title="三元组语料回溯"
-          placement="right"
-          closable={false}
-          width={'70%'}
-          onClose={onClose}
-          visible={this.state.cardVisible}
-          getContainer={false}
+        <LineDrawer
+          onCloseBack={this.onCloseBack}
+          cardVisible={cardVisible}
+          loading={loading}
+          substance={substance}
           style={{ position: 'absolute', transform: 'none' }}
-        >
-          <BookCard loading={loading} substance={substance} />
-        </Drawer>
+        />
       </div>
     );
   };
@@ -142,8 +138,8 @@ class information extends PureComponent {
           <Tabs.TabPane tab="实体信息" key="1" className={styles.innerCard}>
             <Information propSearch={propSearch} detailData={detailData} chartsData={chartsData} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="实体语料回溯" key="2">
-            <BookCard loading={loading} substance={substance} />
+          <Tabs.TabPane tab="实体语料回溯" key="2" className={styles.book}>
+            <BookCard colSpan={24} loading={loading} substance={substance} show={true} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="三元组语料回溯" key="3">
             {this.onThree()}
