@@ -46,7 +46,12 @@ class SearchResult extends PureComponent {
     this.handleSearch(arr);
   };
 
-  search = () => {
+  search = (v) => {
+    if (v.length !== undefined) {
+      this.setState({
+        searchValue: v,
+      });
+    }
     const { searchValue } = this.state;
     this.computedSearchValue(searchValue);
     this.setState({

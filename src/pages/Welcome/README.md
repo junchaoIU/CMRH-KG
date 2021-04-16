@@ -1,31 +1,264 @@
-# ES6-ES10 语法
+# **广州革命历史事件知识图谱系统使用手册**
 
-## ES6 函数篇
+# **1 系统配置要求**
 
-### 函数参数
+| 111 | 222 |
+| --- | --- |
+| 111 | 222 |
 
-```js
-function f(x,y=7,z=x+y){
-	console.log(f.length) //返回函数参数没有默认值的格式 打印：1
-	return x*10+z
-	console.log(f(1)) //18
-}
-//Rest操作
-function sum(base,...nums){
-    let num=0
-    nums.forEach(function(item){
-        num+=item*1
-    })
-    return base*2+num  //第一个数*2
-}
-console.log(sum(1,2,3)) //7
+| **客户端** | **服务器端** |
+| --- | --- |
+| **CPU**：Intel i3 及以上 | **CPU**：Intel i5  双核 及以上 |
+| **内存**：2G | **内存**：4G 及以上 |
+| **硬盘**：500G 及以上 | **硬盘**：100G 及以上 |
+| **操作系统**：无要求 | **操作系统**：Windows XP 及以上 |
+| **浏览器**：Chrome 浏览器、火狐浏览器、IE 浏览器等 | **Web 服务器**：Apache Tomcat9、nginx 1.16.1 |
+| **分辨率**：1280\*800  及以上 |
 
-//spread操作
-function(x=1,y=2,z=3){
-    return x+y+z
-}
-let data=[4,5,9]
-console.log(sum(...data))  //18
-```
+<a name="rFbhb"></a>
 
-### 箭头函数
+# **2  系统部署**
+
+<a name="hYp2w"></a>
+
+## **2.1  后端部署**
+
+**步骤一**：安装“jdk-8u191-windows-x64.exe”<br />**步骤二**：进行 Java 环境配置 <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461414913-9b584832-2e36-498e-8700-bceea3a23c8b.png#height=350&id=ANI5i&originHeight=639&originWidth=1366&originalType=binary&status=done&style=none&width=749)<br />①   右键点击“我的电脑”点击“属性”<br />②   选择“高级系统设置”<br />③   选择“高级”标签，再点击“环境变量(N)…”<br />④   在“系统变量(S)”中选择“Path”，新建一个变量为 Java 的安装地址，并点击“确定”<br />**备注**：Java 安装地址默认为“C:\Program Files\Java\jdk1.8.0_191\bin”，如果没有请按安装时设定的地址找到“jdk\bin”<br />**步骤三**：解压“gz 系统部署文件.zip”，运行 canton.jar，会在当前目录下生成两个文件夹 canton_culture_tdb、cantonBook_lucene；<br />**步骤四**：访问本地 2222 端口即可访问系统后端接口 <a name="LEP6J"></a>
+
+## **2.2  前端部署**
+
+**步骤一**：解压“gz 系统部署文件.zip”，找到“gz_dist”文件夹；<br />**步骤二**：下载安装 nginx 1.16.1；<br />**步骤三**：找到 nginx 安装目录下的 nginx 配置文件； <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461415415-693784e0-39ad-40c3-94cd-e6d0b100da16.png#height=353&id=5NIaY&originHeight=365&originWidth=594&originalType=binary&status=done&style=none&width=575)<br />**步骤四**：修改其内容进行服务器主机和路由等信息的配置，详细配置如下；<br />
+
+                server {
+                               listen       80;
+                               server_name  localhost;
+                               # gzip config
+                               gzip on;
+                                 gzip_min_length 1k;
+                                 gzip_comp_level 9;
+                                 gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+                                 gzip_vary on;
+                                 gzip_disable "MSIE [1-6].";
+               #charset koi8-r;
+
+               #access_log  logs/host.access.log  main;
+
+               location / {
+                      root   html\dist;
+                      index  index.html index.htm;
+                   try_files $uri $uri/ /index.html;
+               }
+
+               #error_page  404              /404.html;
+
+               # redirect server error pages to the static page /50x.html
+               #
+               error_page   500 502 503 504  /50x.html;
+               location = /50x.html {
+                      root  html;
+               }
+
+               location /api/ {
+                      proxy_pass http://localhost:2222/;
+                      proxy_set_header   X-Forwarded-Proto $scheme;
+                      proxy_set_header   X-Real-IP         $remote_addr;
+               }
+        }        #    include        fastcgi_params;
+         #}
+
+         # deny access to .htaccess files, if Apache's document root
+         # concurs with nginx's one
+         #
+         #location ~ /.ht {
+         #    deny  all;
+         #}
+     }
+
+<br />**步骤五**：将“gz_build”文件夹放置于安装目录下的 html 文件夹中；<br />**步骤六**：直接双击安装目录下的"nginx.exe"，即可启动 nginx 服务器；<br />**步骤七**：访问本地 80（默认）端口即可访问系统 <a name="PRc3t"></a>
+
+# **3  功能介绍及使用**
+
+<a name="ZcUqT"></a>
+
+## **3.1  页面展示**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461415965-6ca5c015-5603-4958-90ad-759b6977ebcd.png#height=356&id=DeYX5&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=746)<br />网站的首页呈现了本数字图书馆本体知识库涵盖的实体、三元组、关系种类等的数量，还有系统提供的知识检索、关键检索、时空检索等功能的介绍，给予用户使用指引。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461416905-ecd513fc-5aec-475d-b634-765a5810dedf.png#height=354&id=HTtfy&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=743) <a name="mUgOB"></a>
+
+## **3.2  知识库展示查询**
+
+<a name="D3xN2"></a>
+
+### **3.2.1  介绍**
+
+知识库展示功能主要进行整体知识目录信息的相关的查询、浏览，可以从知识目录中在宏观上对广州革命历史领域知识点分类进行一个系统的了解。界面分为 3 个模块，最左边的模块为知识目录，展示知识分类，可以进行知识的查询筛选和浏览；中间的模块为图谱可视化模块，展示知识点的相关知识图谱；最右侧的信息展示模块，分为知识点的实体信息展示模块和语料检索功能模块，其中实体信息展示模块包括知识简介、详细信息、相关人物、相关事件四个信息卡片；语料检索功能模块可以进行知识点文献检索和知识关联文献检索。 <a name="3iPj2"></a>
+
+## **3.2.2  查看节点信息**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461417420-73ae9199-9532-485c-a70f-237f12ac23a5.png#height=356&id=IZx63&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=746)<br /> <br />使用流程：<br />**步骤一**：用户在点击知识检索洁面后在目录检索框筛选或者直接输入想要检索的知识点<br />**步骤二**：点击“检索一下”后，显示检索结果页面（图中以孙中山为例。）。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461418182-e455ad1e-1d32-4e70-9f61-9cfdf1eeb657.png#height=368&id=DyuS8&originHeight=953&originWidth=1918&originalType=binary&status=done&style=none&width=741)<br />**步骤三**：页面左边为相关知识图谱，右边显示的是检索实体的文字资料。<br />**步骤四**：在“信息展示模块”切换查看实体相关的信息卡片（知识简介、详细信息、相关人物、相关事件） <a name="lSBey"></a>
+
+## **3.2.3  知识点文献检索**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461419114-f377a2e5-82aa-4268-b899-0029c953db18.png#height=351&id=3U7G4&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=736)<br />使用流程：<br />**步骤一**：点击“信息展示模块”中的“实体语料回溯”模块<br />**步骤二**：点击“实体语料回溯”按钮<br />**步骤三**：依次单击感兴趣的文献语料对应的“查看详情”按钮<br />**步骤四**：在左侧弹出的阅读栏中进行语料内容的浏览 <a name="61AKY"></a>
+
+## **3.2.4  知识关联文献检索**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461420000-9bf5e0e1-f1b8-4c7b-b56e-55270e085307.png#height=348&id=sxzGV&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=731)<br /> <br />使用流程：<br />**步骤一**：点击“信息展示模块”中的“三元组语料回溯”模块<br />**步骤二**：勾选感兴趣的三元组数据集   <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461420881-b72465b5-34b9-4636-9071-b28fdba557e3.png#height=350&id=plnQH&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=734)<br />**步骤三**：点击“三元组语料回溯”按钮<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461421788-bde62d47-cb76-4146-9124-de8a2e1d4b16.png#height=350&id=1xRbZ&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=734)<br />**步骤四**：依次单击感兴趣的文献语料对应的“查看详情”按钮<br />**步骤五**：在左侧弹出的阅读栏中进行语料内容的浏览<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461422641-c6b98238-8eb5-4b4a-aa2f-90557375f804.png#height=348&id=b3etH&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=731)<br />  <a name="jUm1t"></a>
+
+## **3.3  知识检索**
+
+<a name="cxKn7"></a>
+
+### **3.3.1 知识模糊检索简介**
+
+知识检索提供广州革命历史领域的相关信息检索。除了知识目录外，也可以直接在检索框输入感兴趣的关键词来进行相关的查询、浏览，输入关键词后输入框下方的 option 选择框会弹出系统中收录的相关知识点，用户只需选择感兴趣的知识点后单击检索即可。 <a name="xK8Ws"></a>
+
+### **3.3.2 知识模糊检索**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461423182-3ed1db69-b6c3-49f6-ba28-1cbcb8d5dcf9.png#height=353&id=H7vmT&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=741)<br />使用流程：<br />**步骤一**：在上方的检索框中输入关键词/字<br />**步骤二**：在检索框下的 option 选择框中选择感兴趣的知识点（可忽略）<br />**步骤三**：单击“检索一下”按钮<br />**步骤四**：在“图谱可视化模块”查看知识点相关图谱<br />**步骤五**：在“信息展示模块”切换查看实体相关的信息卡片（知识简介、详细信息、相关人物、相关事件） <a name="2SYsI"></a>
+
+### **3.3.3 实体延伸检索简介**
+
+为方便用户的思路延续，依托于知识图谱的思想模式，用户可以直接单击图谱中感兴趣的实体直接进行检索。 <a name="ELuDp"></a>
+
+### **3.3.4  实体延伸检索**
+
+<br /> =>  ![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461423839-ef20db38-93a4-488a-a27f-e798167810e3.png#height=558&id=VG6E9&originHeight=919&originWidth=1116&originalType=binary&status=done&style=none&width=678)<br />使用流程：<br />**步骤一**：“图谱可视化模块”得到某个知识点的图谱后<br />**步骤二**：单击图谱中感兴趣的知识点<br />**步骤三**：在“图谱可视化模块”查看被单击知识点的相关图谱<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461424534-46c97d72-e85f-4981-8a91-94b1d84794e4.png#height=339&id=RI451&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=711)<br />**步骤四**：在“信息展示模块”切换查看实体相关的信息卡片（知识简介、详细信息、相关人物、相关事件）<br />  <a name="GsvCv"></a>
+
+## **3.4 关系检索**
+
+<a name="XXXEc"></a>
+
+### **3.4.1  简介**
+
+关系检索主要提供两个知识点之间的关系检索查询，进行任意两个知识点间关系的探索。<br />  <a name="GaBD8"></a>
+
+### **3.4.2  实体关系检索**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461425109-2b801b76-90e6-45ed-9934-e3083d17f310.png#height=333&id=8bC2b&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=699)<br />使用流程：<br />**步骤一**：在左边输入框中输入关键词；（图中以孙中山为例）<br />**步骤二**：在右边输入框中输入关键词；（图中以宋庆龄为例）<br />**步骤三**：单击“检索一下”按钮；<br />**步骤四**：查看“检索结果”；<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461425847-19a56014-961d-4c8c-bd0b-0cca6206026f.png#height=328&id=FLJZX&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=689)<br />**步骤五**：在“图谱可视化模块”查看两个实体相关图谱；<br />**步骤六**：在“信息展示模块”可以查看实体语料回溯。<br />**步骤七**：点击“查看详情”可以得到从页面左边弹出的文献资料。<br /> <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461426694-6185d6b4-5d31-4cc7-bb11-10c5ae5ec8ed.png#height=318&id=ZL2GC&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=667)<br />  <a name="mhkvS"></a>
+
+## **3.5  时空检索**
+
+<a name="ft8nd"></a>
+
+### **3.5.1  简介**
+
+时空检索基于实体的二次检索，可以帮助人们了解某个时间点、时间段或地点发生的事件，从而构成时空模型（即匹配每个事件的时间与地点构成时空模型）。用户可以通过检索想要了解的时间点、时间段、地点或时间点+地点，来了解该时空状况下发生的事件，通过不同的检索组合将零碎的回溯实体拼接成不同的时空线，以全方面还原大家感兴趣的时空历史片段。目前系统支持“时间点”、“时间段”、“地点”、“时空”4 种检索模式。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461427220-0a4d220b-335b-4947-b41b-7ec552c6d496.png#height=351&id=XRuPx&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=736)<br />相比于“知识检索”功能界面，“时空检索”功能界面的区别在于减少了“知识目录”模块。同时最右侧的“信息展示模块”信息卡片变成“相关实体”、“回溯时空信息”、“事件语料回溯”。<br />  <a name="XvuZW"></a>
+
+### **3.5.2  时间点检索模式**
+
+可供检索的时间实体分为三个类型：精确到年（XX 年）、精确到月（XX 年 XX 月）、精确到日（XX 年 XX 月 XX 日），范围为 1840 年-1949 年 12 月。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461427838-ba1d0909-4e44-4fec-a7b3-fe58a52ca83a.png#height=354&id=gKTvU&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=742)<br />使用流程：<br />**步骤一**：切换到“时间点”检索模式<br />**步骤二**：在检索框中输入感兴趣的时间知识点（图中以 1911 年 4 月为例）<br />**步骤三**：单击“时空检索”按钮<br />**步骤四**：单击“回溯时空信息”中的介绍可以获得查看“事件语料回溯”<br />**步骤五**：“事件语料回溯”结果从右边弹出<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461428418-b4c2c3f7-064e-4f89-9e79-f1c6e51ff0b9.png#height=352&id=zSzSb&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=738)<br />**步骤六**：点击“查看详情”可以获得从左边弹出的详情结果。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461429116-310bcb0e-dec1-431d-bae4-e3900614d66d.png#height=350&id=pQhrl&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=735)<br />  <a name="W9UWb"></a>
+
+### **3.5.3 时间段检索模式**
+
+可输入的时间实体规则同时间点检索。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461429832-e9d2bab4-1f5b-47c9-ac31-f0d5d6e8cbcc.png#height=347&id=VAH0s&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=728)<br />使用流程：<br />**步骤一**：切换到“时间段”检索模式<br />**步骤二**：在左边的检索框中输入感兴趣的时间起点（图中以 1940 年为例）<br />**步骤三**：在右边的检索框中输入感兴趣的时间终点（图中以 1941 年为例）<br />**步骤四**：单击“时空检索”按钮<br />**步骤五**：单击“回溯时空信息”中的介绍可以获得查看“事件语料回溯”<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461430432-785f09e4-e8fe-4cf5-b787-276af8f22f3b.png#height=342&id=IQUEN&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=718)<br />**步骤六**：点击“查看详情”可以获得从左边弹出的详情结果。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461431220-bc52fa6b-5a14-47ff-8a72-5f74f71de544.png#height=341&id=S4P7n&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=715)<br />  <a name="dNM89"></a>
+
+### **3.5.4  地点检索模式**
+
+支持检索的为有录入的地点实体。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461431749-ded2dfaa-d4df-4e3d-a6f1-1f7dbfd520cd.png#height=87&id=sakxt&originHeight=236&originWidth=1920&originalType=binary&status=done&style=none&width=708)<br />使用流程：<br />**步骤一**：切换到“地点”检索模式<br />**步骤二**：在检索框中输入感兴趣的地点知识点（图中以广州为例）<br />**步骤三**：单击“时空检索”按钮<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461432329-d99f29f1-ae39-4b9f-b2bb-5737e3191e87.png#height=337&id=LaD7F&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=707)<br />**步骤四**：单击“回溯时空信息”中的介绍可以获得查看“事件语料回溯”<br />**步骤五**：“事件语料回溯”结果从右边弹出<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461433028-0c94c03f-57ad-4399-a791-aba11a7be66d.png#height=335&id=c2fom&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=702)<br />**步骤六**：点击“查看详情”可以获得从左边弹出的详情结果。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461434306-5b0ea8db-bd08-4d32-aee9-1426a248a780.png#height=333&id=k89JO&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=698)<br />  <a name="otGTs"></a>
+
+### **3.4.5  时空检索模式**
+
+支持检索的时间和地点实体同时间点检索和地点检索模式。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461434845-50f2804c-88c2-4305-b6bd-59b336c5fff9.png#height=52&id=4VU7x&originHeight=144&originWidth=1906&originalType=binary&status=done&style=none&width=692)<br />使用流程：<br />**步骤一**：切换到“时空”检索模式<br />**步骤二**：在左边的检索框中输入感兴趣的时间点知识（图中以 1911 年 4 月为例）<br />**步骤三**：在右边的检索框中输入感兴趣的地点知识（图中以广州为例）<br />**步骤四**：单击“时空检索”按钮<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461435355-599abfba-b269-45ef-bb36-3842d785c6c1.png#height=326&id=s4edS&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=684)<br />**步骤五**：单击“回溯时空信息”中的介绍可以获得查看“事件语料回溯”<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461436025-5c014a58-1ae5-40c9-bbdc-2ba18d43ca47.png#height=324&id=b45pT&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=680)<br />**步骤六**：点击“查看详情”可以获得从左边弹出的详情结果。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461436822-7084f0d2-3c45-4b24-96c1-ead7899c1eb1.png#height=322&id=PY7fg&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=676) <a name="7rphy"></a>
+
+## **3.6  实体回溯检索**
+
+<a name="PcGaA"></a>
+
+### **3.6.1  简介**
+
+实体回溯检索提供对人物、事件实体的时间地点历程的知识图谱回溯。在检索框中检索所想回溯的人物实体点击检索，即可进行人物、事件——时间地点历程回溯。<br />回溯功能支持动态播放，单击工具栏中的播放图标，即可开始自动播放，也可以左右拖动最下方的时间轴线来浏览。右侧的信息栏栏会对人物的时空线和相关信息进行展示。 <a name="XD9Qh"></a>
+
+### **3.6.2  人物回溯**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461437368-7b4185fa-82c5-46ea-aa8c-845a03c86412.png#height=316&id=TQFY3&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=664)<br />使用流程：<br />**步骤一**：切换到“人物检索”页面<br />**步骤二**：在检索框中输入感兴趣的人物知识点<br />**步骤三**：单击“开始检索”按钮（图中以孙中山为例）<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461438312-9b5fbbb3-5c97-4c45-8e74-c5408ce13aae.png#height=315&id=WpLyb&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=660)<br />**步骤四**：在左侧版块查看知识点的回溯动图，事件的地点、时间变迁会在地图上呈现。想要查看哪个节点可以根据用户自己的喜好拖动图中的节点查看。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461439017-6b3ba2c5-a6a0-41b9-8b76-303709f38e0d.png#height=312&id=cYjxO&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=654)<br />**步骤五**：点击事件还能查看“事件语料回溯”，操作指南参考其他部分的“事件语料回溯”使用指导。<br />**步骤六**：点击“事件信息”可以下图结果，用户可根据喜好查看知识简介、详细信息、相关事件、相关人物。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461439895-59ab92b1-1106-4bc7-bda5-704337a89d24.png#height=310&id=3WFF5&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=650)<br /> <a name="I9OiJ"></a>
+
+### **3.6.3  事件实体回溯**
+
+事件回溯提供一条大事件实体的事件时间线，可直接单击感兴趣的大事件实体，即可进行事件——时间地点历程回溯。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461440774-56322899-6911-4304-8990-411bbc74ea36.png#height=303&id=LJLTu&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=635)<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461441650-c79744be-d802-42f2-b3fd-ef0685ad4e0c.png#height=302&id=PUrpK&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=634)<br />使用流程：<br />**步骤一**：搜索事件，上图以广州起义为例。<br />**步骤二**：在“图谱可视化模块”查看事件时间线和地点，可拖动下方的进度条进行浏览，还可以控制演化播放、演化停止。<br />**步骤三**：在“信息展示模块”可以查看事件语料回溯<br />**步骤四**：在左侧版块查看知识点的回溯动图，事件的地点、时间变迁会在地图上呈现。想要查看哪个节点可以根据用户自己的喜好拖动图中的节点查看。<br />**步骤五**：点击“事件信息”可以下图结果，用户可根据喜好查看知识简介、详细信息、相关事件、相关人物。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461442929-f0633a39-f2bb-4110-9ea6-2ceadfdd7096.png#height=309&id=TlaRV&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=649)<br />  <a name="vMEjS"></a>
+
+## **3.7  语料回溯**
+
+<a name="1ulfn"></a>
+
+### **3.7.1  简介**
+
+语料回溯基于小型自建语料数据库的进行文献语料的检索，用户在检索框检索想要了解的实体、三元组或者一些非结构化的文字记载，即可查看语料数据库中关联分数排名前十的语段。来帮助用户更好的了解其相关信息。 <a name="r9d1E"></a>
+
+### **3.7.2  语料回溯**
+
+![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461443563-9e9cf1e0-6539-499d-8f70-164ba9e00fa2.png#height=306&id=OgB5u&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=643)<br />使用流程：<br />**步骤一**：输入感兴趣的词、字、句或者相关问题<br />**步骤二**：单击“语料回溯”按钮（结果如下图，图中以孙中山为例）<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461444249-6051a878-11bc-4ff3-b90f-09aad9c53078.png#height=305&id=GUtHR&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=641)<br />**步骤三**：在下方文献展示模块选择感兴趣的文献语料对应的“查看详情”按钮并点击<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461444872-486c98ec-abb0-450d-8546-5eac46a94546.png#height=305&id=GmIzg&originHeight=915&originWidth=1920&originalType=binary&status=done&style=none&width=639)<br />**步骤四**：进行对应语料内容的浏览和隐性知识挖掘 <a name="X2QRq"></a>
+
+# **附录**
+
+<a name="Ezro1"></a>
+
+## **1  本体知识库构建**
+
+广州革命历史本体库共分为 8 个大类：
+
+- Relic.owl  存放旧址文物，下分：博物馆、文物、旧址、纪念馆、陵园墓群；
+- Personage.owl  存放人物，下分：共产党人物、国民党人物、农工党人物、无党派人 物、致公党人物、革命党人物；
+- Event.owl  存放历史事件，下分：会议、其它事件、宣传教育、武装斗争、罢工游行；
+- Document.owl  存放文书条款，下分：宪法文件、条约协定、法令宣言；
+- Literature.owl  存放文艺作品，下分：图文书籍、影视作品；
+- Location.owl  存放地点，其分类标准参考中华人民共和国行政区划，下分：国家、省级行政区、地级行政区、县级行政区、乡级行政区、村级行政区和其他区域；
+- Recall.owl  存放回溯实体，下分：事件回溯和人物回溯。
+- Time.owl  存放时间实体，下分：时间点和时间段  <br />
+
+每一个大类分别对应一个 owl 文件，相互之间可以互引，但应保证 uri 前缀一致（[http://www.owl-ontologies.com/](http://www.owl-ontologies.com/)），如有修改 uri 则需到系统源代码中进行修改，否则无法在系统中加载最新的本体模型。<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461445377-65ab5ce5-f933-4888-9cdf-41354e2c55ee.png#height=230&id=OhQ2u&originHeight=287&originWidth=606&originalType=binary&status=done&style=none&width=485)<br />广州革命历史事件本体库由知识分类（Classes）、知识点（Instance），知识属性 （Datatype Property）、知识属性值（Datatype）、知识点之间关联（Object Property）等构成，可根据实际需求进行修改。<br /><br />**使用 Protégé 软件进行本体编辑**<br />1.  在 Windows 环境下需要先安装 Java 环境<br />2.  安装“Protege-5.5.0”<br />3.  运行“Protege.exe”<br />4. “File”=>“Open”,选择想要编辑的本体文件，点击“打开”<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461445909-b53efa3f-28a4-4cc7-865a-4cf9a664f0db.png#height=219&id=3T5Ml&originHeight=365&originWidth=503&originalType=binary&status=done&style=none&width=302)<br />5.  进入到软件页面后选择相应的想要修改的 class 下的知识点，进行对应本体编辑。需要注意的是打开不同的 owl 文件只能在该对应的分类中编辑实例（即打开 Pensonage.owl 只可以编辑“人物”这个分类的实例），否则会出错，需要重置之前的操作。<br /> <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461446634-b5ed09f5-2546-46cd-b0cd-513635ca8b27.png#height=275&id=nAcyt&originHeight=963&originWidth=1911&originalType=binary&status=done&style=none&width=546) <a name="MttKK"></a>
+
+## **2  数据采集和收录情况**
+
+在历史文献语料方面，以“民国广州革命历史”为核心人工浏览“读秀数据库”等数字图书馆，根据搜集到的民国时期在广州发生的革命事件、参与革命事件的核心革命人物等为关键词查找对广州革命历史有直接记载的文献资料，如由中共广州市委党史资料征集研究委员会办公室编著的《纪念抗日战争胜利四十周年   沦陷时期广州人民的抗日斗争   党史资料选编》，中共广州市委党史研究室编著的《中共广州党史大事记》等，将其下载保存并通过 OCR 文字识别等技术将电子文献转换保存为 txt 格式文本文献。<br />在知识图谱数据信息方面，调用汉语言处理包 HanLp 下由结构化感知机序列标注框架支撑的 NLPTokenizer（NLP 分词）对下载的每一部电子文献文档进行命名实体识别，从记录广州革命历史事件的图书文字中得到可能与广州革命历史事件有关人物名字；基于抽取的人物、事件、条约等知识实体，将其依次基于 selenium 进行多线程的百度百科和维基百科的网络爬虫知识结构化三元组抽取，主要分为知识简介、知识详情、相关人物、相关事件四个部分进行抽取，对搜集到的每个百科词条进行基于一定规则下的模式匹配，对人物进行分类，并获得确切的与广州革命历史事件相关的人物资料。  以搜集到的广州革命历史事件及其相关人物为爬虫起点，在百度百科上爬取这些事件和人物相关的文书条款、文艺作品、旧址文物、档案等资料，从而充实广州革命历史事件的知识库；最后，由人工阅读相关文献，请教历史学专家，对机器遗漏的部分广州革命历史事件相关知识进行补充。不断迭代循环以上步骤，直到知识库中的知识量达到预期规模。    <br />此外，在知识库中，还有非结构化的知识，分别保存着人物的生平经历、事件的整个流程，用于向用户直观地展示广州革命相关人物的生平事迹、广州革命历史事件的全貌。为了获得数量较大的非结构化数据，使用 Python 的 BeautifulSoup 包对下载的百科词条页面进行解析，选取其中描述人物生平的部分提取文字，调用哈工大社会计算与信息检索研究中心研发的 LTP 语言技术平台对人物生平进行时间文本识别，每个时间字段所在的句段视为一个知识节点，通过此方法获取多个知识节点，将其串联起来，即可获得人物生平、事件整个流程的非结构化知识。<br />系统目前数据收录情况如下： | 名称 | 父类 | 子类 | 关系类别 | 属性类别 | 知识点 | 三元组数据 | 文献量 | | --- | --- | --- | --- | --- | --- | --- | --- | | 数量 | 8 | 34 | 98 | 46 | 9641 | 16435 | 1021 |
+
+系统目前实体收录情况如下： | 名称 | 人物 | 历史事件 | 时间 | 地点 | 回溯 | 旧址文物 | 文书条款 | 文艺作品 | 档案 | | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | | 条数 | 1283 | 102 | 41594 | 879 | 6005 | 153 | 12 | 50 | 11 |
+
+<a name="4SDzt"></a>
+
+## **3  时空检索知识原理**
+
+为了更好地还原人物的生平经历、事件的整个流程，向用户直观地展示广州革命相关人物的生平事迹、广州革命历史事件的全貌，根据 W3C 在语义网中定义的 n 关系表现形式模式 1 和模式 2 建立的知识线网络设计了非结构化的回溯子事件知识列表，以更好地存储和使用此类知识。<br />回溯子事件知识列表存储了具有明显先后顺序的 n 元关系数据，例如“航班 PN 6264 将依次抵达白云机场、珠海机场和重庆机场”，以这种方式构建时，需将航线分解成不同的飞行段并抽象成飞行段类，该类拥有“目的地”与“下一个飞行段”两个属性，“下一个飞行段”属性指向的也是飞行段类的一个实例，如此形成一个飞行段列表，该飞行段列表即构成了“PN 6264”的航线信息，如下图所示：<br /> <br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461447160-3d27c8b2-9094-47b4-bf5d-fffa0f97d944.png#height=254&id=dhZmf&originHeight=254&originWidth=343&originalType=binary&status=done&style=none&width=343)<br />在革命历史领域，不只需要展示不同时间和地点对应的相关事物，还需要突出这些事物出现的先后顺序。以“三元里抗英斗争”为例，其 n 元关系数据列表结构如下图所示：<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461447775-348356d0-b939-42fa-bb83-2afba888ec0d.png#height=263&id=RtY8D&originHeight=472&originWidth=753&originalType=binary&status=done&style=none&width=420)<br />为了获得数量较大的非结构化数据，使用 Python 的 BeautifulSoup 包对下载的百科词条页面进行解析，选取其中描述人物生平的部分提取文字，调用哈工大社会计算与信息检索研究中心研发的 LTP 语言技术平台对人物生平进行时间文本识别，每个时间字段所在的句段视为一个知识节点，通过此方法获取多个知识节点，将其串联起来，即可获得人物生平、事件整个流程的非结构化知识。<br />其 protege 知识存储格式如下例图：<br />![](https://cdn.nlark.com/yuque/0/2021/png/790932/1618461448633-e0d7c543-6c46-4627-893c-3955c08a01a7.png#height=164&id=G3MHK&originHeight=752&originWidth=1905&originalType=binary&status=done&style=none&width=415) <a name="59gcn"></a>
+
+## **4  文献语料检索原理**
+
+基于 Lucene 进行的全文检索分为两个步骤，分别为构建文献语料的索引以及关键字分词全文检索。构建索引前需要将文献的句子进行正向或逆向分词，切分规则基于知识图谱的本体库进行切分。分词组件(Tokenizer)利用 IK-Analyzer 分词器对所有文献内容进行切分，利用本体库进行分词得到的语元(Token)，再将得到的词(Term)传给索引组件(Indexer)，进行创建索引。创建索引的目地是为了搜索，最终要实现只搜索被搜索的语元(Token)。索引检索是指用户输入查询词句，并对查询词句词法分析，语法分析，及语言处理等，然后搜索索引得到符合语法树的文档，最后根据得到的文档和查询语句的相关性，对结果进行排序。在语言处理方面利用知识图谱的本体知识词库与关系词库进行切分，提取关键的实体数据进行检索。在文档排序方面，对文档重要性评价的过程为计算词的权重(Term weight)  的过程。判断词(Term)  之间的关系从而得到文档相关性的过程应用了向量空间模型的算法(Vector Space Model)。影响一个词(Term)在一篇文档中的重要性主要有两个因素：Term Frequency (tf)以及 Document Frequency (df)，tf 是 Term 在此文档中出现的频数，tf  越大说明越重要。Df 是指有多少文档包含次 Term。df  越大说明越不重要。判断 Term 之间的关系从而得到文档相关性的过程，也即向量空间模型的算法(VSM)。把文档看作一系列词(Term)，每一个词(Term)都有一个权重(Term weight)，不同的词(Term)根据自己在文档中的权重来影响文档相关性的打分计算并进行按分数进行排列，分数高的文献语料进行优先展示。以“广州起义”为例，在构建索引前利用 IK 分词器基于本体库对文献的语料进行正向或逆向的切分，得到词元(token)，广州起义将作为一个词元传递给索引组件，创建“广州起义”的词元索引，在检索“广州起义”的时候，lucene 将找到“广州起义”词元的索引，计算“广州起义”在每一篇文献中相关性系数，获取与“广州起义”有关的的相关文献，并按相关系数排列，再利用词元在语料内的权重分配进行打分，得到“广州起义”在每个相关文献中的片段分数，并按分数排列文献片段。在检索“广州起义”后得到的前三本文献分数为——《广州起义图文集》王晓玲，蒋斌  score1=0.10908963、《广州起义》黄穗生 score2=0. 09020603《放眼看广州起义》 徐小林 score3= 0.07616874。 <a name="DTFUo"></a>
+
+## **5  系统相关技术选型**
+
+<a name="20nlv"></a>
+
+## **5.1 系统后端框架**
+
+- SpringBoot 2.2.5.RELEASE
+- Mybatis 1.3.0.RELEASE
+- Jena 3.8.0.RELEASE
+- Log4j 2.6.2.RELEASE
+- Lunece 4.10.2.RELEASE
+- Mysql-connector 5.1.39.RELEASE <a name="SVhep"></a>
+
+## **5.2 系统前端框架**
+
+- React 16.13.1
+- ant-design/icons 4.2.1
+- Antd 3.17.0
+- Axios 0.19.2
+- Echarts 4.7.0
+- react-dom 16.13.1
+- react-redux 7.2.0
+- react-router-dom 5.1.2
+- Redux 4.0.5 <a name="r0Kyr"></a>
+
+## **5.3  数据库**
+
+- MySQL 8.0
+- TDB 图形数据库 <a name="AEwjW"></a>
+
+## **5.4 可视化工具**
+
+- Echarts.js <a name="JnXQD"></a>
+
+## **5.5 本体构建工具**
+
+- protégé 3.5
+
+
