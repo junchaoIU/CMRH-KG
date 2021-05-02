@@ -1,5 +1,6 @@
 export default {
   'menu.welcome': '欢迎',
+  'menu.use': '使用文档',
   'menu.knowledgeSearch': '知识检索',
   'menu.relationSearch': '关系检索',
   'menu.timespacesEarch': '时空检索',
