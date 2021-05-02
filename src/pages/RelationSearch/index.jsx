@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
-import Search from './components/Search';
 import MainSearch from '../../components/MainSearch';
 import styles from './index.less';
-import { Input, Button, Row, Col } from 'antd';
-import { SwapOutlined, NodeIndexOutlined } from '@ant-design/icons';
+import { NodeIndexOutlined } from '@ant-design/icons';
+import SearchInput from './components/SearchInput';
+import SearchResult from './components/SearchResult';
 
 class relationSearch extends PureComponent {
   state = {
@@ -18,6 +18,7 @@ class relationSearch extends PureComponent {
       val: false,
     });
   };
+
   onChange = (e) => {
     this.setState({
       object: e.target.value,
@@ -41,31 +42,10 @@ class relationSearch extends PureComponent {
               text={'关系·检索'}
               engText={'Relation Retrieval'}
             />
-            <Input.Group compact>
-              <Input
-                style={{ marginRight: '3px' }}
-                className={styles.input}
-                size={'large'}
-                placeholder="知识点一："
-                allowClear
-                onChange={this.onChange}
-              />
-              <SwapOutlined className={styles.iconR} />
-              <Input
-                style={{ marginLeft: '3px' }}
-                className={styles.input}
-                size={'large'}
-                placeholder="知识点二："
-                allowClear
-                onChange={this.onChange1}
-              />
-              <Button type="primary" className={styles.button} size={'large'} onClick={this.search}>
-                检索一下
-              </Button>
-            </Input.Group>
+            <SearchInput search={this.search} onChange={this.onChange} onChange1={this.onChange1} />
           </div>
         ) : (
-          <Search parentObject={object} parentSubject={subject} />
+          <SearchResult parentObject={object} parentSubject={subject} />
         )}
       </PageContainer>
     );

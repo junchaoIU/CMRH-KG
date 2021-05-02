@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Input, Spin, Col, Row, Button, message } from 'antd';
+import { Spin, Col, Row, message } from 'antd';
 import styles from '../index.less';
 import { connect } from 'dva';
-import { SwapOutlined } from '@ant-design/icons';
 import Empty from '../../../components/Empty/index';
 import Charts from './Charts';
 import Information from './Information';
+import SearchInput from './SearchInput';
 
 @connect(({ relation, loading }) => ({
   relation,
@@ -15,7 +15,7 @@ import Information from './Information';
   knowledge,
   submitting: loading.effects['knowledge/knowledge'],
 }))
-class search extends PureComponent {
+class searchResult extends PureComponent {
   state = {
     val: false,
     object: '',
@@ -125,33 +125,13 @@ class search extends PureComponent {
     const loadings = loading === undefined ? false : loading;
     return (
       <div className={styles.search}>
-        <Input.Group compact>
-          <Input
-            className={styles.input}
-            size={'large'}
-            placeholder="知识点一："
-            allowClear
-            value={object}
-            onChange={this.onChange}
-          />
-          <SwapOutlined className={styles.icon} />
-          <Input
-            className={styles.input}
-            size={'large'}
-            placeholder="知识点二："
-            allowClear
-            value={subject}
-            onChange={this.onChange1}
-          />
-          <Button
-            type="primary"
-            className={styles.button}
-            size={'large'}
-            onClick={() => this.search(null)}
-          >
-            检索一下
-          </Button>
-        </Input.Group>
+        <SearchInput
+          object={object}
+          subject={subject}
+          search={() => this.search(null)}
+          onChange={this.onChange}
+          onChange1={this.onChange1}
+        />
         <Spin spinning={loadings}>
           {val && objectLinks.length !== 0 && subjectLinks.length !== 0 ? (
             <Row className={styles.content}>
@@ -176,4 +156,4 @@ class search extends PureComponent {
   }
 }
 
-export default search;
+export default searchResult;
