@@ -1,76 +1,67 @@
-import React,{ Component } from 'react';
-import { Card,Typography,Row,Col, Divider } from 'antd';
+import React, { Component } from 'react';
+import { Card, Typography, Row, Col } from 'antd';
+import CountUp from 'react-countup';
 import styles from '../index.less';
 import { connect } from 'dva';
 
-@connect(({ welcome,loading }) => ({
+@connect(({ welcome, loading }) => ({
   welcome,
   submitting: loading.effects['welcome/welcome'],
 }))
-
 class knowledge extends Component {
-
-  componentDidMount(){
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
       type: 'welcome/getHomeData',
     });
   }
-  render(){
-    const { welcome:{knowledge} } = this.props
+
+  render() {
+    // eslint-disable-next-line no-shadow
+    const {
+      welcome: { knowledge },
+    } = this.props;
     return (
       <div>
-        <Typography className={styles.knowledge}>
-         本体知识库
-        </Typography>
+        <Typography className={styles.knowledge}>本体知识库</Typography>
         <Row justify="center" gutter={24} style={{ margin: '0 0 20px 0' }}>
           <Col span={4}>
             <Card bordered={false} className={styles.minCard}>
-              <p className={styles.cardTitle}>
-                知识实体数量
-              </p>
+              <p className={styles.cardTitle}>知识实体数量</p>
               <p className={styles.cardNum}>
-                {knowledge.individual}
+                <CountUp end={knowledge.individual} start={0} duration={1} />
               </p>
             </Card>
           </Col>
           <Col span={4}>
             <Card bordered={false} className={styles.minCard}>
-              <p className={styles.cardTitle}>
-                三元组数量
-              </p>
+              <p className={styles.cardTitle}>三元组数量</p>
               <p className={styles.cardNum}>
-                {knowledge.statement}
+                <CountUp end={knowledge.statement} start={0} duration={1} />
               </p>
             </Card>
           </Col>
           <Col span={4}>
             <Card bordered={false} className={styles.minCard}>
-              <p className={styles.cardTitle}>
-                关系种类数量
-              </p>
+              <p className={styles.cardTitle}>关系种类数量</p>
               <p className={styles.cardNum}>
-                {knowledge.objectProperty}
+                <CountUp end={knowledge.objectProperty} start={0} duration={1} />
               </p>
             </Card>
           </Col>
           <Col span={4}>
             <Card bordered={false} className={styles.minCard}>
-              <p className={styles.cardTitle}>
-                属性种类数量
-              </p>
+              <p className={styles.cardTitle}>属性种类数量</p>
               <p className={styles.cardNum}>
-                {knowledge.dataProperty}
+                <CountUp end={knowledge.dataProperty} start={0} duration={1} />
               </p>
             </Card>
           </Col>
           <Col span={4}>
             <Card bordered={false} className={styles.minCard}>
-              <p className={styles.cardTitle}>
-                文献语料数量
-              </p>
+              <p className={styles.cardTitle}>文献语料数量</p>
               <p className={styles.cardNum}>
-                {knowledge.books}
+                <CountUp end={knowledge.books} start={0} duration={1} />
               </p>
             </Card>
           </Col>
@@ -78,5 +69,5 @@ class knowledge extends Component {
       </div>
     );
   }
-};
+}
 export default knowledge;
