@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { Card,Typography,Row,Col,Divider } from 'antd';
 import { FileSearchOutlined,InteractionOutlined,HourglassOutlined,NodeIndexOutlined,UngroupOutlined,UserSwitchOutlined} from '@ant-design/icons';
 import styles from '../index.less';
+
 const numService = () => {
   return (
     <div>
@@ -17,20 +18,7 @@ const numService = () => {
             知识检索
           </p>
           <p className={styles.content}>
-            数据结构化是人文知识扩展的必经之路。本平台提供实体目录支持系统结构化存储的所有实体的查看，涵盖多个实体分类，用户可通过点击目录上的加减号来展开、收起，进行系统存储实体的了解。也可以在目录上方的检索栏中输入自己感兴趣的实体，进行相关实体知识检索、知识图谱的查看、实体知识的了解。
-          </p>
-        </div>
-      </Card>
-      <Card className={styles.service} bordered={false}>
-        <div className={styles.iconDiv}>
-          <HourglassOutlined twoToneColor="#00a2d7" className={styles.icon} />
-        </div>
-        <div className={styles.contentDiv}>
-          <p className={styles.title}>
-            时空检索
-          </p>
-          <p className={styles.content}>
-            时空检索基于事件回溯和人物回溯实体的时空数据，可以帮助人们进一步探索某个时间点或地点发生的事情。用户可以通过对检索想要了解的时间点和地点来了解该时空发生的事情，通过不同的检索组合将零碎的回溯实体拼接成不同的时间线，以全方面还原大家感兴趣的时空历史片段。
+            数据结构化是人文知识扩展的必经之路。本平台提供实体目录支持系统结构化存储的所有实体的查看，涵盖多个实体分类，用户可通过检索框左边的知识目录进行展开、收起，进行系统存储实体的了解。也可以在目录上方的检索栏中输入自己感兴趣的实体，进行相关实体知识检索、知识图谱的查看、实体知识的了解。
           </p>
         </div>
       </Card>
@@ -49,6 +37,19 @@ const numService = () => {
       </Card>
       <Card className={styles.service} bordered={false}>
         <div className={styles.iconDiv}>
+          <HourglassOutlined twoToneColor="#00a2d7" className={styles.icon} />
+        </div>
+        <div className={styles.contentDiv}>
+          <p className={styles.title}>
+            时空检索
+          </p>
+          <p className={styles.content}>
+            时空检索基于事件回溯和人物回溯实体的时空数据，可以帮助人们进一步探索某个时间点或地点发生的事情。用户可以通过对检索想要了解的时间点和地点来了解该时空发生的事情，通过不同的检索组合将零碎的回溯实体拼接成不同的时间线，以全方面还原大家感兴趣的时空历史片段。
+          </p>
+        </div>
+      </Card>
+      <Card className={styles.service} bordered={false}>
+        <div className={styles.iconDiv}>
           <UserSwitchOutlined twoToneColor="#00a2d7" className={styles.icon} />
         </div>
         <div className={styles.contentDiv}>
@@ -56,7 +57,7 @@ const numService = () => {
             人物回溯
           </p>
           <p className={styles.content}>
-            人物回溯分析基于对不同人物实体的数据收集，通过数据结构化建立的知识线网络。本平台支持对人物实体的时间地点发展历程的知识图谱二维演化，通过对人物实体一生的还原与再现，为读者建立起一个人物知识的立体知识体系。在检索框中检索我们所想回溯的人物实体点击检索，即可进行人物——时间地点历程二维演化。
+            人物回溯分析基于对不同人物实体的数据收集，通过数据结构化建立的知识线网络。本平台支持对人物实体的时间地点发展历程的地图三维演化，通过对人物实体一生的还原与再现，为读者建立起一个人物知识的立体知识体系。在检索框中检索所想回溯的人物实体点击检索，即可进行人物——时间地点历程三维演化。
           </p>
         </div>
       </Card>
@@ -69,7 +70,7 @@ const numService = () => {
             事件回溯
           </p>
           <p className={styles.content}>
-            事件回溯分析基于对革命历史时间线的构建以及不同事件实体的数据收集，根据W3C在语义网中定义的n关系表现形式模式1和模式2建立的知识线网络。本平台支持对事件实体的时间地点发展历程的知识图谱二维演化，对事件实体全过程进行还原与再现。在检索框中检索我们所想回溯的事件实体点击检索，即可进行事件——时间地点历程二维演化。
+            事件回溯分析基于对革命历史时间线的构建以及不同事件实体的数据收集，根据W3C在语义网中定义的N元关系表现形式建立的知识线网络。本平台支持对事件实体的时间地点发展历程的地图三维演化，对事件实体全过程进行还原与再现。在检索框中检索我们所想回溯的事件实体点击检索，即可进行事件——时间地点历程三维演化。
           </p>
         </div>
       </Card>
