@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import minEmpty from '@/components/Empty/minEmpty';
 import { Row, Col, Card, Button, Spin, Drawer } from 'antd';
 
-// 实体语料回溯
+// 实体语料关联
 class BookCard extends PureComponent {
   state = {
     visible: false,
@@ -43,7 +43,7 @@ class BookCard extends PureComponent {
                           <div className={styles.bookImage}>
                             <img
                               style={{ height: '100px' }}
-                              src={`http://gzknowledge.cn:2222/book/${item.bookName}${item.bookAuthor}.png`}
+                              src={`http://image.gzknowledge.cn/book/${item.bookName}${item.bookAuthor}.png`}
                             />
                           </div>
                           <p>{item.bookName}</p>

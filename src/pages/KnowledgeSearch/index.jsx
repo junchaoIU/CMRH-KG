@@ -3,7 +3,7 @@ import styles from './index.less';
 import { PageContainer } from '@ant-design/pro-layout';
 import SearchResult from './components/SearchResult';
 import MainSearch from '../../components/MainSearch';
-import { FileSearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import SearchInput from '@/pages/KnowledgeSearch/components/SearchInput';
 
 class knowledgeSearch extends PureComponent {
@@ -31,7 +31,7 @@ class knowledgeSearch extends PureComponent {
         {val === true ? (
           <div className={styles.indexSearch}>
             <MainSearch
-              logo={<FileSearchOutlined />}
+              logo={<SearchOutlined />}
               text={'知识·检索'}
               engText={'Knowledge Retrieval'}
             />

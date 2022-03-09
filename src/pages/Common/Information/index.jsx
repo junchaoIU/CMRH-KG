@@ -45,7 +45,7 @@ class Information extends PureComponent {
           if (item.category === '相关事件') {
             relevanceArr.push({
               name: item.target,
-              url: `http://gzknowledge.cn:2222/${item.target}.jpg`,
+              url: `http://image.gzknowledge.cn/knowledge/${item.target}.jpg`,
             });
           } else if (categorys.includes(item.category)) {
             if (item.target.substring(0, 1) === 'y') {
@@ -56,7 +56,7 @@ class Information extends PureComponent {
           } else {
             peopleArr.push({
               name: item.target,
-              url: `http://gzknowledge.cn:2222/${item.target}.jpg`,
+              url: `http://image.gzknowledge.cn/knowledge/${item.target}.jpg`,
             });
           }
         })
@@ -77,7 +77,7 @@ class Information extends PureComponent {
       detail: detailArr,
       relevance: relevanceArr,
       people: peopleArr,
-      briefUrl: `http://gzknowledge.cn:2222/${propSearch}.jpg`,
+      briefUrl: `http://image.gzknowledge.cn/knowledge/${propSearch}.jpg`,
       brief: briefStr,
     });
   };

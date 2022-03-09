@@ -38,7 +38,7 @@ class search extends PureComponent {
       payload: value !== null ? value : this.state.searchValue,
       callback: (response) => {
         if (response.length === 0) {
-          message.warning('未检索到其语料回溯！');
+          message.warning('未检索到其语料关联！');
         }
         if (response !== null) {
           this.setState({
@@ -69,7 +69,7 @@ class search extends PureComponent {
           size={'large'}
           onClick={() => this.search(null)}
         >
-          语料回溯
+          语料关联
         </Button>
         <BookCard colSpan={12} loading={loadings} substance={substance} show={true} />
       </div>

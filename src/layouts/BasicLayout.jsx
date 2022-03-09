@@ -10,7 +10,8 @@ import { Result, Button, Layout } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getMatchMenu } from '@umijs/route-utils';
-import logo from '../assets/logo.svg';
+import logo from '../../public/proLogo.jpg';
+import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
 
 const noMatch = (
   <Result
@@ -38,9 +39,27 @@ const menuDataRender = (menuList) =>
   });
 const defaultFooterDom = (
   <DefaultFooter
-    style={{ background: '#60c3ffa6' }}
-    copyright={`${new Date().getFullYear()} 广州革命历史数字图书馆`}
-    links={[]}
+    style={{ background: '#60c3ffa6', fontWeight:"bold", float:"left"}}
+    copyright={`2019-${new Date().getFullYear()} CantonKG@BNUZ All Rights Reserved`}
+    links={[
+      {
+        key: 'github',
+        title: <GithubOutlined />,
+        href: 'https://github.com/CantonKG',
+        blankTarget: true,
+      },
+      {
+        key: 'team',
+        title: "Canton Knowledge Graph Development Team @Beijing Normal University,Zhuhai",
+        blankTarget: true,
+      },
+      {
+        key: 'email',
+        title: "Contact us: wujunchaoIU@outlook.com",
+        href: 'wujunchaoIU@outlook.com',
+        blankTarget: true,
+      },
+    ]}
   />
 );
 
@@ -84,7 +103,7 @@ const BasicLayout = (props) => {
   const { formatMessage } = useIntl();
   return (
     <ProLayout
-      logo={<img style={{ height: '68px' }} src={logo} />}
+      logo={<img src={logo} style={{ height: '68px' }} />}
       formatMessage={formatMessage}
       contentStyle={{ background: 'white', margin: '0' }}
       {...props}

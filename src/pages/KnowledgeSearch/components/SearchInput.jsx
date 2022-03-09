@@ -25,7 +25,7 @@ class SearchInput extends PureComponent {
           className={className}
           options={catalogData}
           onChange={onChange}
-          placeholder="请选择或输入检索的知识点"
+          placeholder="试一试输入孙中山检索一下~"
           displayRender={this.displayRender}
           size="large"
           showSearch={{ filter: this.filter, matchInputWidth: false }}

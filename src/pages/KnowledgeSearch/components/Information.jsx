@@ -53,7 +53,7 @@ class information extends PureComponent {
       cardVisible: false,
     });
   };
-  // 三元组语料回溯
+  // 三元组语料关联
   onThree = () => {
     const { chartsData } = this.props;
     const { loading, substance, cardVisible } = this.state;
@@ -109,7 +109,7 @@ class information extends PureComponent {
         </Checkbox>
         <Button style={{ float: 'right' }} onClick={onThreeSearch}>
           <FileSearchOutlined />
-          三元组语料回溯
+          三元组语料关联
         </Button>
         <Divider />
         <Checkbox.Group
@@ -138,10 +138,10 @@ class information extends PureComponent {
           <Tabs.TabPane tab="实体信息" key="1" className={styles.innerCard}>
             <Information propSearch={propSearch} detailData={detailData} chartsData={chartsData} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="实体语料回溯" key="2" className={styles.book}>
+          <Tabs.TabPane tab="实体语料关联" key="2" className={styles.book}>
             <BookCard colSpan={24} loading={loading} substance={substance} show={true} />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="三元组语料回溯" key="3">
+          <Tabs.TabPane tab="三元组语料关联" key="3">
             {this.onThree()}
           </Tabs.TabPane>
         </Tabs>

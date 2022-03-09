@@ -47,13 +47,13 @@ class eventBack extends PureComponent {
           <div className={styles.indexSearch}>
             <MainSearch
               logo={<InteractionOutlined />}
-              text={'事件回溯·检索'}
+              text={'事件时空演化·检索'}
               engText={'Event Back Retrieval'}
             />
             <Input
               size={'large'}
               className={styles.input}
-              placeholder={'请输入事件实体：'}
+              placeholder={'请输入事件实体：（例如：二次革命）'}
               allowClear
               onChange={this.onChange}
             />

@@ -37,9 +37,16 @@ export default defineConfig({
 
   proxy: {
     '/api/': {
+      // target: 'http://gzknowledge.cn:2222/',
       target: 'http://gzknowledge.cn:2222/',
       changeOrigin: false,
       pathRewrite: { '^/api': '' },
+    },
+    '/api2/': {
+      // target: 'http://gzknowledge.cn:5000/',
+      target: 'http://localhost:2525/',
+      changeOrigin: true,
+      pathRewrite: { '^/api2': '' },
     },
   },
 

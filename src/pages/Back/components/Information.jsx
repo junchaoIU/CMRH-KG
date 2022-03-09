@@ -77,7 +77,7 @@ class information extends PureComponent {
               <Tooltip
                 color={'#2db7f5'}
                 placement="topLeft"
-                title="点击事件语料回溯"
+                title="点击事件语料关联"
                 arrowPointAtCenter
               >
                 <p

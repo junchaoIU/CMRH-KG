@@ -14,7 +14,7 @@ class information extends PureComponent {
     return (
       <div className={styles.cardContainer}>
         <Tabs type="card" className={styles.outCard}>
-          <Tabs.TabPane tab="实体语料回溯" key="2" className={styles.book}>
+          <Tabs.TabPane tab="实体语料关联" key="2" className={styles.book}>
             <BookCard colSpan={24} substance={substance} loading={false} show={true} />
           </Tabs.TabPane>
         </Tabs>

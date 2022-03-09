@@ -29,7 +29,7 @@ class LineDrawer extends PureComponent {
     return (
       <div>
         <Drawer
-          title="事件语料回溯"
+          title="事件语料关联"
           placement="right"
           closable={false}
           width={width || '80%'}

@@ -61,6 +61,10 @@
     "moment": "^2.25.3",
     "omit.js": "^2.0.2",
     "qs": "^6.9.0",
+    "rc-banner-anim": "^2.4.5",
+    "rc-queue-anim": "^2.0.0",
+    "rc-texty": "^0.2.0",
+    "rc-tween-one": "^3.0.3",
     "react": "^17.0.0",
     "react-countup": "^5.2.0",
     "react-dev-inspector": "^1.1.1",
@@ -106,6 +110,7 @@
     "prettier-plugin-style-order": "^0.2.2",
     "pro-download": "1.0.1",
     "puppeteer-core": "^5.0.0",
+    "react-json-view": "^1.21.3",
     "stylelint": "^13.0.0",
     "typescript": "^4.0.3"
   },

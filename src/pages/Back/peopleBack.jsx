@@ -32,13 +32,13 @@ class peopleBack extends Component {
           <div className={styles.indexSearch}>
             <MainSearch
               logo={<UserOutlined />}
-              text={'人物回溯·检索'}
+              text={'人物时空演化·检索'}
               engText={'People Back Retrieval'}
             />
             <Input
               size={'large'}
               className={styles.input}
-              placeholder={'请输入人物实体：'}
+              placeholder={'请输入人物实体：（例如：孙中山）'}
               allowClear
               onChange={this.onChange}
             />

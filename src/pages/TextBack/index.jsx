@@ -3,7 +3,7 @@ import { Input, Button } from 'antd';
 import styles from './index.less';
 import { PageContainer } from '@ant-design/pro-layout';
 import Search from './components/Search';
-import { UngroupOutlined } from '@ant-design/icons';
+import { FileSearchOutlined } from '@ant-design/icons';
 import MainSearch from '@/components/MainSearch';
 
 class textBack extends Component {
@@ -31,8 +31,8 @@ class textBack extends Component {
         {val === true ? (
           <div className={styles.indexSearch}>
             <MainSearch
-              logo={<UngroupOutlined />}
-              text={'语料回溯·检索'}
+              logo={<FileSearchOutlined />}
+              text={'语料关联·检索'}
               engText={'Corpus Back Retrieval'}
             />
             <Input
@@ -44,7 +44,7 @@ class textBack extends Component {
               onChange={this.onChange}
             />
             <Button type="primary" className={styles.button} size={'large'} onClick={this.search}>
-              语料回溯
+              语料关联
             </Button>
           </div>
         ) : (

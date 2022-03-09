@@ -13,7 +13,7 @@ class SearchInput extends PureComponent {
             className={styles.input}
             size={'large'}
             value={object}
-            placeholder="知识点一："
+            placeholder="试一试输入孙中山检索一下~"
             allowClear
             onChange={onChange}
           />
@@ -23,7 +23,7 @@ class SearchInput extends PureComponent {
             className={styles.input}
             size={'large'}
             value={subject}
-            placeholder="知识点二："
+            placeholder="试一试输入宋庆龄检索一下~"
             allowClear
             onChange={onChange1}
           />

@@ -19,7 +19,7 @@ export default [
               {
                 path: '/welcome',
                 name: 'welcome',
-                icon: 'smile',
+                icon: 'home',
                 component: './Welcome',
               },
               {
@@ -31,7 +31,7 @@ export default [
               {
                 path: '/knowledgeSearch',
                 name: 'knowledgeSearch',
-                icon: 'file-search',
+                icon: 'search',
                 component: './KnowledgeSearch',
               },
               {
@@ -69,8 +69,45 @@ export default [
               {
                 path: '/textBack',
                 name: 'textBack',
-                icon: 'ungroup',
+                icon: 'file-search',
                 component: './TextBack',
+              },
+              {
+                path: '/informationExtraction',
+                name: 'informationExtraction',
+                icon: 'ungroup',
+                routes: [
+                  {
+                    path: '/informationExtraction/baikeExtraction',
+                    name: 'informationExtraction',
+                    icon: 'ungroup',
+                    component: './InformationExtraction',
+                  },
+                  {
+                    path: '/informationExtraction/kgTramsformer',
+                    name: 'kgTramsformer',
+                    icon: 'ungroup',
+                    component: './KGTramsformer',
+                  },
+                ],
+              },
+              {
+                path: '/kbqa',
+                name: 'kbqa',
+                icon: 'comment',
+                component: './KBQA',
+              },
+              {
+                path: '/openApi',
+                name: 'openApi',
+                icon: 'cloudSync',
+                component: './OpenApi',
+              },
+              {
+                path: '/about',
+                name: 'about',
+                icon: 'instagram',
+                component: './About',
               },
               {
                 component: './404',
