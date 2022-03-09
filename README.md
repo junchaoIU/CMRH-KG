@@ -77,7 +77,7 @@ If you reference or use the results of this project in your research, please cit
 J. Wu, Y. Jiang, X. Chen, et al. "The Canton Canon" Digital Library Based on Knowledge Graph - Taking the Revolutionary Archives of Canton in the Republic of China as an Example. [C]// 2021 10th International Conference on Educational and Information Technology (ICEIT), IEEE, 2021: 171-179.
 ```
 
-# ❗ Statement（声明）
+## ❗ Statement（声明）
 
 - 本系统已登记软著，可供参考及实验借鉴，或者自己部署玩玩
 - 本项目不可做商业用途，或者直接套用系统作为课题科研成果
