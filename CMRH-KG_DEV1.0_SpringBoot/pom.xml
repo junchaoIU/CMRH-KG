@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.canton</groupId>
+    <artifactId>canton</artifactId>
+    <!--<version></version>-->
+     <name>Canton</name>
+     <description>Canton project for Spring Boot by CX</description>
+
+     <properties>
+         <java.version>1.8</java.version>
+         <mybatis-spring-boot>1.3.0</mybatis-spring-boot>
+         <jena.version>3.8.0</jena.version>
+         <log4j.version>2.6.2</log4j.version>
+         <lunece.version>4.10.2</lunece.version>
+         <mysql-connector>5.1.39</mysql-connector>
+     </properties>
+         <dependencies>
+             <!-- Spring Boot Web 依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+            </dependency>
+
+            <!-- MySQL 连接驱动依赖 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector}</version>
+            </dependency>
+
+            <!-- SpringBoot Mybatis 依赖 -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot}</version>
+            </dependency>
+
+            <!-- lombok依赖-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+            </dependency>
+
+            <!-- logback 依赖-->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+            </dependency>
+
+            <!--Slf4j 依赖-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.jena/jena -->
+            <dependency>
+                <groupId>org.apache.jena</groupId>
+                <artifactId>jena</artifactId>
+                <version>${jena.version}</version>
+                <type>pom</type>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-tdb -->
+            <dependency>
+                <groupId>org.apache.jena</groupId>
+                <artifactId>jena-tdb</artifactId>
+                <version>${jena.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-compress</artifactId>
+                        <groupId>org.apache.commons</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+            <!-- Test测试/get，post测试的包CX-->
+           <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-test</artifactId>
+               <scope>test</scope>
+           </dependency>
+            <!-- Lucence核心包 -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+
+            <!-- Lucene 查询解析包 -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+
+            <!-- 常规的分词（英文） -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-common</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+
+             <!-- ikanalyzer 中文分词器  -->
+             <dependency>
+                 <groupId>com.janeluo</groupId>
+                 <artifactId>ikanalyzer</artifactId>
+                 <version>2012_u6</version>
+                 <!--排除掉里面旧的lucene包，因为我们要重写里面的分析器和分词器  -->
+                 <exclusions>
+                     <exclusion>
+                         <groupId>org.apache.lucene</groupId>
+                         <artifactId>lucene-core</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>org.apache.lucene</groupId>
+                         <artifactId>lucene-queryparser</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>org.apache.lucene</groupId>
+                         <artifactId>lucene-analyzers-common</artifactId>
+                     </exclusion>
+                 </exclusions>
+             </dependency>
+             <!--hanLP中文分词包-->
+             <dependency>
+                 <groupId>com.hankcs</groupId>
+                 <artifactId>hanlp</artifactId>
+                 <version>portable-1.7.7</version>
+             </dependency>
+
+            <!--支持分词高亮  -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-highlighter</artifactId>
+                <version>5.3.1</version>
+            </dependency>
+
+            <!--支持中文分词  -->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-smartcn</artifactId>
+                <version>5.3.1</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>lucene-analyzers-common</artifactId>
+                        <groupId>org.apache.lucene</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>lucene-core</artifactId>
+                        <groupId>org.apache.lucene</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!--Swagger2 依赖-->
+            <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>1.9.0.RELEASE</version>
+            </dependency>
+            <!--配置初始化工具类-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <optional>true</optional>
+            </dependency>
+             <!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.codec -->
+             <dependency>
+                 <groupId>org.apache.directory.studio</groupId>
+                 <artifactId>org.apache.commons.codec</artifactId>
+                 <version>1.8</version>
+             </dependency>
+
+
+             <dependency>
+                 <groupId>org.apache.poi</groupId>
+                 <artifactId>poi</artifactId>
+                 <version>4.0.1</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.poi</groupId>
+                 <artifactId>poi-ooxml</artifactId>
+                 <version>4.0.1</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.poi</groupId>
+                 <artifactId>poi-scratchpad</artifactId>
+                 <version>4.0.1</version>
+             </dependency>
+
+
+    </dependencies>
+           <build>
+               <plugins>
+                   <plugin>
+                       <groupId>org.springframework.boot</groupId>
+                       <artifactId>spring-boot-maven-plugin</artifactId>
+                   </plugin>
+
+                   <!--添加配置跳过测试-->
+                   <plugin>
+                       <groupId>org.apache.maven.plugins</groupId>
+                       <artifactId>maven-surefire-plugin</artifactId>
+                       <configuration>
+                           <skipTests>true</skipTests>
+                       </configuration>
+                   </plugin>
+               </plugins>
+           </build>
+
+       </project>
