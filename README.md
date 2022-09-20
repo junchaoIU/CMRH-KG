@@ -18,9 +18,9 @@ This system proposes to design the knowledge graph of modern Chinese revolution 
 
 本系统提出以中国近代革命档案文献资源为突破口，设计中国近代革命历史知识图谱，基于规则统计和机器学习方法进行三元组抽取和知识图谱自动化构建，实现文献资源由信息化到知识化的重构开发，依托于百科平台进行知识信息的补充完善，实现海量知识的快速发现、聚合和推理，并提供知识检索、知识可视化、时空检索、时空演化和知识问答等丰富而有效的中国近代革命历史知识服务。
 
-This system is implemented by the SpringBoot + React technology stack with the front and back ends separated. The current project is the front-end V2.0 version of the system, which is implemented using the React technology framework. The system is currently online, see: https://www.gzknowledge.cn, and We will continue to maintain and develop the design and development of v3.0. Thank you for your attention to CRHE-KG.
+This system is implemented by the SpringBoot + React technology stack with the front and back ends separated. The system is currently online, see: https://www.gzknowledge.cn, and We will continue to maintain and develop the design and development of v3.0. Thank you for your attention to CRHE-KG.
 
-本系统采用前后端分离的 SpringBoot + React 技术栈实现，当前项目为系统的前端 V2.0 版本，采用 React 技术框架实现，目前系统已上线，详见：https://www.gzknowledge.cn ，且会继续维护并正在进行 v3.0 的设计开发，感谢对 CRHE-KG 的关注。
+本系统采用前后端分离的 SpringBoot + React 技术栈实现，目前系统已上线，详见：https://www.gzknowledge.cn ，且会继续维护并正在进行 v3.0 的设计开发，感谢对 CRHE-KG 的关注。
 
 ## ✨ Interface Function（接口功能）
 
@@ -43,7 +43,13 @@ This system is implemented by the SpringBoot + React technology stack with the f
 
 ## 📦 Table（目录）
 
-
+```shell
+|-- CMRH-KG
+    |-- CMRH-KG_DEV1.0_SpringBoot   基于JAVA的SPRINGBOOT后端项目（由 CHEN, XIN 和 WU, JUNCHAO 负责完成）
+    |-- CMRH-KG_DEV2.0_React        基于JS的REACT后端项目V2.0（由 CHEN, JIAXUAN 和 WU, JUNCHAO 负责完成）
+    |-- CRHE-KG_DEV1.0_React        基于JS的REACT后端项目V1.0（由 WU, JUNCHAO 主要负责完成）
+    |-- README.md
+```
 
 ## 🌸 About Author（关于作者）
 
