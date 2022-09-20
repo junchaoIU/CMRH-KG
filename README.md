@@ -42,6 +42,7 @@ This system is implemented by the SpringBoot + React technology stack with the f
 | IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
 ## 📦 Table（目录）
+包含如下三个项目，具体的部署方法可以查看各个项目里的具体README.md
 
 ```shell
 |-- CMRH-KG
