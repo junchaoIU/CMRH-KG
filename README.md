@@ -1,6 +1,11 @@
 # CMRH-KG: China's Modern Revolution History Knowledge Graph Information System
+[![license](https://img.shields.io/crates/l/rustc-serialize)](https://github.com/junchaoIU/Canton-KG-React/blob/main/LICENSE) 
+[![react](https://img.shields.io/badge/react-17.0.0-yellowgreen)](https://github.com/facebook/react) 
+[![antd](https://img.shields.io/badge/antd-4.9.4-orange)](https://github.com/ant-design/ant-design) 
+[![echart](https://img.shields.io/badge/echart-5.0.0-green)](https://github.com/apache/echarts)
 
-![](https://www.wujunchao.top/wp-content/uploads/2022/03/CMRH-KG.png) [![license](https://img.shields.io/crates/l/rustc-serialize)](https://github.com/junchaoIU/Canton-KG-React/blob/main/LICENSE) [![react](https://img.shields.io/badge/react-17.0.0-yellowgreen)](https://github.com/facebook/react) [![antd](https://img.shields.io/badge/antd-4.9.4-orange)](https://github.com/ant-design/ant-design) [![echart](https://img.shields.io/badge/echart-5.0.0-green)](https://github.com/apache/echarts)
+<div align=center><img src="https://www.wujunchao.top/wp-content/uploads/2022/03/CMRH-KG.png"/></div>
+<p align="center">系统地址：https://www.gzknowledge.cn</p>
 
 ---
 
