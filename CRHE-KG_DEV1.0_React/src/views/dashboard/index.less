@@ -1,0 +1,453 @@
+.footer{
+  border-top: 1px solid rgba(255,255,255,.25);
+  width: 89%;
+  padding: 0 16px;
+  bottom:0;
+  margin: 0 auto;
+  position: absolute;
+  text-align: center;
+  line-height: 20px;
+  height:45px;
+  font-size: 16px;
+  color:black;
+  background: white;
+}
+.app-container {
+  background-color: white;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .github-corner {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-size: 100% 100%;
+    width: 120px;
+    height: 120px;
+    z-index: 9;
+    cursor: pointer;
+  }
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
+  }
+  .panel-group {
+    .card-panel-col{
+      .card-panel-col-block:hover{
+        opacity: 1;
+        transform: translate(0px, 0px);
+        background-color:gainsboro;
+      }
+
+    }
+    .card-panel {
+
+    }
+  }
+}
+
+.panel-chart-container {
+  .panel-group {
+    height: 100%;
+    .card-panel-col{
+      margin-bottom: 20px;
+    }
+    .card-panel {
+      cursor: pointer;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+      color: #666;
+      background: #fff;
+      padding: 16px;
+      //box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
+      border-color: rgba(0, 0, 0, .05);
+    }
+  }
+}
+
+.panel-group-container {
+  .panel-group {
+    .card-panel-col{
+      margin-bottom: 20px;
+    }
+    .card-panel {
+      height: 108px;
+      cursor: pointer;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+      color: #666;
+      background: #fff;
+      padding: 16px;
+      box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
+      border-color: rgba(0, 0, 0, .05);
+      &:hover {
+        .card-panel-icon-wrapper {
+          background: #ccc;
+        }
+      }
+      .card-panel-icon-wrapper {
+        float: left;
+        margin: 14px 0 0 14px;
+        padding: 16px;
+        transition: all 0.38s ease-out;
+        border-radius: 6px;
+      }
+      .card-panel-icon {
+        float: left;
+        font-size: 48px;
+      }
+      .card-panel-description {
+        float: right;
+        font-weight: bold;
+        margin: 26px;
+        margin-left: 0px;
+        .card-panel-text {
+          line-height: 18px;
+          color: rgba(0, 0, 0, 0.45);
+          font-size: 16px;
+          margin-bottom: 12px;
+        }
+        .card-panel-num {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  overflow: hidden;
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}
+
+/* 通用样式, 下例 demo 单独使用都需要这块样式 */
+.banner-user{
+  height: 450px;
+}
+.banner-user-elem{
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.banner-user-elem .banner-user-title{
+  font-size: 32px;
+  top: 40%;
+}
+.banner-user-elem .banner-user-text{
+  top: 40%;
+}
+.banner-anim-elem .bg{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.icon{
+  text-align:center
+}
+
+//遗址
+.custom-arrow-thumb{
+  height: 400px;
+}
+.custom-arrow-thumb .user-arrow {
+  top: 50%;
+  margin-top: -40px;
+}
+.custom-arrow-thumb .user-arrow .img-wrapper {
+  width: 120px;
+  height: 80px;
+  float: left;
+  position: relative;
+}
+.custom-arrow-thumb .user-arrow .img-wrapper li {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+}
+.custom-arrow-thumb .user-arrow .arrow {
+  width: 20px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+.custom-arrow-thumb .user-arrow .arrow:before,
+.custom-arrow-thumb .user-arrow .arrow:after {
+  width: 2px;
+  height: 15px;
+  background: #fff;
+  display: block;
+  content: ' ';
+  position: absolute;
+}
+.custom-arrow-thumb .user-arrow.next {
+  right: -120px;
+}
+.custom-arrow-thumb .user-arrow.next .arrow {
+  float: left;
+}
+.custom-arrow-thumb .user-arrow.next .arrow:before {
+  -webkit-transform: rotate(-40deg);
+  transform: rotate(-40deg);
+  top: 28px;
+  left: 10px;
+}
+.custom-arrow-thumb .user-arrow.next .arrow:after {
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  bottom: 27px;
+  left: 10px;
+}
+.custom-arrow-thumb .user-arrow.prev {
+  left: -120px;
+}
+.custom-arrow-thumb .user-arrow.prev .arrow {
+  float: right;
+}
+.custom-arrow-thumb .user-arrow.prev .arrow:before {
+  -webkit-transform: rotate(40deg);
+  transform: rotate(40deg);
+  top: 28px;
+  left: 8px;
+}
+.custom-arrow-thumb .user-arrow.prev .arrow:after {
+  -webkit-transform: rotate(-40deg);
+  transform: rotate(-40deg);
+  bottom: 27px;
+  left: 8px;
+}
+.custom-arrow-thumb .user-thumb {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  height: 40px;
+}
+.custom-arrow-thumb .user-thumb > span {
+  width: 50px;
+  height: 30px;
+  margin: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  -webkit-transition: background .3s;
+  transition: background .3s;
+  background: transparent;
+}
+.custom-arrow-thumb .user-thumb > span.active {
+  background: rgba(255, 255, 255, 0.45);
+}
+.custom-arrow-thumb .user-thumb > span i {
+  display: block;
+  width: 46px;
+  height: 26px;
+  margin: 2px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 外壳样式 */
+.pic-details-demo-wrapper {
+  position: relative;
+  background: #DEEDCC;
+  overflow: hidden;
+  height: 500px;
+}
+
+.pic-details-demo {
+  margin: 40px auto;
+  box-shadow: 0 10px 40px #C7D7B5;
+  width: 60%;
+  min-width: 550px;
+  height: 420px;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pic-details-demo-header {
+  height: 32px;
+  line-height: 32px;
+  background: #000;
+}
+
+.pic-details-demo-header ul li {
+  list-style: none;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 0 5px 0 0;
+}
+
+.pic-details-demo-header ul li:nth-child(1) {
+  background: #CF3333;
+  margin-left: 3%;
+}
+
+.pic-details-demo-header ul li:nth-child(2) {
+  background: #DEC811;
+}
+
+.pic-details-demo-header ul li:nth-child(3) {
+  background: #28C026;
+}
+
+.pic-details-demo-header ul li:nth-child(4) {
+  background: #fff;
+  width: 80%;
+  height: 16px;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+
+.pic-details-demo-header ul li:nth-child(5),
+.pic-details-demo-header ul li:nth-child(5):before,
+.pic-details-demo-header ul li:nth-child(5):after {
+  width: 20px;
+  height: 2px;
+  background: #BABABA;
+  border-radius: 2px;
+}
+
+.pic-details-demo-header ul li:nth-child(5) {
+  vertical-align: middle;
+  margin-left: 5px;
+  position: relative;
+}
+
+.pic-details-demo-header ul li:nth-child(5):before,
+.pic-details-demo-header ul li:nth-child(5):after {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+.pic-details-demo-header ul li:nth-child(5):before {
+  top: -6px;
+}
+
+.pic-details-demo-header ul li:nth-child(5):after {
+  top: 6px;
+}
+
+/* 外壳 end */
+/* 标题 */
+.pic-details-demo-title {
+  width: 95%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.pic-details-demo-title h1 {
+  color: #666666;
+  font-size: 26px;
+}
+
+.pic-details-demo-title p {
+  color: #878787;
+  font-size: 12px;
+}
+
+/* 图片 */
+.pic-details-demo-image-wrapper {
+  position: relative;
+  list-style: none;
+  width: 500px;
+  height: 290px;
+  margin: auto;
+}
+
+.pic-details-demo-image-wrapper li {
+  width: 110px;
+  height: 76px;
+  position: absolute;
+  z-index: 0;
+}
+
+.pic-details-demo-image-box-shadow {
+  box-shadow: 0 0 0 rgba(140, 140, 140, 0);
+  height: 100%;
+  transition: box-shadow .3s;
+}
+
+.pic-details-demo-image-wrapper li.open .pic-details-demo-image-box-shadow {
+  box-shadow: 0 2px 8px rgba(140, 140, 140, 50);
+}
+
+.pic-details-demo-image-wrapper li a {
+  width: 110px;
+  z-index: 1;
+  display: inline-block;
+  position: absolute;
+}
+
+.pic-details-demo-image-wrapper li a, .pic-details-demo-image-wrapper li a img {
+  display: block;
+}
+
+.pic-details-demo-text-wrapper {
+  width: 50%;
+  background: #fff;
+  padding: 10px 15px;
+  height: 175px;
+  vertical-align: top;
+  display: inline-block;
+  position: absolute;
+}
+
+.pic-details-demo-text-wrapper h1 {
+  font-size: 18px;
+  margin: 5px auto;
+}
+
+.pic-details-demo-text-wrapper i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.pic-details-demo-text-wrapper em {
+  height: 2px;
+  width: 60px;
+  background: #FA1F4E;
+  border-radius: 2px;
+  display: block;
+}
+
+.pic-details-demo-text-wrapper p {
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 16px;
+}
+@media screen and (max-width: 414px) {
+  .pic-details-demo{
+    transform: scale(.65) translateX(12px);
+    transform-origin: left center;
+  }
+}
+@media screen and (max-width: 375px) {
+  .pic-details-demo{
+    transform: scale(.6) translateX(7px);
+  }
+}
+@media screen and (max-width: 320px) {
+  .pic-details-demo{
+    transform: scale(.5) translateX(12px);
+  }
+}
+
+

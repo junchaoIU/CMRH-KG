@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7dfa7cbd-da46-473f-9674-59648f8d384d" name="Default Changelist" comment="update info">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/junchaoIU/Canton-KG-React.git" />
+      </set>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="1eXwybFTZJqLbLSh7zSh7RDJbjB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CantonKG_DEV2.0_React" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
+    <property name="ts.external.directory.path" value="D:\软件\WebStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\views\layout\Header" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\assets\images" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\views\knowledgesearch" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\views\back" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\assets\images" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\assets\iconfont" />
+      <recent name="D:\项目仓库\广州革命历史事件知识图谱系统前端\guangzhou-history-knowledgeGraph\src\views\dashboard" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7dfa7cbd-da46-473f-9674-59648f8d384d" name="Default Changelist" comment="" />
+      <created>1594481500769</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594481500769</updated>
+      <workItem from="1594481502638" duration="2002000" />
+      <workItem from="1594484982030" duration="1196000" />
+      <workItem from="1594543948824" duration="2965000" />
+      <workItem from="1594556329010" duration="1752000" />
+      <workItem from="1594564905029" duration="2368000" />
+      <workItem from="1594623364593" duration="1853000" />
+      <workItem from="1594626264039" duration="1741000" />
+      <workItem from="1594628453497" duration="298000" />
+      <workItem from="1594630107858" duration="27000" />
+      <workItem from="1594630271657" duration="28847000" />
+      <workItem from="1594876130354" duration="12015000" />
+      <workItem from="1595226189013" duration="85292000" />
+      <workItem from="1596026465031" duration="6976000" />
+      <workItem from="1596037717439" duration="2187000" />
+      <workItem from="1596041803951" duration="913000" />
+      <workItem from="1596042831010" duration="516000" />
+      <workItem from="1596043441291" duration="1050000" />
+      <workItem from="1596044580293" duration="442000" />
+      <workItem from="1596079099978" duration="67189000" />
+      <workItem from="1596337884270" duration="648000" />
+      <workItem from="1596340770300" duration="12501000" />
+      <workItem from="1596564028196" duration="24163000" />
+      <workItem from="1596740016328" duration="55972000" />
+      <workItem from="1597208529635" duration="15444000" />
+      <workItem from="1597380817538" duration="28709000" />
+      <workItem from="1597589658481" duration="13030000" />
+      <workItem from="1597992720387" duration="32469000" />
+      <workItem from="1598356163747" duration="20016000" />
+      <workItem from="1598455884697" duration="2930000" />
+      <workItem from="1598499573555" duration="23755000" />
+      <workItem from="1598768527987" duration="15270000" />
+      <workItem from="1599055348486" duration="4087000" />
+      <workItem from="1599184546942" duration="4375000" />
+      <workItem from="1599211409997" duration="4064000" />
+      <workItem from="1599224005237" duration="1904000" />
+      <workItem from="1599272809119" duration="10198000" />
+      <workItem from="1599373213861" duration="28290000" />
+      <workItem from="1600160681268" duration="177000" />
+      <workItem from="1600162223390" duration="4937000" />
+      <workItem from="1600587502423" duration="16727000" />
+      <workItem from="1601280118870" duration="13162000" />
+      <workItem from="1601885686979" duration="27863000" />
+      <workItem from="1602342920607" duration="4314000" />
+      <workItem from="1602835264485" duration="57954000" />
+      <workItem from="1603691248478" duration="3433000" />
+      <workItem from="1603703195954" duration="7642000" />
+      <workItem from="1603934606450" duration="1312000" />
+      <workItem from="1604425503068" duration="352000" />
+      <workItem from="1604672685514" duration="675000" />
+      <workItem from="1604732149389" duration="5348000" />
+      <workItem from="1604994350012" duration="282000" />
+      <workItem from="1605011338102" duration="909000" />
+      <workItem from="1605281071355" duration="3576000" />
+      <workItem from="1605417483730" duration="1538000" />
+      <workItem from="1605678199780" duration="5967000" />
+      <workItem from="1606063828753" duration="1198000" />
+      <workItem from="1606104190510" duration="2952000" />
+      <workItem from="1606122737860" duration="31060000" />
+      <workItem from="1606310293620" duration="864000" />
+      <workItem from="1606566607968" duration="26000" />
+      <workItem from="1606569528124" duration="1594000" />
+      <workItem from="1607092347467" duration="890000" />
+      <workItem from="1607399299357" duration="43000" />
+      <workItem from="1607399477850" duration="10876000" />
+      <workItem from="1607418138966" duration="12316000" />
+      <workItem from="1607504355352" duration="56000" />
+      <workItem from="1608310957794" duration="2124000" />
+      <workItem from="1608354612944" duration="9124000" />
+      <workItem from="1608713285692" duration="1929000" />
+      <workItem from="1610031607445" duration="671000" />
+      <workItem from="1610172633525" duration="3274000" />
+      <workItem from="1611228286306" duration="1998000" />
+      <workItem from="1611240358792" duration="1706000" />
+      <workItem from="1611737573090" duration="2952000" />
+      <workItem from="1613995487587" duration="1842000" />
+      <workItem from="1622270840269" duration="15366000" />
+      <workItem from="1646797313540" duration="21182000" />
+    </task>
+    <task id="LOCAL-00001" summary="V1.0">
+      <created>1622296936608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622296936608</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix warning and proxy and update info">
+      <created>1646818208703</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1646818208703</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update info">
+      <created>1646819239643</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1646819239643</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update info">
+      <created>1646820418754</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1646820418754</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update info">
+      <created>1646821429212</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1646821429212</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update info">
+      <created>1646827235479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1646827235479</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update info">
+      <created>1646828106768</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646828106768</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update info">
+      <created>1646828306663</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1646828306664</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="V1.0" />
+    <MESSAGE value="fix bug and update info" />
+    <MESSAGE value="fix warning and proxy and update info" />
+    <MESSAGE value="update info" />
+    <option name="LAST_COMMIT_MESSAGE" value="update info" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
