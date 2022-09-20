@@ -8,7 +8,7 @@
 
 ## 🌈 Introduction（简介）
 
-**<big>CMRH-KG： 中国近代革命历史知识图谱信息系统前端 DEV2.0_React</big>**
+**<big>CMRH-KG： 中国近代革命历史知识图谱信息系统</big>**
 
 Since entering the 21st century, the state has made great efforts in the protection of revolutionary historical documents and the restoration of documents in the Republic of China. Substantial achievements have been gradually achieved in the protection of existing precious historical documents. On this basis, how to effectively The development of such a huge historical archives resource is the next problem to be solved urgently.
 
@@ -41,28 +41,14 @@ This system is implemented by the SpringBoot + React technology stack with the f
 | --- | --- | --- | --- | --- |
 | IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-## 📦 Install（安装）
+## 📦 Table（目录）
 
-```shell
-# 克隆项目
-git clone https://github.com/junchaoIU/CMRH-KG_DEV2.0_React
 
-# 进入项目目录
-cd CMRH-KG_DEV2.0_React
-
-# 安装依赖（不要用cnpm）
-npm install
-
-# 切换淘宝源，解决 npm 下载速度慢的问题
-npm install --registry=https://registry.npm.taobao.org
-
-# 启动服务
-npm start
-```
 
 ## 🌸 About Author（关于作者）
 
 - [WU, JUNCHAO](https://github.com/junchaoIU)
+- [CHEN, XIN](https://github.com/Chen-X666)
 - [CHEN, JIAXUAN](https://github.com/00Jane)
 
 如遇到问题，请致邮（Email）：wujunchaoIU@outlook.com
@@ -78,20 +64,10 @@ J. Wu, Y. Jiang, X. Chen, et al. "The Canton Canon" Digital Library Based on Kno
 ```
 
 ## ❗ Statement（声明）
-
-- 本系统已登记软著，可供参考及实验借鉴，或者自己部署玩玩
+- 本系统已登记软著，可供参考及实验借鉴
 - 本项目不可做商业用途，或者直接套用系统作为课题科研成果
 
 ## 🍉 其他相关项目
-
-1. 📚 CRHE-KG 广州革命历史知识图谱数字图书馆前端 V1.0
-
-- https://github.com/junchaoIU/CRHE-KG_DEV1.0_React
-
-2. 📚 CMRH-KG 中国近代革命历史知识图谱数字图书馆后端 V1.0
-
-- https://github.com/Chen-X666/CMRH-KG_DEV1.0_SpringBoot
-
-3. 📚 protegeAuto_tool（面向 Protege 的开源 Python 包）
+1. 📚 protegeAuto_tool（面向 Protege 的开源 Python 包）
 
 - https://github.com/junchaoIU/protegeAuto_tool
