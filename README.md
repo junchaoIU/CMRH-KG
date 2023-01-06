@@ -5,7 +5,7 @@
 [![echart](https://img.shields.io/badge/echart-5.0.0-green)](https://github.com/apache/echarts)
 
 <div align=center><img src="https://www.wujunchao.top/wp-content/uploads/2022/03/CMRH-KG.png"/></div>
-<p align="center">系统地址：https://www.gzknowledge.cn</p>
+<p align="center">Link：http://8.135.49.164:7878</p>
 
 ---
 
