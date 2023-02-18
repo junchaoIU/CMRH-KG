@@ -5,7 +5,8 @@
 [![echart](https://img.shields.io/badge/echart-5.0.0-green)](https://github.com/apache/echarts)
 
 <div align=center><img src="https://www.wujunchao.top/wp-content/uploads/2022/03/CMRH-KG.png"/></div>
-<p align="center">Link：http://8.135.49.164:7878</p>
+</p>
+PS: 由于多种原因，CMRH-KG项目暂时不挂载于https://www.gzknowledge.cn ，系统Demo转至：http://8.135.49.164:7878 ，且Demo部分接口暂时无法访问，望悉知。
 
 ---
 
