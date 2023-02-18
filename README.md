@@ -52,8 +52,8 @@ This system is implemented by the SpringBoot + React technology stack with the f
 ```shell
 |-- CMRH-KG
     |-- CMRH-KG_DEV1.0_SpringBoot   基于JAVA的SPRINGBOOT后端项目（由 CHEN, XIN 和 WU, JUNCHAO 负责完成）
-    |-- CMRH-KG_DEV2.0_React        基于JS的REACT后端项目V2.0（由 CHEN, JIAXUAN 和 WU, JUNCHAO 负责完成）
-    |-- CRHE-KG_DEV1.0_React        基于JS的REACT后端项目V1.0（由 WU, JUNCHAO 主要负责完成）
+    |-- CMRH-KG_DEV2.0_React        基于JS的REACT前端项目V2.0（由 CHEN, JIAXUAN 和 WU, JUNCHAO 负责完成）
+    |-- CRHE-KG_DEV1.0_React        基于JS的REACT前端项目V1.0（由 WU, JUNCHAO 主要负责完成）
     |-- README.md
 ```
 
@@ -72,7 +72,7 @@ If you reference or use the results of this project in your research, please cit
 如果你在研究过程中参考或用到了本项目的成果，请按以下格式引用:
 
 ```
-J. Wu, Y. Jiang, X. Chen, et al. "The Canton Canon" Digital Library Based on Knowledge Graph - Taking the Revolutionary Archives of Canton in the Republic of China as an Example. [C]// 2021 10th International Conference on Educational and Information Technology (ICEIT), IEEE, 2021: 171-179.
+Wu, J., Jiang, Y., Chen, X., Guo, L., Wei, X., & Yang, X. (2021, January). " The Canton Canon" Digital Library Based on Knowledge Graph-Taking the Revolutionary Archives of Canton in the Republic of China as an Example. In 2021 10th International Conference on Educational and Information Technology (ICEIT) (pp. 171-179). IEEE.
 ```
 
 ## ❗ Statement（声明）
