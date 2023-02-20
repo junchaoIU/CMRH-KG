@@ -84,3 +84,8 @@ Wu, J., Jiang, Y., Chen, X., Guo, L., Wei, X., & Yang, X. (2021, January). " The
 1. 📚 protegeAuto_tool（面向 Protege 的开源 Python 包）
 
 - https://github.com/junchaoIU/protegeAuto_tool
+
+
+## ⭐ Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=junchaoIU/CMRH-KG&type=Date)](https://star-history.com/#junchaoIU/CMRH-KG&Date)
+
