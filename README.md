@@ -76,10 +76,6 @@ If you reference or use the results of this project in your research, please cit
 Wu, J., Jiang, Y., Chen, X., Guo, L., Wei, X., & Yang, X. (2021, January). " The Canton Canon" Digital Library Based on Knowledge Graph-Taking the Revolutionary Archives of Canton in the Republic of China as an Example. In 2021 10th International Conference on Educational and Information Technology (ICEIT) (pp. 171-179). IEEE.
 ```
 
-## ❗ Statement（声明）
-- 本系统已登记软著，可供参考及实验借鉴
-- 本项目不可做商业用途，或者直接套用系统作为课题科研成果
-
 ## 🍉 其他相关项目
 1. 📚 protegeAuto_tool（面向 Protege 的开源 Python 包）
 
